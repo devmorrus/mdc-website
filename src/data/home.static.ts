@@ -4,7 +4,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   navItems: [
     { id: 'home', label: 'Home', href: '/' },
     { id: 'about', label: 'About', href: '/about' },
-    { id: 'services', label: 'Services', href: '/#services' },
+    { id: 'services', label: 'Services', href: '/services' },
     { id: 'portfolio', label: 'Portfolio', href: '/#portfolio' },
     { id: 'contact', label: 'Contact', href: '/#contact' },
   ],
@@ -106,7 +106,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     quickLinks: [
       { label: 'Home', href: '/' },
       { label: 'About', href: '/about' },
-      { label: 'Services', href: '/#services' },
+      { label: 'Services', href: '/services' },
       { label: 'Portfolio', href: '/#portfolio' },
       { label: 'Contact', href: '/#contact' },
     ],
