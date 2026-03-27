@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 import type { FooterContent, NavigationItem } from '../types/home'
 
@@ -36,27 +37,66 @@ const DEFAULT_FOOTER: FooterContent = {
 export function SiteLayout({ children, navItems = DEFAULT_NAV_ITEMS, headerCta = DEFAULT_HEADER_CTA, footer = DEFAULT_FOOTER }: SiteLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  const renderNavItem = (item: NavigationItem, className: string) => {
+    if (item.href.startsWith('/#') || item.href.startsWith('#')) {
+      return (
+        <Link key={item.id} to={item.href} className={className}>
+          {item.label}
+        </Link>
+      )
+    }
+
+    return (
+      <NavLink
+        key={item.id}
+        to={item.href}
+        className={({ isActive }) =>
+          `${className} ${isActive ? 'bg-blue-200/10 text-amber-100' : ''}`.trim()
+        }
+      >
+        {item.label}
+      </NavLink>
+    )
+  }
+
+  const renderFooterLink = (label: string, href: string) => {
+    if (href.startsWith('/#') || href.startsWith('#')) {
+      return (
+        <Link to={href} className="transition hover:text-amber-100">
+          {label}
+        </Link>
+      )
+    }
+
+    return (
+      <NavLink
+        to={href}
+        className={({ isActive }) =>
+          `transition hover:text-amber-100 ${isActive ? 'text-amber-100' : ''}`.trim()
+        }
+      >
+        {label}
+      </NavLink>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-b from-blue-950 via-[#041b4a] to-[#021331] text-blue-50">
       <header className="sticky top-0 z-30 border-b border-blue-200/15 bg-blue-950/75 backdrop-blur-lg">
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
-          <a href="/" className="text-sm font-semibold tracking-[0.24em] text-amber-200">MDC</a>
+          <Link to="/" className="text-sm font-semibold tracking-[0.24em] text-amber-200">MDC</Link>
 
           <nav className="hidden items-center gap-6 text-sm text-blue-100/85 md:flex">
-            {navItems.map((item) => (
-              <a key={item.id} href={item.href} className="rounded-md px-2 py-1 transition hover:bg-blue-200/10 hover:text-amber-100">
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) => renderNavItem(item, 'rounded-md px-2 py-1 transition hover:bg-blue-200/10 hover:text-amber-100'))}
           </nav>
 
           <div className="hidden md:block">
-            <a
-              href={headerCta.href}
+            <Link
+              to={headerCta.href}
               className="rounded-lg bg-amber-300 px-4 py-2 text-sm font-semibold text-blue-950 transition hover:bg-amber-200"
             >
               {headerCta.label}
-            </a>
+            </Link>
           </div>
 
           <button
@@ -74,24 +114,24 @@ export function SiteLayout({ children, navItems = DEFAULT_NAV_ITEMS, headerCta =
           <div className="border-t border-blue-200/15 px-6 pb-4 pt-3 md:hidden">
             <nav className="flex flex-col gap-2 text-sm text-blue-50/90">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.id}
-                  href={item.href}
+                  to={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="rounded-lg border border-blue-200/10 bg-blue-900/30 px-3 py-2"
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
 
-            <a
-              href={headerCta.href}
+            <Link
+              to={headerCta.href}
               onClick={() => setIsMobileMenuOpen(false)}
               className="mt-3 inline-flex rounded-lg bg-amber-300 px-4 py-2 text-sm font-semibold text-blue-950"
             >
               {headerCta.label}
-            </a>
+            </Link>
           </div>
         )}
       </header>
@@ -113,9 +153,7 @@ export function SiteLayout({ children, navItems = DEFAULT_NAV_ITEMS, headerCta =
             <ul className="mt-3 space-y-2 text-blue-100/80">
               {footer.quickLinks.map((item) => (
                 <li key={item.label}>
-                  <a href={item.href} className="transition hover:text-amber-100">
-                    {item.label}
-                  </a>
+                  {renderFooterLink(item.label, item.href)}
                 </li>
               ))}
             </ul>

@@ -10,17 +10,20 @@ export function useHomeHeroAnimation({ scope, targets }: UseHomeHeroAnimationPar
   useLayoutEffect(() => {
     if (!scope.current) return
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
+
     const tweenTargets = targets
       .map((target) => target.current)
       .filter((element): element is HTMLElement => element !== null)
 
     const context = gsap.context(() => {
       gsap.from(tweenTargets, {
-        y: 32,
+        y: 18,
         opacity: 0,
-        duration: 0.8,
+        duration: 0.55,
         ease: 'power3.out',
-        stagger: 0.12,
+        stagger: 0.08,
       })
     }, scope)
 

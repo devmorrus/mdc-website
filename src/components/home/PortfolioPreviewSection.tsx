@@ -20,17 +20,17 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
           >
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-amber-100/90">{item.category}</p>
             <h3 className="mt-3 text-xl font-semibold text-blue-50">{item.name}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-blue-100/80">{item.summary}</p>
+            <p className="mt-3 min-h-16 text-sm leading-relaxed text-blue-100/80">{item.summary}</p>
           </article>
         ))}
       </div>
 
       <div className="mt-8">
         <a
-          href="#portfolio-all"
+          href="/#contact"
           className="inline-flex rounded-lg border border-blue-200/40 px-5 py-3 text-sm font-semibold text-blue-100 transition hover:border-amber-300/80 hover:text-amber-100"
         >
-          Lihat Semua Portfolio
+          Diskusikan Kebutuhan Portfolio Anda
         </a>
       </div>
     </section>

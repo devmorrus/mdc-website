@@ -9,6 +9,7 @@ export function HeroOrbCanvas() {
     if (!mountRef.current) return
 
     const container = mountRef.current
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100)
     camera.position.z = 4
@@ -38,20 +39,24 @@ export function HeroOrbCanvas() {
     const mesh = new THREE.Mesh(geometry, material)
     scene.add(mesh)
 
-    const spinTween = gsap.to(mesh.rotation, {
-      y: Math.PI * 2,
-      duration: 18,
-      repeat: -1,
-      ease: 'none',
-    })
+    const spinTween = prefersReducedMotion
+      ? null
+      : gsap.to(mesh.rotation, {
+          y: Math.PI * 2,
+          duration: 28,
+          repeat: -1,
+          ease: 'none',
+        })
 
-    const floatTween = gsap.to(mesh.position, {
-      y: 0.2,
-      duration: 2.6,
-      yoyo: true,
-      repeat: -1,
-      ease: 'sine.inOut',
-    })
+    const floatTween = prefersReducedMotion
+      ? null
+      : gsap.to(mesh.position, {
+          y: 0.14,
+          duration: 3.6,
+          yoyo: true,
+          repeat: -1,
+          ease: 'sine.inOut',
+        })
 
     let frameId = 0
 
@@ -74,8 +79,8 @@ export function HeroOrbCanvas() {
     return () => {
       window.removeEventListener('resize', handleResize)
       cancelAnimationFrame(frameId)
-      spinTween.kill()
-      floatTween.kill()
+      spinTween?.kill()
+      floatTween?.kill()
       geometry.dispose()
       material.dispose()
       renderer.dispose()

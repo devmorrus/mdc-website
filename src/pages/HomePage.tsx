@@ -6,11 +6,18 @@ import { PortfolioPreviewSection } from '../components/home/PortfolioPreviewSect
 import { ServicesSection } from '../components/home/ServicesSection'
 import { StatsStrip } from '../components/home/StatsStrip'
 import { SiteLayout } from '../layouts/SiteLayout'
+import { usePageMetadata } from '../hooks/usePageMetadata'
 import { createWhatsAppLink } from '../utils/createWhatsAppLink'
 import { useHomeContent } from '../hooks/useHomeContent'
 
 export function HomePage() {
   const { data, isLoading, error } = useHomeContent()
+
+  usePageMetadata({
+    title: 'Morrus Digital Connecting | Home',
+    description:
+      'Website company profile Morrus Digital Connecting dengan layanan website modern, portfolio unggulan, dan jalur konsultasi cepat.',
+  })
 
   if (isLoading) {
     return (
@@ -45,7 +52,11 @@ export function HomePage() {
       <AboutSection content={data.about} />
       <ServicesSection items={data.services} />
       <PortfolioPreviewSection items={data.portfolio} />
-      <ContactCtaSection content={data.contactCta} whatsappLink={whatsappLink} />
+      <ContactCtaSection
+        content={data.contactCta}
+        whatsappLink={whatsappLink}
+        whatsappNumber={data.whatsappNumber}
+      />
       <FloatingWhatsApp whatsappLink={whatsappLink} />
     </SiteLayout>
   )

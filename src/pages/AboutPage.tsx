@@ -4,10 +4,17 @@ import { LegalitySection } from '../components/about/LegalitySection'
 import { ValuesSection } from '../components/about/ValuesSection'
 import { VisionMissionSection } from '../components/about/VisionMissionSection'
 import { useAboutContent } from '../hooks/useAboutContent'
+import { usePageMetadata } from '../hooks/usePageMetadata'
 import { SiteLayout } from '../layouts/SiteLayout'
 
 export function AboutPage() {
   const { data, isLoading, error } = useAboutContent()
+
+  usePageMetadata({
+    title: 'Morrus Digital Connecting | About',
+    description:
+      'Kenali profil perusahaan Morrus Digital Connecting, visi misi, nilai perusahaan, dan legalitas untuk membangun kepercayaan kerja sama.',
+  })
 
   if (isLoading) {
     return (
