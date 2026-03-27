@@ -22,12 +22,12 @@ export function HeroOrbCanvas() {
     directionalLight.position.set(3, 3, 4)
     scene.add(directionalLight)
 
-    const ambientLight = new THREE.AmbientLight(0x5b7cff, 0.4)
+    const ambientLight = new THREE.AmbientLight(0x2d8cff, 0.45)
     scene.add(ambientLight)
 
     const geometry = new THREE.IcosahedronGeometry(1.2, 1)
     const material = new THREE.MeshPhysicalMaterial({
-      color: 0x6b4bff,
+      color: 0xffd64a,
       metalness: 0.2,
       roughness: 0.15,
       wireframe: true,
