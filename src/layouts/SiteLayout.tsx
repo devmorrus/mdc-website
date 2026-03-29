@@ -17,7 +17,7 @@ const DEFAULT_NAV_ITEMS: NavigationItem[] = [
   { id: 'home', label: 'Home', href: '/' },
   { id: 'about', label: 'About', href: '/about' },
   { id: 'services', label: 'Services', href: '/services' },
-  { id: 'portfolio', label: 'Portfolio', href: '/#portfolio' },
+  { id: 'portfolio', label: 'Portfolio', href: '/portfolio' },
   { id: 'contact', label: 'Contact', href: '/#contact' },
 ]
 

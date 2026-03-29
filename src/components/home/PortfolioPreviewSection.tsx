@@ -27,10 +27,10 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
 
       <div className="mt-8">
         <a
-          href="/#contact"
+          href="/portfolio"
           className="inline-flex rounded-lg border border-blue-200/40 px-5 py-3 text-sm font-semibold text-blue-100 transition hover:border-amber-300/80 hover:text-amber-100"
         >
-          Diskusikan Kebutuhan Portfolio Anda
+          Lihat Semua Portfolio
         </a>
       </div>
     </section>
