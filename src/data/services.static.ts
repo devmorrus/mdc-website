@@ -6,10 +6,10 @@ export const SERVICES_STATIC_CONTENT: ServicesContent = {
     { id: 'about', label: 'About', href: '/about' },
     { id: 'services', label: 'Services', href: '/services' },
     { id: 'portfolio', label: 'Portfolio', href: '/portfolio' },
-    { id: 'contact', label: 'Contact', href: '/#contact' },
+    { id: 'contact', label: 'Contact', href: '/contact' },
   ],
   headerCtaLabel: 'Konsultasi Sekarang',
-  headerCtaHref: '/#contact',
+  headerCtaHref: '/contact',
   footer: {
     companyName: 'Morrus Digital Connecting',
     shortDescription: 'Partner digital untuk website, aplikasi, dan sistem bisnis yang modern serta scalable.',
@@ -18,7 +18,7 @@ export const SERVICES_STATIC_CONTENT: ServicesContent = {
       { label: 'About', href: '/about' },
       { label: 'Services', href: '/services' },
       { label: 'Portfolio', href: '/portfolio' },
-      { label: 'Contact', href: '/#contact' },
+      { label: 'Contact', href: '/contact' },
     ],
     email: 'hello@morrusdigital.com',
     phone: '+62 812 3456 7890',
@@ -42,7 +42,7 @@ export const SERVICES_STATIC_CONTENT: ServicesContent = {
         'Mendorong lead melalui CTA yang jelas',
       ],
       ctaLabel: 'Konsultasi Company Profile',
-      ctaHref: '/#contact',
+      ctaHref: '/contact',
     },
     {
       id: 'custom-web-app',
@@ -56,7 +56,7 @@ export const SERVICES_STATIC_CONTENT: ServicesContent = {
         'Integrasi dengan sistem internal',
       ],
       ctaLabel: 'Diskusikan Solusi Custom',
-      ctaHref: '/#contact',
+      ctaHref: '/contact',
     },
     {
       id: 'dashboard-reporting',
@@ -70,7 +70,7 @@ export const SERVICES_STATIC_CONTENT: ServicesContent = {
         'Tampilan data yang user-friendly',
       ],
       ctaLabel: 'Mulai Project Dashboard',
-      ctaHref: '/#contact',
+      ctaHref: '/contact',
     },
     {
       id: 'maintenance-support',
@@ -84,7 +84,7 @@ export const SERVICES_STATIC_CONTENT: ServicesContent = {
         'Biaya maintenance terprediksi',
       ],
       ctaLabel: 'Aktifkan Paket Support',
-      ctaHref: '/#contact',
+      ctaHref: '/contact',
     },
   ],
   closingCta: {
@@ -92,6 +92,6 @@ export const SERVICES_STATIC_CONTENT: ServicesContent = {
     description:
       'Tim Morrus Digital Connecting siap membantu Anda menentukan prioritas layanan berdasarkan target bisnis dan tahap pertumbuhan perusahaan.',
     buttonLabel: 'Jadwalkan Konsultasi',
-    buttonHref: '/#contact',
+    buttonHref: '/contact',
   },
 }

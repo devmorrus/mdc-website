@@ -6,10 +6,10 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
     { id: 'about', label: 'About', href: '/about' },
     { id: 'services', label: 'Services', href: '/services' },
     { id: 'portfolio', label: 'Portfolio', href: '/portfolio' },
-    { id: 'contact', label: 'Contact', href: '/#contact' },
+    { id: 'contact', label: 'Contact', href: '/contact' },
   ],
   headerCtaLabel: 'Konsultasi Sekarang',
-  headerCtaHref: '/#contact',
+  headerCtaHref: '/contact',
   footer: {
     companyName: 'Morrus Digital Connecting',
     shortDescription: 'Partner digital untuk website, aplikasi, dan sistem bisnis yang modern serta scalable.',
@@ -18,7 +18,7 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
       { label: 'About', href: '/about' },
       { label: 'Services', href: '/services' },
       { label: 'Portfolio', href: '/portfolio' },
-      { label: 'Contact', href: '/#contact' },
+      { label: 'Contact', href: '/contact' },
     ],
     email: 'hello@morrusdigital.com',
     phone: '+62 812 3456 7890',
@@ -99,6 +99,6 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
     description:
       'Kami siap membantu merancang solusi digital yang relevan dengan kebutuhan bisnis Anda, dari tahap konsep hingga implementasi.',
     buttonLabel: 'Mulai Konsultasi Project',
-    buttonHref: '/#contact',
+    buttonHref: '/contact',
   },
 }

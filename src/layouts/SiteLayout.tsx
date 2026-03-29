@@ -18,12 +18,12 @@ const DEFAULT_NAV_ITEMS: NavigationItem[] = [
   { id: 'about', label: 'About', href: '/about' },
   { id: 'services', label: 'Services', href: '/services' },
   { id: 'portfolio', label: 'Portfolio', href: '/portfolio' },
-  { id: 'contact', label: 'Contact', href: '/#contact' },
+  { id: 'contact', label: 'Contact', href: '/contact' },
 ]
 
 const DEFAULT_HEADER_CTA = {
   label: 'Konsultasi Sekarang',
-  href: '/#contact',
+  href: '/contact',
 }
 
 const DEFAULT_FOOTER: FooterContent = {
