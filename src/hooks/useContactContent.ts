@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
+import { CONTACT_STATIC_CONTENT } from '../data/contact.static'
 import { createContactContentService } from '../services/contact/contactContentService'
 import type { ContactContent } from '../types/contact'
 
@@ -10,12 +11,17 @@ interface UseContactContentResult {
 }
 
 export function useContactContent(): UseContactContentResult {
+  const isApiMode = import.meta.env.VITE_CONTACT_CONTENT_MODE === 'api'
   const service = useMemo(() => createContactContentService(), [])
-  const [data, setData] = useState<ContactContent | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState<ContactContent | null>(isApiMode ? null : CONTACT_STATIC_CONTENT)
+  const [isLoading, setIsLoading] = useState(isApiMode)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (!isApiMode) {
+      return
+    }
+
     let isMounted = true
 
     async function loadContent() {
@@ -42,7 +48,7 @@ export function useContactContent(): UseContactContentResult {
     return () => {
       isMounted = false
     }
-  }, [service])
+  }, [isApiMode, service])
 
   return { data, isLoading, error }
 }

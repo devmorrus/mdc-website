@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
+import { SERVICES_STATIC_CONTENT } from '../data/services.static'
 import { createServicesContentService } from '../services/services/servicesContentService'
 import type { ServicesContent } from '../types/services'
 
@@ -10,12 +11,17 @@ interface UseServicesContentResult {
 }
 
 export function useServicesContent(): UseServicesContentResult {
+  const isApiMode = import.meta.env.VITE_SERVICES_CONTENT_MODE === 'api'
   const service = useMemo(() => createServicesContentService(), [])
-  const [data, setData] = useState<ServicesContent | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState<ServicesContent | null>(isApiMode ? null : SERVICES_STATIC_CONTENT)
+  const [isLoading, setIsLoading] = useState(isApiMode)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (!isApiMode) {
+      return
+    }
+
     let isMounted = true
 
     async function loadContent() {
@@ -42,7 +48,7 @@ export function useServicesContent(): UseServicesContentResult {
     return () => {
       isMounted = false
     }
-  }, [service])
+  }, [isApiMode, service])
 
   return { data, isLoading, error }
 }

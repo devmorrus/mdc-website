@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
+import { HOME_STATIC_CONTENT } from '../data/home.static'
 import type { HomeContent } from '../types/home'
 import { createHomeContentService } from '../services/home/homeContentService'
 
@@ -10,12 +11,17 @@ interface UseHomeContentResult {
 }
 
 export function useHomeContent(): UseHomeContentResult {
+  const isApiMode = import.meta.env.VITE_HOME_CONTENT_MODE === 'api'
   const service = useMemo(() => createHomeContentService(), [])
-  const [data, setData] = useState<HomeContent | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState<HomeContent | null>(isApiMode ? null : HOME_STATIC_CONTENT)
+  const [isLoading, setIsLoading] = useState(isApiMode)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (!isApiMode) {
+      return
+    }
+
     let isMounted = true
 
     async function loadContent() {
@@ -42,7 +48,7 @@ export function useHomeContent(): UseHomeContentResult {
     return () => {
       isMounted = false
     }
-  }, [service])
+  }, [isApiMode, service])
 
   return { data, isLoading, error }
 }

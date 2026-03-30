@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
+import { PORTFOLIO_STATIC_CONTENT } from '../data/portfolio.static'
 import { createPortfolioContentService } from '../services/portfolio/portfolioContentService'
 import type { PortfolioContent } from '../types/portfolio'
 
@@ -10,12 +11,17 @@ interface UsePortfolioContentResult {
 }
 
 export function usePortfolioContent(): UsePortfolioContentResult {
+  const isApiMode = import.meta.env.VITE_PORTFOLIO_CONTENT_MODE === 'api'
   const service = useMemo(() => createPortfolioContentService(), [])
-  const [data, setData] = useState<PortfolioContent | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState<PortfolioContent | null>(isApiMode ? null : PORTFOLIO_STATIC_CONTENT)
+  const [isLoading, setIsLoading] = useState(isApiMode)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (!isApiMode) {
+      return
+    }
+
     let isMounted = true
 
     async function loadContent() {
@@ -42,7 +48,7 @@ export function usePortfolioContent(): UsePortfolioContentResult {
     return () => {
       isMounted = false
     }
-  }, [service])
+  }, [isApiMode, service])
 
   return { data, isLoading, error }
 }
