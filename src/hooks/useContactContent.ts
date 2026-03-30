@@ -1,19 +1,19 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { HOME_STATIC_CONTENT } from '../data/home.static'
-import type { HomeContent } from '../types/home'
-import { createHomeContentService } from '../services/home/homeContentService'
+import { CONTACT_STATIC_CONTENT } from '../data/contact.static'
+import { createContactContentService } from '../services/contact/contactContentService'
+import type { ContactContent } from '../types/contact'
 
-interface UseHomeContentResult {
-  data: HomeContent | null
+interface UseContactContentResult {
+  data: ContactContent | null
   isLoading: boolean
   error: string | null
 }
 
-export function useHomeContent(): UseHomeContentResult {
-  const isApiMode = import.meta.env.VITE_HOME_CONTENT_MODE === 'api'
-  const service = useMemo(() => createHomeContentService(), [])
-  const [data, setData] = useState<HomeContent | null>(isApiMode ? null : HOME_STATIC_CONTENT)
+export function useContactContent(): UseContactContentResult {
+  const isApiMode = import.meta.env.VITE_CONTACT_CONTENT_MODE === 'api'
+  const service = useMemo(() => createContactContentService(), [])
+  const [data, setData] = useState<ContactContent | null>(isApiMode ? null : CONTACT_STATIC_CONTENT)
   const [isLoading, setIsLoading] = useState(isApiMode)
   const [error, setError] = useState<string | null>(null)
 
@@ -26,7 +26,7 @@ export function useHomeContent(): UseHomeContentResult {
 
     async function loadContent() {
       try {
-        const content = await service.getHomeContent()
+        const content = await service.getContactContent()
 
         if (isMounted) {
           setData(content)
@@ -34,7 +34,7 @@ export function useHomeContent(): UseHomeContentResult {
         }
       } catch (err) {
         if (isMounted) {
-          setError(err instanceof Error ? err.message : 'Failed to load home content.')
+          setError(err instanceof Error ? err.message : 'Failed to load contact content.')
         }
       } finally {
         if (isMounted) {
