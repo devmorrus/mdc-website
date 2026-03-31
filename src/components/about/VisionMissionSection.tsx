@@ -1,86 +1,10 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import * as THREE from 'three'
 import type { VisionMissionContent } from '../../types/about'
+import { VisionCanvasOpt } from '../../three/OptimizedCanvases'
 
 interface VisionMissionSectionProps {
   content: VisionMissionContent
-}
-
-function VisionCanvas() {
-  const mountRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!mountRef.current) return
-    const container = mountRef.current
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 100)
-    camera.position.z = 4
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setSize(container.clientWidth, container.clientHeight)
-    renderer.setClearColor(0x000000, 0)
-    container.appendChild(renderer.domElement)
-
-    // Star / particle field – golden amber
-    const count = 90
-    const geo = new THREE.BufferGeometry()
-    const pos = new Float32Array(count * 3)
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 8
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 6
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 4
-    }
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3))
-    const mat = new THREE.PointsMaterial({
-      size: 0.055,
-      color: 0xffd64a,
-      transparent: true,
-      opacity: 0.55,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-    })
-    const points = new THREE.Points(geo, mat)
-    scene.add(points)
-
-    // Horizon ring
-    const ringGeo = new THREE.TorusGeometry(2.2, 0.006, 8, 120)
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0xffd64a, transparent: true, opacity: 0.25 })
-    const ring = new THREE.Mesh(ringGeo, ringMat)
-    ring.rotation.x = Math.PI / 2.5
-    scene.add(ring)
-
-    const tweens: gsap.core.Tween[] = []
-    if (!prefersReducedMotion) {
-      tweens.push(gsap.to(points.rotation, { y: Math.PI * 2, duration: 40, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(ring.rotation, { z: Math.PI * 2, duration: 25, repeat: -1, ease: 'none' }))
-    }
-
-    let frameId = 0
-    const render = () => { frameId = requestAnimationFrame(render); renderer.render(scene, camera) }
-    const handleResize = () => {
-      camera.aspect = container.clientWidth / container.clientHeight
-      camera.updateProjectionMatrix()
-      renderer.setSize(container.clientWidth, container.clientHeight)
-    }
-    handleResize()
-    render()
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      cancelAnimationFrame(frameId)
-      tweens.forEach((t) => t.kill())
-      geo.dispose(); mat.dispose(); ringGeo.dispose(); ringMat.dispose()
-      renderer.dispose()
-      if (renderer.domElement.parentElement === container) container.removeChild(renderer.domElement)
-    }
-  }, [])
-
-  return <div ref={mountRef} className="h-full w-full" aria-hidden="true" />
 }
 
 export function VisionMissionSection({ content }: VisionMissionSectionProps) {
@@ -124,7 +48,7 @@ export function VisionMissionSection({ content }: VisionMissionSectionProps) {
         <div ref={visionRef} className="relative overflow-hidden rounded-3xl border border-amber-300/20 bg-linear-to-br from-blue-900/40 via-blue-950/60 to-blue-950/80 group">
           {/* Three.js ambient canvas */}
           <div className="absolute inset-0 opacity-60">
-            <VisionCanvas />
+            <VisionCanvasOpt />
           </div>
 
           {/* Overlay gradient */}

@@ -1,122 +1,10 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import * as THREE from 'three'
 import type { ContactHeroContent } from '../../types/contact'
+import { ContactHeroCanvasOpt } from '../../three/OptimizedCanvases'
 
 interface ContactHeroSectionProps {
   content: ContactHeroContent
-}
-
-function ContactHeroCanvas() {
-  const mountRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!mountRef.current) return
-    const container = mountRef.current
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 100)
-    camera.position.set(0, 1.5, 7)
-    camera.lookAt(0, 0, 0)
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setSize(container.clientWidth, container.clientHeight)
-    renderer.setClearColor(0x000000, 0)
-    container.appendChild(renderer.domElement)
-
-    scene.add(new THREE.AmbientLight(0x1a3a6e, 0.6))
-    const key = new THREE.DirectionalLight(0xffd64a, 2.0); key.position.set(4, 5, 4); scene.add(key)
-    const rim = new THREE.DirectionalLight(0x4499ff, 1.2); rim.position.set(-4, -2, 2); scene.add(rim)
-
-    const geos: THREE.BufferGeometry[] = []
-    const mats: THREE.Material[] = []
-    const tweens: gsap.core.Tween[] = []
-
-    // Network nodes: spheres connected by lines
-    const nodeCount = 12
-    const nodePositions: THREE.Vector3[] = []
-    const nodeMeshes: THREE.Mesh[] = []
-
-    for (let i = 0; i < nodeCount; i++) {
-      const geo = new THREE.SphereGeometry(0.06 + Math.random() * 0.06, 8, 8)
-      const mat = new THREE.MeshPhysicalMaterial({
-        color: Math.random() > 0.5 ? 0xffd64a : 0x4499ff,
-        metalness: 0.8, roughness: 0.1, emissive: Math.random() > 0.5 ? 0xffd64a : 0x4499ff, emissiveIntensity: 0.3,
-      })
-      const mesh = new THREE.Mesh(geo, mat)
-      const pos = new THREE.Vector3((Math.random() - 0.5) * 6, (Math.random() - 0.5) * 4, (Math.random() - 0.5) * 3)
-      mesh.position.copy(pos)
-      nodePositions.push(pos)
-      nodeMeshes.push(mesh)
-      scene.add(mesh); geos.push(geo); mats.push(mat)
-    }
-
-    // Lines between nearby nodes
-    for (let i = 0; i < nodeCount; i++) {
-      for (let j = i + 1; j < nodeCount; j++) {
-        if (nodePositions[i].distanceTo(nodePositions[j]) < 3.5) {
-          const lineGeo = new THREE.BufferGeometry().setFromPoints([nodePositions[i], nodePositions[j]])
-          const lineMat = new THREE.LineBasicMaterial({ color: 0xffd64a, transparent: true, opacity: 0.15 })
-          scene.add(new THREE.Line(lineGeo, lineMat)); geos.push(lineGeo); mats.push(lineMat)
-        }
-      }
-    }
-
-    // Central sphere
-    const cGeo = new THREE.SphereGeometry(0.55, 16, 16)
-    const cMat = new THREE.MeshPhysicalMaterial({ color: 0xffd64a, metalness: 0.5, roughness: 0.1, wireframe: true, transparent: true, opacity: 0.6 })
-    const center = new THREE.Mesh(cGeo, cMat)
-    scene.add(center); geos.push(cGeo); mats.push(cMat)
-
-    // Orbit ring
-    const rGeo = new THREE.TorusGeometry(1.4, 0.008, 8, 90)
-    const rMat = new THREE.MeshBasicMaterial({ color: 0xffd64a, transparent: true, opacity: 0.4 })
-    const ring = new THREE.Mesh(rGeo, rMat)
-    ring.rotation.x = Math.PI / 2.5; scene.add(ring); geos.push(rGeo); mats.push(rMat)
-
-    // Particles
-    const pCount = 80
-    const pGeo = new THREE.BufferGeometry()
-    const pPos = new Float32Array(pCount * 3)
-    for (let i = 0; i < pCount; i++) { pPos[i * 3] = (Math.random() - 0.5) * 12; pPos[i * 3 + 1] = (Math.random() - 0.5) * 8; pPos[i * 3 + 2] = (Math.random() - 0.5) * 6 }
-    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3))
-    const pMat = new THREE.PointsMaterial({ size: 0.04, color: 0xffd64a, transparent: true, opacity: 0.5, depthWrite: false, blending: THREE.AdditiveBlending })
-    const particles = new THREE.Points(pGeo, pMat)
-    scene.add(particles); geos.push(pGeo); mats.push(pMat)
-
-    if (!prefersReducedMotion) {
-      tweens.push(gsap.to(center.rotation, { y: Math.PI * 2, duration: 16, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(center.position, { y: 0.2, duration: 3.5, yoyo: true, repeat: -1, ease: 'sine.inOut' }))
-      tweens.push(gsap.to(ring.rotation, { z: Math.PI * 2, duration: 11, repeat: -1, ease: 'none' }))
-      nodeMeshes.forEach((m, idx) => { tweens.push(gsap.to(m.position, { y: m.position.y + 0.25, duration: 2.5 + idx * 0.4, yoyo: true, repeat: -1, ease: 'sine.inOut' })) })
-      tweens.push(gsap.to(particles.rotation, { y: Math.PI * 2, duration: 60, repeat: -1, ease: 'none' }))
-    }
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (prefersReducedMotion) return
-      const rect = container.getBoundingClientRect()
-      gsap.to(scene.rotation, { x: ((e.clientY - rect.top) / rect.height - 0.5) * 0.1, y: ((e.clientX - rect.left) / rect.width - 0.5) * 0.18, duration: 1.4, ease: 'power2.out' })
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-
-    let frameId = 0
-    const render = () => { frameId = requestAnimationFrame(render); renderer.render(scene, camera) }
-    const handleResize = () => { camera.aspect = container.clientWidth / container.clientHeight; camera.updateProjectionMatrix(); renderer.setSize(container.clientWidth, container.clientHeight) }
-    handleResize(); render()
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize); window.removeEventListener('mousemove', handleMouseMove)
-      cancelAnimationFrame(frameId); tweens.forEach(t => t.kill())
-      geos.forEach(g => g.dispose()); mats.forEach(m => m.dispose())
-      renderer.dispose()
-      if (renderer.domElement.parentElement === container) container.removeChild(renderer.domElement)
-    }
-  }, [])
-
-  return <div ref={mountRef} className="h-full w-full" aria-hidden="true" />
 }
 
 export function ContactHeroSection({ content }: ContactHeroSectionProps) {
@@ -140,7 +28,7 @@ export function ContactHeroSection({ content }: ContactHeroSectionProps) {
       <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(148,163,184,1) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,1) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
       <div className="pointer-events-none absolute right-0 top-0 h-full w-[55%] opacity-75">
-        <ContactHeroCanvas />
+        <ContactHeroCanvasOpt />
       </div>
       <div className="pointer-events-none absolute right-0 top-0 h-full w-[28%] bg-linear-to-l from-[#021331] via-[#021331]/50 to-transparent" />
 

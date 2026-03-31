@@ -1,86 +1,11 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import * as THREE from 'three'
 import { Link } from 'react-router-dom'
 import type { ServicesClosingCtaContent } from '../../types/services'
+import { CtaCanvasOpt } from '../../three/OptimizedCanvases'
 
 interface ServicesClosingCtaSectionProps {
   content: ServicesClosingCtaContent
-}
-
-function CtaCanvas() {
-  const mountRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!mountRef.current) return
-    const container = mountRef.current
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(55, container.clientWidth / container.clientHeight, 0.1, 100)
-    camera.position.z = 5
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setSize(container.clientWidth, container.clientHeight)
-    renderer.setClearColor(0x000000, 0)
-    container.appendChild(renderer.domElement)
-
-    const geos: THREE.BufferGeometry[] = []
-    const mats: THREE.Material[] = []
-
-    const count = 80
-    const geo = new THREE.BufferGeometry()
-    const pos = new Float32Array(count * 3)
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 10
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 6
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 4
-    }
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3))
-    const mat = new THREE.PointsMaterial({ size: 0.05, color: 0xffd64a, transparent: true, opacity: 0.5, depthWrite: false, blending: THREE.AdditiveBlending })
-    const pts = new THREE.Points(geo, mat)
-    scene.add(pts); geos.push(geo); mats.push(mat)
-
-    const rGeo = new THREE.TorusGeometry(2.0, 0.007, 8, 100)
-    const rMat = new THREE.MeshBasicMaterial({ color: 0xffd64a, transparent: true, opacity: 0.22 })
-    const ring = new THREE.Mesh(rGeo, rMat)
-    ring.rotation.x = Math.PI / 3
-    scene.add(ring); geos.push(rGeo); mats.push(rMat)
-
-    const r2Geo = new THREE.TorusGeometry(2.8, 0.005, 8, 100)
-    const r2Mat = new THREE.MeshBasicMaterial({ color: 0x4499ff, transparent: true, opacity: 0.15 })
-    const ring2 = new THREE.Mesh(r2Geo, r2Mat)
-    ring2.rotation.x = -Math.PI / 4; ring2.rotation.y = Math.PI / 5
-    scene.add(ring2); geos.push(r2Geo); mats.push(r2Mat)
-
-    const tweens: gsap.core.Tween[] = []
-    if (!prefersReducedMotion) {
-      tweens.push(gsap.to(pts.rotation, { y: Math.PI * 2, duration: 45, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(ring.rotation, { z: Math.PI * 2, duration: 28, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(ring2.rotation, { z: -Math.PI * 2, duration: 35, repeat: -1, ease: 'none' }))
-    }
-
-    let frameId = 0
-    const render = () => { frameId = requestAnimationFrame(render); renderer.render(scene, camera) }
-    const handleResize = () => {
-      camera.aspect = container.clientWidth / container.clientHeight
-      camera.updateProjectionMatrix()
-      renderer.setSize(container.clientWidth, container.clientHeight)
-    }
-    handleResize(); render()
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      cancelAnimationFrame(frameId); tweens.forEach(t => t.kill())
-      geos.forEach(g => g.dispose()); mats.forEach(m => m.dispose())
-      renderer.dispose()
-      if (renderer.domElement.parentElement === container) container.removeChild(renderer.domElement)
-    }
-  }, [])
-
-  return <div ref={mountRef} className="h-full w-full" aria-hidden="true" />
 }
 
 export function ServicesClosingCtaSection({ content }: ServicesClosingCtaSectionProps) {
@@ -107,7 +32,7 @@ export function ServicesClosingCtaSection({ content }: ServicesClosingCtaSection
   return (
     <section ref={sectionRef} className="relative mx-auto w-full max-w-6xl px-6 pb-24 pt-4 md:pb-32">
       <div ref={innerRef} className="relative overflow-hidden rounded-3xl border border-amber-300/20 bg-linear-to-br from-blue-900/60 via-blue-950/75 to-[#021331] shadow-[0_40px_100px_-30px_rgba(251,191,36,0.18)]">
-        <div className="absolute inset-0 opacity-45"><CtaCanvas /></div>
+        <div className="absolute inset-0 opacity-45"><CtaCanvasOpt /></div>
         <div className="absolute inset-0 bg-linear-to-br from-blue-950/40 via-transparent to-blue-950/50" />
         <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-amber-300/50 to-transparent" />
         <div className="absolute top-0 right-0 h-36 w-36 bg-linear-to-bl from-amber-300/10 to-transparent rounded-bl-[100px] pointer-events-none" />

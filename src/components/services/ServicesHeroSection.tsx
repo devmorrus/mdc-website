@@ -1,142 +1,10 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import * as THREE from 'three'
 import type { ServicesHeroContent } from '../../types/services'
+import { ServicesHeroCanvasOpt } from '../../three/OptimizedCanvases'
 
 interface ServicesHeroSectionProps {
   content: ServicesHeroContent
-}
-
-function ServicesHeroCanvas() {
-  const mountRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!mountRef.current) return
-    const container = mountRef.current
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100)
-    camera.position.set(0, 2.5, 7)
-    camera.lookAt(0, 0, 0)
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setSize(container.clientWidth, container.clientHeight)
-    renderer.setClearColor(0x000000, 0)
-    container.appendChild(renderer.domElement)
-
-    scene.add(new THREE.AmbientLight(0x1a3a6e, 0.7))
-    const key = new THREE.DirectionalLight(0xffd64a, 2.2)
-    key.position.set(4, 6, 4)
-    scene.add(key)
-    const rim = new THREE.DirectionalLight(0x4499ff, 1.4)
-    rim.position.set(-4, -2, 2)
-    scene.add(rim)
-
-    // Perspective grid
-    const gridHelper = new THREE.GridHelper(14, 14, 0xffd64a, 0x1a3a8f)
-    gridHelper.position.y = -1.5
-    const gridMats = Array.isArray(gridHelper.material) ? gridHelper.material : [gridHelper.material]
-    gridMats.forEach((m: THREE.Material) => {
-      (m as THREE.LineBasicMaterial).transparent = true;
-      (m as THREE.LineBasicMaterial).opacity = 0.18
-    })
-    scene.add(gridHelper)
-
-    const group = new THREE.Group()
-    scene.add(group)
-
-    const icosaDefs = [
-      { size: 1.0, pos: [0, 0.2, 0] as [number,number,number], color: 0xffd64a, opacity: 0.7, wireframe: true },
-      { size: 0.55, pos: [2.2, 0.8, -1] as [number,number,number], color: 0x4499ff, opacity: 0.5, wireframe: true },
-      { size: 0.4, pos: [-2.0, 0.5, -0.5] as [number,number,number], color: 0xffd64a, opacity: 0.45, wireframe: true },
-      { size: 0.3, pos: [1.2, -0.6, 1] as [number,number,number], color: 0xffd64a, opacity: 0.35, wireframe: false },
-    ]
-
-    const meshes: THREE.Mesh[] = []
-    const geos: THREE.BufferGeometry[] = []
-    const mats: THREE.Material[] = []
-
-    icosaDefs.forEach((def) => {
-      const geo = new THREE.IcosahedronGeometry(def.size, 1)
-      const mat = new THREE.MeshPhysicalMaterial({
-        color: def.color, metalness: 0.5, roughness: 0.15,
-        wireframe: def.wireframe, transparent: true, opacity: def.opacity,
-      })
-      const mesh = new THREE.Mesh(geo, mat)
-      mesh.position.set(...def.pos)
-      meshes.push(mesh); geos.push(geo); mats.push(mat)
-      group.add(mesh)
-    })
-
-    const ringGeo = new THREE.TorusGeometry(1.6, 0.008, 8, 90)
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0xffd64a, transparent: true, opacity: 0.4 })
-    const ring = new THREE.Mesh(ringGeo, ringMat)
-    ring.rotation.x = Math.PI / 2.5
-    geos.push(ringGeo); mats.push(ringMat)
-    group.add(ring)
-
-    const pCount = 100
-    const pGeo = new THREE.BufferGeometry()
-    const pPos = new Float32Array(pCount * 3)
-    const pCol = new Float32Array(pCount * 3)
-    for (let i = 0; i < pCount; i++) {
-      pPos[i * 3] = (Math.random() - 0.5) * 12
-      pPos[i * 3 + 1] = (Math.random() - 0.5) * 7
-      pPos[i * 3 + 2] = (Math.random() - 0.5) * 6
-      const a = Math.random() > 0.45
-      pCol[i * 3] = a ? 1.0 : 0.27; pCol[i * 3 + 1] = a ? 0.84 : 0.6; pCol[i * 3 + 2] = a ? 0.29 : 1.0
-    }
-    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3))
-    pGeo.setAttribute('color', new THREE.BufferAttribute(pCol, 3))
-    const pMat = new THREE.PointsMaterial({ size: 0.04, vertexColors: true, transparent: true, opacity: 0.6, depthWrite: false, blending: THREE.AdditiveBlending })
-    const particles = new THREE.Points(pGeo, pMat)
-    scene.add(particles)
-    geos.push(pGeo); mats.push(pMat)
-
-    const tweens: gsap.core.Tween[] = []
-    if (!prefersReducedMotion) {
-      tweens.push(gsap.to(group.rotation, { y: Math.PI * 2, duration: 22, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(meshes[0].rotation, { x: Math.PI * 2, y: Math.PI, duration: 15, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(meshes[1].rotation, { y: -Math.PI * 2, duration: 12, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(meshes[2].rotation, { x: Math.PI * 2, duration: 18, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(ring.rotation, { z: Math.PI * 2, duration: 10, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(group.position, { y: 0.25, duration: 4.2, yoyo: true, repeat: -1, ease: 'sine.inOut' }))
-      tweens.push(gsap.to(particles.rotation, { y: Math.PI * 2, duration: 55, repeat: -1, ease: 'none' }))
-    }
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (prefersReducedMotion) return
-      const rect = container.getBoundingClientRect()
-      const mx = ((e.clientX - rect.left) / rect.width - 0.5) * 2
-      const my = ((e.clientY - rect.top) / rect.height - 0.5) * 2
-      gsap.to(scene.rotation, { x: my * 0.08, y: mx * 0.15, duration: 1.5, ease: 'power2.out' })
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-
-    let frameId = 0
-    const render = () => { frameId = requestAnimationFrame(render); renderer.render(scene, camera) }
-    const handleResize = () => {
-      camera.aspect = container.clientWidth / container.clientHeight
-      camera.updateProjectionMatrix()
-      renderer.setSize(container.clientWidth, container.clientHeight)
-    }
-    handleResize(); render()
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      window.removeEventListener('mousemove', handleMouseMove)
-      cancelAnimationFrame(frameId)
-      tweens.forEach(t => t.kill())
-      geos.forEach(g => g.dispose()); mats.forEach(m => m.dispose())
-      renderer.dispose()
-      if (renderer.domElement.parentElement === container) container.removeChild(renderer.domElement)
-    }
-  }, [])
-
-  return <div ref={mountRef} className="h-full w-full" aria-hidden="true" />
 }
 
 export function ServicesHeroSection({ content }: ServicesHeroSectionProps) {
@@ -163,7 +31,7 @@ export function ServicesHeroSection({ content }: ServicesHeroSectionProps) {
 
       {/* Three.js fills right half */}
       <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-75">
-        <ServicesHeroCanvas />
+        <ServicesHeroCanvasOpt />
       </div>
       <div className="pointer-events-none absolute right-0 top-0 h-full w-1/3 bg-linear-to-l from-[#021331] via-[#021331]/60 to-transparent" />
 

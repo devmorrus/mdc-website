@@ -1,85 +1,10 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import * as THREE from 'three'
 import type { LegalDocumentItem } from '../../types/about'
+import { LegalityCanvasOpt } from '../../three/OptimizedCanvases'
 
 interface LegalitySectionProps {
   items: LegalDocumentItem[]
-}
-
-function LegalityMiniCanvas() {
-  const mountRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!mountRef.current) return
-    const container = mountRef.current
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(55, container.clientWidth / container.clientHeight, 0.1, 100)
-    camera.position.z = 5
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setSize(container.clientWidth, container.clientHeight)
-    renderer.setClearColor(0x000000, 0)
-    container.appendChild(renderer.domElement)
-
-    // Floating amber dots
-    const count = 60
-    const geo = new THREE.BufferGeometry()
-    const pos = new Float32Array(count * 3)
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 10
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 6
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 3
-    }
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3))
-    const mat = new THREE.PointsMaterial({
-      size: 0.04,
-      color: 0xffd64a,
-      transparent: true,
-      opacity: 0.45,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-    })
-    const pts = new THREE.Points(geo, mat)
-    scene.add(pts)
-
-    // Subtle torus
-    const torusGeo = new THREE.TorusGeometry(1.5, 0.005, 8, 100)
-    const torusMat = new THREE.MeshBasicMaterial({ color: 0xffd64a, transparent: true, opacity: 0.2 })
-    const torus = new THREE.Mesh(torusGeo, torusMat)
-    torus.rotation.x = Math.PI / 3
-    scene.add(torus)
-
-    const tweens: gsap.core.Tween[] = []
-    if (!prefersReducedMotion) {
-      tweens.push(gsap.to(pts.rotation, { y: Math.PI * 2, duration: 50, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(torus.rotation, { z: Math.PI * 2, duration: 30, repeat: -1, ease: 'none' }))
-    }
-
-    let frameId = 0
-    const render = () => { frameId = requestAnimationFrame(render); renderer.render(scene, camera) }
-    const handleResize = () => {
-      camera.aspect = container.clientWidth / container.clientHeight
-      camera.updateProjectionMatrix()
-      renderer.setSize(container.clientWidth, container.clientHeight)
-    }
-    handleResize(); render()
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      cancelAnimationFrame(frameId)
-      tweens.forEach((t) => t.kill())
-      geo.dispose(); mat.dispose(); torusGeo.dispose(); torusMat.dispose()
-      renderer.dispose()
-      if (renderer.domElement.parentElement === container) container.removeChild(renderer.domElement)
-    }
-  }, [])
-
-  return <div ref={mountRef} className="h-full w-full" aria-hidden="true" />
 }
 
 const DOC_ICONS: Record<string, React.ReactNode> = {
@@ -137,7 +62,7 @@ export function LegalitySection({ items }: LegalitySectionProps) {
       >
         {/* Three.js canvas background */}
         <div className="absolute inset-0 opacity-40">
-          <LegalityMiniCanvas />
+          <LegalityCanvasOpt />
         </div>
 
         {/* Gradient overlay */}

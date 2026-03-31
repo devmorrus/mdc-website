@@ -1,114 +1,10 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import * as THREE from 'three'
 import type { PortfolioHeroContent } from '../../types/portfolio'
+import { PortfolioHeroCanvasOpt } from '../../three/OptimizedCanvases'
 
 interface PortfolioHeroSectionProps {
   content: PortfolioHeroContent
-}
-
-function PortfolioHeroCanvas() {
-  const mountRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!mountRef.current) return
-    const container = mountRef.current
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 100)
-    camera.position.z = 7
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setSize(container.clientWidth, container.clientHeight)
-    renderer.setClearColor(0x000000, 0)
-    container.appendChild(renderer.domElement)
-
-    scene.add(new THREE.AmbientLight(0x1a3a6e, 0.6))
-    const key = new THREE.DirectionalLight(0xffd64a, 2.0)
-    key.position.set(5, 5, 5); scene.add(key)
-    const rim = new THREE.DirectionalLight(0x4499ff, 1.2)
-    rim.position.set(-4, -2, 2); scene.add(rim)
-
-    const geos: THREE.BufferGeometry[] = []
-    const mats: THREE.Material[] = []
-    const meshes: THREE.Mesh[] = []
-    const tweens: gsap.core.Tween[] = []
-
-    // Floating cubes/boxes scattered in scene
-    const boxDefs = [
-      { size: [0.6, 0.6, 0.6], pos: [-3, 1.2, 0], color: 0xffd64a, opacity: 0.6, wireframe: true },
-      { size: [0.4, 0.4, 0.4], pos: [3.2, -0.8, -1], color: 0x4499ff, opacity: 0.5, wireframe: true },
-      { size: [0.5, 0.5, 0.5], pos: [1.5, 1.8, -0.5], color: 0xffd64a, opacity: 0.4, wireframe: false },
-      { size: [0.3, 0.3, 0.3], pos: [-2.5, -1.5, 0.5], color: 0xffd64a, opacity: 0.45, wireframe: true },
-      { size: [0.45, 0.45, 0.45], pos: [0.5, -1.8, -1], color: 0x4499ff, opacity: 0.35, wireframe: false },
-      { size: [0.25, 0.25, 0.25], pos: [-1.2, 2.0, -1.5], color: 0xffd64a, opacity: 0.4, wireframe: true },
-    ]
-
-    boxDefs.forEach((def) => {
-      const geo = new THREE.BoxGeometry(...(def.size as [number, number, number]))
-      const mat = new THREE.MeshPhysicalMaterial({ color: def.color, metalness: 0.6, roughness: 0.2, wireframe: def.wireframe, transparent: true, opacity: def.opacity })
-      const mesh = new THREE.Mesh(geo, mat)
-      mesh.position.set(...(def.pos as [number, number, number]))
-      mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI)
-      scene.add(mesh); meshes.push(mesh); geos.push(geo); mats.push(mat)
-    })
-
-    // Central octahedron
-    const cGeo = new THREE.OctahedronGeometry(0.9, 0)
-    const cMat = new THREE.MeshPhysicalMaterial({ color: 0xffd64a, metalness: 0.5, roughness: 0.1, wireframe: true, transparent: true, opacity: 0.65 })
-    const center = new THREE.Mesh(cGeo, cMat)
-    scene.add(center); geos.push(cGeo); mats.push(cMat)
-
-    // Particles
-    const pCount = 90
-    const pGeo = new THREE.BufferGeometry()
-    const pPos = new Float32Array(pCount * 3)
-    const pCol = new Float32Array(pCount * 3)
-    for (let i = 0; i < pCount; i++) {
-      pPos[i * 3] = (Math.random() - 0.5) * 12; pPos[i * 3 + 1] = (Math.random() - 0.5) * 8; pPos[i * 3 + 2] = (Math.random() - 0.5) * 6
-      const a = Math.random() > 0.4; pCol[i * 3] = a ? 1.0 : 0.27; pCol[i * 3 + 1] = a ? 0.84 : 0.6; pCol[i * 3 + 2] = a ? 0.29 : 1.0
-    }
-    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3))
-    pGeo.setAttribute('color', new THREE.BufferAttribute(pCol, 3))
-    const pMat = new THREE.PointsMaterial({ size: 0.04, vertexColors: true, transparent: true, opacity: 0.55, depthWrite: false, blending: THREE.AdditiveBlending })
-    const particles = new THREE.Points(pGeo, pMat)
-    scene.add(particles); geos.push(pGeo); mats.push(pMat)
-
-    if (!prefersReducedMotion) {
-      tweens.push(gsap.to(center.rotation, { y: Math.PI * 2, x: Math.PI, duration: 18, repeat: -1, ease: 'none' }))
-      tweens.push(gsap.to(center.position, { y: 0.2, duration: 3.5, yoyo: true, repeat: -1, ease: 'sine.inOut' }))
-      meshes.forEach((m, idx) => {
-        tweens.push(gsap.to(m.rotation, { x: Math.PI * 2, y: Math.PI, duration: 10 + idx * 2.5, repeat: -1, ease: 'none' }))
-        tweens.push(gsap.to(m.position, { y: m.position.y + 0.3, duration: 3 + idx * 0.6, yoyo: true, repeat: -1, ease: 'sine.inOut' }))
-      })
-      tweens.push(gsap.to(particles.rotation, { y: Math.PI * 2, duration: 55, repeat: -1, ease: 'none' }))
-    }
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (prefersReducedMotion) return
-      const rect = container.getBoundingClientRect()
-      gsap.to(scene.rotation, { x: ((e.clientY - rect.top) / rect.height - 0.5) * 0.1, y: ((e.clientX - rect.left) / rect.width - 0.5) * 0.18, duration: 1.4, ease: 'power2.out' })
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-
-    let frameId = 0
-    const render = () => { frameId = requestAnimationFrame(render); renderer.render(scene, camera) }
-    const handleResize = () => { camera.aspect = container.clientWidth / container.clientHeight; camera.updateProjectionMatrix(); renderer.setSize(container.clientWidth, container.clientHeight) }
-    handleResize(); render()
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize); window.removeEventListener('mousemove', handleMouseMove)
-      cancelAnimationFrame(frameId); tweens.forEach(t => t.kill())
-      geos.forEach(g => g.dispose()); mats.forEach(m => m.dispose())
-      renderer.dispose()
-      if (renderer.domElement.parentElement === container) container.removeChild(renderer.domElement)
-    }
-  }, [])
-
-  return <div ref={mountRef} className="h-full w-full" aria-hidden="true" />
 }
 
 export function PortfolioHeroSection({ content }: PortfolioHeroSectionProps) {
@@ -133,7 +29,7 @@ export function PortfolioHeroSection({ content }: PortfolioHeroSectionProps) {
 
       {/* Three.js fills right portion */}
       <div className="pointer-events-none absolute right-0 top-0 h-full w-[55%] opacity-70">
-        <PortfolioHeroCanvas />
+        <PortfolioHeroCanvasOpt />
       </div>
       <div className="pointer-events-none absolute right-0 top-0 h-full w-[30%] bg-linear-to-l from-[#021331] via-[#021331]/50 to-transparent" />
 
