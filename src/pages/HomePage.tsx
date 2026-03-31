@@ -1,17 +1,11 @@
-import { AboutSection } from '../components/home/AboutSection'
-import { ContactCtaSection } from '../components/home/ContactCtaSection'
-import { FloatingWhatsApp } from '../components/home/FloatingWhatsApp'
-import { HeroSection } from '../components/home/HeroSection'
-import { PortfolioPreviewSection } from '../components/home/PortfolioPreviewSection'
-import { ServicesSection } from '../components/home/ServicesSection'
-import { StatsStrip } from '../components/home/StatsStrip'
+import { PageStateSection } from '../components/common/PageStateSection'
+import { HomePageContent } from '../components/home/HomePageContent'
+import { useHomePageViewModel } from '../hooks/useHomePageViewModel'
 import { SiteLayout } from '../layouts/SiteLayout'
 import { usePageMetadata } from '../hooks/usePageMetadata'
-import { createWhatsAppLink } from '../utils/createWhatsAppLink'
-import { useHomeContent } from '../hooks/useHomeContent'
 
 export function HomePage() {
-  const { data, isLoading, error } = useHomeContent()
+  const { data, isLoading, error } = useHomePageViewModel()
 
   usePageMetadata({
     title: 'Morrus Digital Connecting | Home',
@@ -22,9 +16,7 @@ export function HomePage() {
   if (isLoading) {
     return (
       <SiteLayout>
-        <section className="mx-auto w-full max-w-6xl px-6 py-20">
-          <p className="text-blue-100/80">Loading home content...</p>
-        </section>
+        <PageStateSection tone="info" text="Loading home content..." />
       </SiteLayout>
     )
   }
@@ -32,32 +24,18 @@ export function HomePage() {
   if (error || !data) {
     return (
       <SiteLayout>
-        <section className="mx-auto w-full max-w-6xl px-6 py-20">
-          <p className="text-red-200">Failed to load home content: {error ?? 'Unknown error'}</p>
-        </section>
+        <PageStateSection tone="error" text={`Failed to load home content: ${error ?? 'Unknown error'}`} />
       </SiteLayout>
     )
   }
 
-  const whatsappLink = createWhatsAppLink(data.whatsappNumber, data.whatsappMessage)
-
   return (
     <SiteLayout
-      navItems={data.navItems}
-      headerCta={{ label: data.headerCtaLabel, href: data.headerCtaHref }}
-      footer={data.footer}
+      navItems={data.layout.navItems}
+      headerCta={data.layout.headerCta}
+      footer={data.layout.footer}
     >
-      <HeroSection content={data.hero} />
-      <StatsStrip stats={data.stats} />
-      <AboutSection content={data.about} />
-      <ServicesSection items={data.services} />
-      <PortfolioPreviewSection items={data.portfolio} />
-      <ContactCtaSection
-        content={data.contactCta}
-        whatsappLink={whatsappLink}
-        whatsappNumber={data.whatsappNumber}
-      />
-      <FloatingWhatsApp whatsappLink={whatsappLink} />
+      <HomePageContent model={data} />
     </SiteLayout>
   )
 }
