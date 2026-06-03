@@ -39,10 +39,14 @@ export interface AboutSnippetContent {
 
 export interface ServiceItem {
   id: string
+  tier: string
   tag: string
   title: string
+  price: string
+  priceSuffix: string
   description: string
   highlights: string[]
+  ctaLabel: string
   href: string
 }
 

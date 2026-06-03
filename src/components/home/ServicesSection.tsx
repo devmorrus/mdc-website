@@ -48,10 +48,11 @@ export function ServicesSection({ items }: ServicesSectionProps) {
           eyebrow="Layanan Utama"
           title="Layanan digital yang disusun untuk memperkuat profil, operasional, dan pertumbuhan bisnis."
           description="Bagian ini dirancang sebagai ringkasan layanan utama di homepage, sehingga pengunjung cepat memahami area expertise perusahaan tanpa harus membaca terlalu jauh."
+          centered
           tone="dark"
         />
 
-        <div className="mt-10 grid gap-4 md:grid-cols-2">
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
           {items.map((item, index) => (
             <article
               key={item.id}
@@ -60,43 +61,73 @@ export function ServicesSection({ items }: ServicesSectionProps) {
                   cardsRef.current[index] = element
                 }
               }}
-              className="group rounded-[2rem] border border-white/12 bg-white/8 p-6 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.35)] transition hover:-translate-y-1 hover:bg-white/10 hover:shadow-[0_22px_60px_-34px_rgba(0,0,0,0.45)] backdrop-blur-sm"
+              className={`group rounded-[2rem] border p-7 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.35)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:opacity-90 hover:shadow-[0_22px_60px_-34px_rgba(0,0,0,0.45)] ${
+                index === 0
+                  ? 'border-[#7d88ff]/25 bg-[linear-gradient(180deg,rgba(79,87,176,0.98)_0%,rgba(49,52,93,0.98)_100%)]'
+                  : 'border-white/10 bg-[linear-gradient(180deg,rgba(34,39,54,0.96)_0%,rgba(22,26,36,0.96)_100%)]'
+              }`}
             >
               <div className="flex items-start justify-between gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#0b1f57]">
+                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${index === 0 ? 'bg-white text-[#4f57b0]' : 'bg-white/8 text-white ring-1 ring-white/10'}`}>
                   {SERVICE_ICONS[index % SERVICE_ICONS.length]}
                 </div>
-                <span className="rounded-full bg-[#f6c445] px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-[#0b1f57]">
+                <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] ${index === 0 ? 'bg-[#7b7cff] text-white' : 'bg-white/8 text-white/72 ring-1 ring-white/10'}`}>
                   {item.tag}
                 </span>
               </div>
 
+              <p className={`mt-7 text-[2rem] font-bold leading-none ${index === 0 ? 'text-white' : 'text-white/96'}`}>
+                {item.tier}
+              </p>
+
               <h3
-                className="mt-6 text-2xl font-bold leading-tight text-white"
+                className={`mt-3 text-2xl font-semibold leading-tight ${index === 0 ? 'text-[#9ea6ff]' : 'text-white'}`}
                 style={{ fontFamily: "'Sora', sans-serif" }}
               >
                 {item.title}
               </h3>
 
-              <p className="mt-4 text-base leading-7 text-blue-100/80">
+              <div className="mt-7 flex items-end gap-2">
+                <p
+                  className={`text-[2.7rem] font-bold leading-none ${index === 0 ? 'text-white' : 'text-white'}`}
+                  style={{ fontFamily: "'Sora', sans-serif" }}
+                >
+                  {item.price}
+                </p>
+                <p className={`pb-1 text-sm ${index === 0 ? 'text-white/70' : 'text-white/58'}`}>
+                  {item.priceSuffix}
+                </p>
+              </div>
+
+              <p className={`mt-5 text-base leading-7 ${index === 0 ? 'text-white/82' : 'text-white/68'}`}>
                 {item.description}
               </p>
 
+              <Link
+                to={item.href}
+                className={`mt-7 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${
+                  index === 0
+                    ? 'bg-[#6c63ff] text-white hover:bg-[#7b73ff]'
+                    : 'bg-white text-[#10131c] hover:bg-[#eef1f8]'
+                }`}
+              >
+                {item.ctaLabel}
+              </Link>
+
+              <div className={`mt-7 border-t ${index === 0 ? 'border-white/14' : 'border-white/10'}`} />
+
               <ul className="mt-6 space-y-3">
                 {item.highlights.map((highlight) => (
-                  <li key={highlight} className="flex items-start gap-3 text-sm leading-6 text-blue-50/88">
-                    <span className="mt-2 h-2 w-2 rounded-full bg-[#f6c445]" />
+                  <li key={highlight} className={`flex items-start gap-3 text-sm leading-6 ${index === 0 ? 'text-white/90' : 'text-white/72'}`}>
+                    <span className={`mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${index === 0 ? 'bg-white/12 text-white' : 'bg-white/8 text-white/80 ring-1 ring-white/10'}`}>
+                      <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </span>
                     <span>{highlight}</span>
                   </li>
                 ))}
               </ul>
-
-              <Link
-                to={item.href}
-                className="mt-8 inline-flex items-center text-sm font-semibold text-[#f6c445] transition hover:text-[#ffe07d]"
-              >
-                Lihat detail layanan
-              </Link>
             </article>
           ))}
         </div>
