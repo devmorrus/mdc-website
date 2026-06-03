@@ -16,7 +16,11 @@ export interface HomeViewModel {
   stats: HomeContent['stats']
   about: HomeContent['about']
   services: HomeContent['services']
+  advantages: HomeContent['advantages']
   portfolio: HomeContent['portfolio']
+  testimonials: HomeContent['testimonials']
+  partners: HomeContent['partners']
+  articles: HomeContent['articles']
   contactCta: HomeContent['contactCta']
   whatsappNumber: string
   whatsappLink: string
@@ -36,7 +40,11 @@ export function mapHomeContentToViewModel(content: HomeContent): HomeViewModel {
     stats: content.stats,
     about: content.about,
     services: content.services,
+    advantages: content.advantages,
     portfolio: content.portfolio,
+    testimonials: content.testimonials,
+    partners: content.partners,
+    articles: content.articles,
     contactCta: content.contactCta,
     whatsappNumber: content.whatsappNumber,
     whatsappLink: createWhatsAppLink(content.whatsappNumber, content.whatsappMessage),

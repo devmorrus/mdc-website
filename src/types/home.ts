@@ -12,16 +12,20 @@ export interface HeroContent {
   primaryCtaHref: string
   secondaryCtaLabel: string
   secondaryCtaHref: string
+  trustPoints: string[]
 }
 
 export interface StatItem {
   label: string
   value: string
+  description: string
 }
 
 export interface AboutSnippetContent {
+  eyebrow: string
   title: string
   summary: string
+  description: string
   valuePoints: string[]
   buttonLabel: string
   buttonHref: string
@@ -29,10 +33,18 @@ export interface AboutSnippetContent {
 
 export interface ServiceItem {
   id: string
-  icon: string
+  tag: string
   title: string
   description: string
   highlights: string[]
+  href: string
+}
+
+export interface AdvantageItem {
+  id: string
+  title: string
+  description: string
+  stat: string
 }
 
 export interface PortfolioItem {
@@ -40,14 +52,43 @@ export interface PortfolioItem {
   name: string
   category: string
   summary: string
+  outcome: string
+  imageUrl: string
+  imageAlt: string
+}
+
+export interface TestimonialItem {
+  id: string
+  name: string
+  role: string
+  company: string
+  quote: string
+}
+
+export interface PartnerItem {
+  id: string
+  name: string
+  abbreviation: string
+}
+
+export interface ArticleItem {
+  id: string
+  category: string
+  title: string
+  summary: string
+  publishedAt: string
+  readTime: string
 }
 
 export interface ContactCtaContent {
   eyebrow: string
   title: string
   description: string
-  buttonLabel: string
-  buttonHref: string
+  primaryCtaLabel: string
+  primaryCtaHref: string
+  secondaryCtaLabel: string
+  secondaryCtaHref: string
+  bulletPoints: string[]
 }
 
 export interface FooterQuickLink {
@@ -71,7 +112,11 @@ export interface HomeContent {
   stats: StatItem[]
   about: AboutSnippetContent
   services: ServiceItem[]
+  advantages: AdvantageItem[]
   portfolio: PortfolioItem[]
+  testimonials: TestimonialItem[]
+  partners: PartnerItem[]
+  articles: ArticleItem[]
   contactCta: ContactCtaContent
   footer: FooterContent
   whatsappNumber: string
