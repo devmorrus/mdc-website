@@ -28,7 +28,7 @@ function PageFallback() {
   return (
     <div
       className="min-h-screen"
-      style={{ background: '#021331' }}
+      style={{ background: '#f7fbff' }}
       aria-hidden="true"
     />
   )

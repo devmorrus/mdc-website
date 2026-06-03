@@ -35,13 +35,11 @@ export function FloatingWhatsApp({ whatsappLink }: FloatingWhatsAppProps) {
       target="_blank"
       rel="noreferrer"
       aria-label="Hubungi kami via WhatsApp"
-      className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2.5 rounded-full bg-amber-300 px-5 py-3.5 text-sm font-bold text-blue-950 shadow-[0_10px_40px_rgba(251,191,36,0.55)] transition-all duration-300 hover:-translate-y-1 hover:bg-amber-200 hover:shadow-[0_16px_50px_rgba(251,191,36,0.7)]"
+      className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2.5 rounded-full bg-[#0b1f57] px-5 py-3.5 text-sm font-bold text-white shadow-[0_18px_50px_-18px_rgba(11,31,87,0.45)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#0f2f78]"
     >
-      {/* WA icon circle */}
-      <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-900 text-amber-200 text-xs font-black">
+      <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#f6c445] text-xs font-black text-[#0b1f57]">
         WA
-        {/* Pulse ring */}
-        <span className="absolute inset-0 rounded-full bg-amber-300/30 animate-ping" />
+        <span className="absolute inset-0 rounded-full bg-[#f6c445]/35 animate-ping" />
       </span>
       <span className="hidden sm:inline">Chat WhatsApp</span>
     </a>

@@ -1,15 +1,127 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useHomeHeroAnimation } from '../../animations/useHomeHeroAnimation'
-import { HeroOrbCanvas } from '../../three/HeroOrbCanvas'
 import type { HeroContent } from '../../types/home'
 
 interface HeroSectionProps {
   content: HeroContent
 }
 
+function HeroVisual() {
+  return (
+    <div className="relative mx-auto max-w-xl">
+      <div className="absolute inset-x-10 -top-10 h-28 rounded-full bg-[#f6c445]/25 blur-3xl" />
+      <div className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-white shadow-[0_30px_90px_-40px_rgba(2,12,54,0.5)]">
+        <div className="flex items-center gap-2 border-b border-blue-100 bg-[#edf4ff] px-5 py-4">
+          <span className="h-2.5 w-2.5 rounded-full bg-rose-300" />
+          <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
+          <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
+          <div className="ml-4 h-8 w-full rounded-full bg-white px-4 py-2 text-xs text-blue-400 shadow-[inset_0_0_0_1px_rgba(24,74,168,0.12)]">
+            morrusdigital.com/company-profile
+          </div>
+        </div>
+
+        <div className="grid gap-5 p-5 md:grid-cols-[1.15fr_0.85fr] md:p-7">
+          <div className="space-y-4 rounded-[1.5rem] bg-[#0b1f57] px-5 py-6 text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-400">Homepage</p>
+                <p className="mt-2 text-2xl font-semibold">Company Profile</p>
+              </div>
+              <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+                Responsive
+              </div>
+            </div>
+
+            <div className="space-y-3 rounded-[1.25rem] bg-white/6 p-4">
+              <div className="h-3 w-28 rounded-full bg-[#f3c98b]" />
+              <div className="h-4 w-full rounded-full bg-white/90" />
+              <div className="h-4 w-5/6 rounded-full bg-white/75" />
+              <div className="h-4 w-3/4 rounded-full bg-white/50" />
+              <div className="flex gap-3 pt-2">
+                <div className="h-10 w-32 rounded-full bg-[#f3c98b]" />
+                <div className="h-10 w-28 rounded-full border border-white/20" />
+              </div>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-3">
+              {[
+                ['SEO', 'Heading rapi'],
+                ['UI', 'Formal modern'],
+                ['Lead', 'CTA lebih jelas'],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-3">
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{label}</p>
+                  <p className="mt-2 text-sm text-slate-100">{value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="rounded-[1.5rem] border border-slate-200 bg-[#f8f5ef] p-4">
+              <div className="flex items-start justify-between">
+                <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-blue-400">Highlights</p>
+                  <p className="mt-2 text-lg font-semibold text-[#0b1f57]">Brand credibility</p>
+                </div>
+                <div className="rounded-2xl bg-white px-3 py-2 text-right shadow-sm">
+                  <p className="text-xs text-blue-500">Potential leads</p>
+                  <p className="text-xl font-semibold text-[#0b1f57]">+38%</p>
+                </div>
+              </div>
+              <div className="mt-5 space-y-3">
+                {[82, 56, 92, 68].map((width, index) => (
+                  <div key={width} className="space-y-2">
+                    <div className="flex items-center justify-between text-xs text-blue-500">
+                      <span>Section {index + 1}</span>
+                      <span>{width}%</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-white">
+                      <div className="h-2 rounded-full bg-[#184aa8]" style={{ width: `${width}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-blue-400">Visual system</p>
+                <div className="mt-4 flex gap-2">
+                  {['#0b1f57', '#184aa8', '#f6c445', '#dbe7ff'].map((color) => (
+                    <span key={color} className="h-10 flex-1 rounded-2xl" style={{ backgroundColor: color }} />
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-blue-400">Delivery focus</p>
+                <ul className="mt-4 space-y-2 text-sm text-slate-600">
+                  <li>Responsive layout</li>
+                  <li>Clean hierarchy</li>
+                  <li>Ready for real content</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute -left-4 top-10 rounded-2xl border border-white/15 bg-white px-4 py-3 shadow-lg">
+        <p className="text-xs uppercase tracking-[0.22em] text-blue-400">Avg. delivery</p>
+        <p className="mt-1 text-xl font-semibold text-[#0b1f57]">7 hari kickoff</p>
+      </div>
+      <div className="absolute -bottom-5 right-5 rounded-2xl bg-[#0f2f78] px-4 py-3 text-white shadow-xl">
+        <p className="text-xs uppercase tracking-[0.22em] text-blue-200/70">SEO structure</p>
+        <p className="mt-1 text-xl font-semibold">H1-H3 tertata</p>
+      </div>
+    </div>
+  )
+}
+
 export function HeroSection({ content }: HeroSectionProps) {
   const scopeRef = useRef<HTMLElement>(null)
-  const eyebrowRef = useRef<HTMLSpanElement>(null)
+  const eyebrowRef = useRef<HTMLParagraphElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const descriptionRef = useRef<HTMLParagraphElement>(null)
   const actionsRef = useRef<HTMLDivElement>(null)
@@ -23,137 +135,68 @@ export function HeroSection({ content }: HeroSectionProps) {
     <section
       id="home"
       ref={scopeRef}
-      className="relative isolate overflow-hidden border-b border-blue-900/30 min-h-[92vh] flex items-center"
+      className="relative -mt-px overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(246,196,69,0.14),transparent_18%),radial-gradient(circle_at_85%_18%,rgba(46,100,211,0.32),transparent_24%),linear-gradient(135deg,#081a4a_0%,#0d2c76_48%,#1949a6_100%)] pb-18 pt-28 text-white md:pb-24 md:pt-32"
     >
-      {/* Layered ambient glows */}
-      <div className="pointer-events-none absolute -left-40 -top-20 h-125 w-125 rounded-full bg-sky-500/20 blur-[120px]" />
-      <div className="pointer-events-none absolute -right-32 top-10 h-100 w-100 rounded-full bg-amber-300/20 blur-[100px]" />
-      <div className="pointer-events-none absolute left-1/3 bottom-0 h-75 w-75 rounded-full bg-blue-600/15 blur-[90px]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_8%,rgba(255,255,255,0.08),transparent_18%),radial-gradient(circle_at_75%_30%,rgba(255,255,255,0.06),transparent_22%)]" />
+      <div className="pointer-events-none absolute -left-10 top-0 h-72 w-72 rounded-full bg-[#f6c445]/15 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-24 h-80 w-80 rounded-full bg-[#2e64d3]/26 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-1/4 h-40 w-120 rounded-full bg-[#071230]/22 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '44px 44px' }} />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-[linear-gradient(to_bottom,rgba(245,249,255,0)_0%,rgba(245,249,255,0.16)_25%,rgba(245,249,255,0.92)_78%,#f5f9ff_100%)]" />
 
-      {/* Subtle grid overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(148,163,184,1) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,1) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-      />
-
-      {/* Diagonal accent line */}
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-px bg-linear-to-b from-transparent via-amber-300/20 to-transparent" />
-
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-20 md:grid-cols-2 md:items-center md:py-28 relative z-10">
-        {/* Left: Content */}
-        <div className="space-y-7">
-          {/* Eyebrow badge */}
-          <span
+      <div className="mx-auto grid w-full max-w-6xl gap-14 px-6 md:grid-cols-[1fr_0.95fr] md:items-center">
+        <div className="relative z-10">
+          <p
             ref={eyebrowRef}
-            className="inline-flex items-center gap-2 rounded-full border border-amber-300/50 bg-amber-200/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-amber-200 backdrop-blur-sm"
+            className="inline-flex items-center rounded-full border border-[#f6c445]/30 bg-white/8 px-4 py-2 text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-300 animate-pulse" />
             {content.eyebrow}
-          </span>
+          </p>
 
-          {/* Headline */}
           <h1
             ref={titleRef}
-            className="text-5xl font-extrabold leading-[1.08] tracking-tight text-blue-50 md:text-6xl xl:text-7xl"
+            className="mt-6 max-w-3xl text-4xl font-bold leading-tight text-white md:text-5xl xl:text-6xl"
             style={{ fontFamily: "'Sora', sans-serif" }}
           >
-            {content.title.split(' ').map((word, i) => {
-              const isAccent = ['Partner', 'Business', 'Growth', 'Digital'].includes(word)
-              return (
-                <span key={i}>
-                  <span
-                    className={
-                      isAccent
-                        ? 'bg-linear-to-r from-amber-300 to-yellow-200 bg-clip-text text-transparent'
-                        : ''
-                    }
-                  >
-                    {word}
-                  </span>
-                  {i < content.title.split(' ').length - 1 ? ' ' : ''}
-                </span>
-              )
-            })}
+            {content.title}
           </h1>
 
-          {/* Description */}
           <p
             ref={descriptionRef}
-            className="max-w-lg text-base leading-relaxed text-blue-200/75 md:text-lg"
+            className="mt-6 max-w-2xl text-lg leading-8 text-blue-100/82"
           >
             {content.description}
           </p>
 
-          {/* CTAs */}
-          <div ref={actionsRef} className="flex flex-wrap items-center gap-4">
-            <a
-              href={content.primaryCtaHref}
-              className="group relative overflow-hidden rounded-xl bg-amber-300 px-7 py-3.5 text-sm font-bold text-blue-950 transition-all duration-300 hover:bg-amber-200 hover:shadow-[0_0_40px_rgba(251,191,36,0.5)]"
+          <div ref={actionsRef} className="mt-8 flex flex-wrap gap-4">
+            <Link
+              to={content.primaryCtaHref}
+              className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-6 py-3.5 text-sm font-semibold text-[#0b1f57] transition hover:-translate-y-0.5 hover:bg-[#ffd15c]"
             >
-              <span className="relative z-10">{content.primaryCtaLabel}</span>
-              <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
-            </a>
-            <a
-              href={content.secondaryCtaHref}
-              className="group flex items-center gap-2 rounded-xl border border-blue-200/30 px-7 py-3.5 text-sm font-semibold text-blue-100 backdrop-blur-sm transition-all duration-300 hover:border-amber-300/60 hover:text-amber-100"
+              {content.primaryCtaLabel}
+            </Link>
+            <Link
+              to={content.secondaryCtaHref}
+              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-[#f6c445]/55 hover:text-[#f6c445]"
             >
               {content.secondaryCtaLabel}
-              <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
+            </Link>
           </div>
 
-          {/* Trust indicators */}
-          <div className="flex items-center gap-5 pt-2">
-            {['120+ Projects', '94% Retention', '95+ Score'].map((item) => (
-              <div key={item} className="flex items-center gap-1.5">
-                <div className="h-1 w-1 rounded-full bg-amber-300/70" />
-                <span className="text-xs text-blue-300/60">{item}</span>
-              </div>
+          <ul className="mt-8 flex flex-wrap gap-3">
+            {content.trustPoints.map((point) => (
+              <li
+                key={point}
+                className="rounded-full border border-white/15 bg-white/8 px-4 py-2 text-sm text-blue-50 shadow-sm backdrop-blur-sm"
+              >
+                {point}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
-        {/* Right: 3D Canvas */}
-        <div className="relative">
-          {/* Outer glow ring */}
-          <div className="absolute inset-0 rounded-3xl bg-linear-to-br from-amber-300/10 via-blue-500/5 to-transparent blur-xl" />
-
-          {/* Canvas container */}
-          <div className="relative h-80 rounded-3xl border border-blue-200/15 bg-linear-to-br from-blue-900/40 via-blue-950/60 to-blue-950/80 p-1 shadow-[0_30px_80px_-20px_rgba(251,191,36,0.25)] md:h-120 backdrop-blur-sm">
-            {/* Inner border highlight */}
-            <div className="absolute inset-px rounded-[22px] border border-white/5" />
-
-            <HeroOrbCanvas />
-
-            {/* Corner accent decorations */}
-            <div className="absolute left-4 top-4 h-6 w-6 border-l border-t border-amber-300/40 rounded-tl-lg" />
-            <div className="absolute right-4 bottom-4 h-6 w-6 border-r border-b border-amber-300/40 rounded-br-lg" />
-            <div className="absolute right-4 top-4 h-4 w-4 border-r border-t border-blue-400/30 rounded-tr-md" />
-            <div className="absolute left-4 bottom-4 h-4 w-4 border-l border-b border-blue-400/30 rounded-bl-md" />
-          </div>
-
-          {/* Floating badge */}
-          <div className="absolute -bottom-4 -left-4 rounded-xl border border-blue-200/20 bg-blue-950/80 px-4 py-2.5 backdrop-blur-md shadow-xl">
-            <p className="text-xs text-blue-300/60 uppercase tracking-widest">Avg. Performance</p>
-            <p className="text-xl font-bold text-amber-300">95+</p>
-          </div>
-
-          {/* Floating badge 2 */}
-          <div className="absolute -top-4 -right-4 rounded-xl border border-amber-300/20 bg-blue-950/80 px-4 py-2.5 backdrop-blur-md shadow-xl">
-            <p className="text-xs text-blue-300/60 uppercase tracking-widest">Projects Done</p>
-            <p className="text-xl font-bold text-amber-300">120+</p>
-          </div>
-        </div>
+        <HeroVisual />
       </div>
-
-      {/* Bottom gradient fade */}
-      <div className="pointer-events-none absolute bottom-0 inset-x-0 h-24 bg-linear-to-t from-[#021331] to-transparent" />
     </section>
   )
 }

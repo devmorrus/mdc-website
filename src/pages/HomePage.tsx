@@ -8,14 +8,14 @@ export function HomePage() {
   const { data, isLoading, error } = useHomePageViewModel()
 
   usePageMetadata({
-    title: 'Morrus Digital Connecting | Home',
+    title: 'Morrus Digital Connecting | Website Company Profile dan Solusi Digital Bisnis',
     description:
-      'Website company profile Morrus Digital Connecting dengan layanan website modern, portfolio unggulan, dan jalur konsultasi cepat.',
+      'Morrus Digital Connecting membantu perusahaan membangun website company profile modern, responsif, dan siap memperkuat kredibilitas bisnis.',
   })
 
   if (isLoading) {
     return (
-      <SiteLayout>
+      <SiteLayout headerVariant="hero">
         <PageStateSection tone="info" text="Loading home content..." />
       </SiteLayout>
     )
@@ -23,7 +23,7 @@ export function HomePage() {
 
   if (error || !data) {
     return (
-      <SiteLayout>
+      <SiteLayout headerVariant="hero">
         <PageStateSection tone="error" text={`Failed to load home content: ${error ?? 'Unknown error'}`} />
       </SiteLayout>
     )
@@ -34,6 +34,7 @@ export function HomePage() {
       navItems={data.layout.navItems}
       headerCta={data.layout.headerCta}
       footer={data.layout.footer}
+      headerVariant="hero"
     >
       <HomePageContent model={data} />
     </SiteLayout>

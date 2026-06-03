@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import gsap from 'gsap'
 import type { FooterContent, NavigationItem } from '../types/home'
+import logoMdc from '../assets/logo-mdc.png'
 
 interface SiteLayoutProps {
   children: ReactNode
@@ -11,6 +12,7 @@ interface SiteLayoutProps {
     href: string
   }
   footer?: FooterContent
+  headerVariant?: 'default' | 'hero'
 }
 
 const DEFAULT_NAV_ITEMS: NavigationItem[] = [
@@ -22,13 +24,13 @@ const DEFAULT_NAV_ITEMS: NavigationItem[] = [
 ]
 
 const DEFAULT_HEADER_CTA = {
-  label: 'Konsultasi Sekarang',
+  label: 'Konsultasi Proyek',
   href: '/contact',
 }
 
 const DEFAULT_FOOTER: FooterContent = {
   companyName: 'Morrus Digital Connecting',
-  shortDescription: 'Partner digital untuk website modern dan scalable.',
+  shortDescription: 'Partner digital untuk website modern, aplikasi web, dan sistem bisnis yang siap berkembang.',
   quickLinks: DEFAULT_NAV_ITEMS,
   email: 'hello@morrusdigital.com',
   phone: '+62 812 3456 7890',
@@ -39,31 +41,44 @@ export function SiteLayout({
   navItems = DEFAULT_NAV_ITEMS,
   headerCta = DEFAULT_HEADER_CTA,
   footer = DEFAULT_FOOTER,
+  headerVariant = 'default',
 }: SiteLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
-  const logoRef = useRef<HTMLAnchorElement>(null)
+  const isHeroHeader = headerVariant === 'hero'
 
-  // Scroll detection for header style
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => setScrolled(window.scrollY > 12)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Header entrance animation
   useEffect(() => {
     if (!headerRef.current) return
+
     gsap.fromTo(
       headerRef.current,
-      { y: -60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', delay: 0.1 },
+      { y: -32, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.55, ease: 'power3.out', delay: 0.05 },
     )
   }, [])
 
-  const renderNavItem = (item: NavigationItem, className: string) => {
-    if (item.href.startsWith('/#') || item.href.startsWith('#')) {
+  useEffect(() => {
+    let favicon = document.querySelector<HTMLLinkElement>("link[rel='icon']")
+
+    if (!favicon) {
+      favicon = document.createElement('link')
+      favicon.rel = 'icon'
+      document.head.appendChild(favicon)
+    }
+
+    favicon.type = 'image/png'
+    favicon.href = logoMdc
+  }, [])
+
+  const renderLink = (item: NavigationItem, className: string) => {
+    if (item.href.includes('#')) {
       return (
         <Link key={item.id} to={item.href} className={className}>
           {item.label}
@@ -75,24 +90,19 @@ export function SiteLayout({
       <NavLink
         key={item.id}
         to={item.href}
-        className={({ isActive }) => `${className} ${isActive ? 'text-amber-300' : ''}`.trim()}
+        className={({ isActive }) =>
+          `${className} ${isActive ? 'bg-[#f6c445] text-[#0b1f57]' : ''}`.trim()
+        }
       >
-        {({ isActive }) => (
-          <span className="relative">
-            {item.label}
-            {isActive && (
-              <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-amber-300" />
-            )}
-          </span>
-        )}
+        {item.label}
       </NavLink>
     )
   }
 
   const renderFooterLink = (label: string, href: string) => {
-    if (href.startsWith('/#') || href.startsWith('#')) {
+    if (href.includes('#')) {
       return (
-        <Link to={href} className="transition-colors duration-200 hover:text-amber-200">
+        <Link to={href} className="transition hover:text-[#f6c445]">
           {label}
         </Link>
       )
@@ -102,7 +112,7 @@ export function SiteLayout({
       <NavLink
         to={href}
         className={({ isActive }) =>
-          `transition-colors duration-200 hover:text-amber-200 ${isActive ? 'text-amber-300' : ''}`.trim()
+          `transition hover:text-[#f6c445] ${isActive ? 'text-[#f6c445]' : ''}`.trim()
         }
       >
         {label}
@@ -110,81 +120,103 @@ export function SiteLayout({
     )
   }
 
+  const isHeaderCtaAnchor = headerCta.href.includes('#')
+
   return (
-    <div className="min-h-screen bg-[#021331] text-blue-50" style={{ background: 'radial-gradient(circle at 12% -5%, rgba(59,130,246,0.22), transparent 42%), radial-gradient(circle at 85% 15%, rgba(250,204,21,0.15), transparent 38%), #021331' }}>
-      {/* ─── Header ──────────────────────────────────────────────────────────── */}
+    <div
+      className="min-h-screen bg-[#f7fbff] text-slate-900"
+      style={{
+        backgroundImage:
+          'radial-gradient(circle at top left, rgba(246,196,69,0.15), transparent 18%), radial-gradient(circle at top right, rgba(24,74,168,0.08), transparent 20%), linear-gradient(180deg, #f5f9ff 0%, #edf3ff 54%, #f7fbff 100%)',
+      }}
+    >
       <header
         ref={headerRef}
-        className={`sticky top-0 z-30 transition-all duration-500 ${
-          scrolled
-            ? 'border-b border-blue-200/12 bg-blue-950/80 shadow-[0_8px_40px_rgba(2,19,49,0.6)] backdrop-blur-xl'
-            : 'border-b border-transparent bg-transparent backdrop-blur-sm'
+        className={`sticky top-0 z-40 transition-all duration-300 ${
+          isHeroHeader
+            ? scrolled
+              ? 'bg-transparent'
+              : 'bg-transparent'
+            : scrolled
+              ? 'border-b border-blue-200/70 bg-[#f7fbff]/82 shadow-[0_10px_35px_-28px_rgba(11,31,87,0.3)] backdrop-blur-xl'
+              : 'bg-transparent'
         }`}
       >
-        <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
-          {/* Logo */}
-          <Link
-            ref={logoRef}
-            to="/"
-            className="group flex items-center gap-2.5"
-          >
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-amber-300/40 bg-amber-300/10 text-xs font-black text-amber-300 transition-all duration-300 group-hover:bg-amber-300/20 group-hover:border-amber-300/70">
-              M
-            </div>
-            <span className="text-sm font-bold tracking-[0.22em] text-amber-200">MDC</span>
+        <div className={`mx-auto flex h-18 w-full max-w-6xl items-center justify-between px-6 ${isHeroHeader ? 'pt-3' : ''}`}>
+          <div className={`flex w-full items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 ${
+            isHeroHeader
+              ? scrolled
+                ? 'border-white/12 bg-[#0b1f57]/96 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.58)]'
+                : 'border-white/14 bg-[#0b1f57]/72 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.58)] backdrop-blur-md'
+              : scrolled
+                ? 'border-blue-300/55 bg-[#0f2f78]/94 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.55)]'
+                : 'border-white/12 bg-[#0b1f57]/88 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.55)] backdrop-blur-md'
+          }`}>
+          <Link to="/" className="flex items-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_10px_24px_-18px_rgba(11,31,87,0.45)]">
+              <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full object-contain" />
+            </span>
+            <span className="hidden text-sm font-semibold uppercase tracking-[0.24em] text-white sm:block">
+              Morrus Digital Connecting
+            </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-1 text-sm text-blue-200/75 md:flex">
+          <nav className="hidden items-center gap-2 md:flex">
             {navItems.map((item) =>
-              renderNavItem(
+              renderLink(
                 item,
-                'relative rounded-lg px-3 py-2 transition-colors duration-200 hover:bg-blue-200/8 hover:text-amber-100',
+                'rounded-full px-4 py-2 text-sm font-medium text-blue-100/88 transition hover:bg-white/12 hover:text-white',
               ),
             )}
           </nav>
 
-          {/* CTA Button */}
           <div className="hidden md:block">
-            <Link
-              to={headerCta.href}
-              className="group relative overflow-hidden rounded-xl bg-amber-300 px-5 py-2.5 text-sm font-bold text-blue-950 transition-all duration-300 hover:bg-amber-200 hover:shadow-[0_0_25px_rgba(251,191,36,0.45)]"
-            >
-              <span className="relative z-10">{headerCta.label}</span>
-              <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/15 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
-            </Link>
+            {isHeaderCtaAnchor ? (
+              <Link
+                to={headerCta.href}
+                className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
+              >
+                {headerCta.label}
+              </Link>
+            ) : (
+              <Link
+                to={headerCta.href}
+                className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
+              >
+                {headerCta.label}
+              </Link>
+            )}
           </div>
 
-          {/* Mobile menu toggle */}
           <button
             type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-blue-200/25 bg-blue-900/30 text-blue-200 transition hover:border-amber-300/40 hover:text-amber-200 md:hidden"
-            onClick={() => setIsMobileMenuOpen((c) => !c)}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/18 bg-white/8 text-white md:hidden"
+            onClick={() => setIsMobileMenuOpen((current) => !current)}
             aria-expanded={isMobileMenuOpen}
             aria-label="Toggle navigation menu"
           >
             {isMobileMenuOpen ? (
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 7.5h15m-15 4.5h15m-15 4.5h15" />
               </svg>
             )}
           </button>
+          </div>
         </div>
 
-        {/* Mobile menu */}
         {isMobileMenuOpen && (
-          <div className="border-t border-blue-200/12 bg-blue-950/90 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
-            <nav className="flex flex-col gap-1.5 text-sm text-blue-100/85">
+          <div className="border-t border-blue-200/20 bg-[#0f2f78]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
+            <nav className="flex flex-col gap-2">
               {navItems.map((item) => (
                 <Link
                   key={item.id}
                   to={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="rounded-xl border border-blue-200/12 bg-blue-900/25 px-4 py-2.5 transition hover:border-amber-300/30 hover:text-amber-100"
+                  className="rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-sm font-medium text-blue-50 transition hover:bg-white/10 hover:text-white"
                 >
                   {item.label}
                 </Link>
@@ -193,7 +225,7 @@ export function SiteLayout({
             <Link
               to={headerCta.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-amber-300 px-5 py-3 text-sm font-bold text-blue-950"
+              className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57]"
             >
               {headerCta.label}
             </Link>
@@ -201,53 +233,50 @@ export function SiteLayout({
         )}
       </header>
 
-      {/* ─── Main ────────────────────────────────────────────────────────────── */}
-      <main className="relative">
-        {children}
-      </main>
+      <main className={`relative ${isHeroHeader ? '-mt-18' : ''}`}>{children}</main>
 
-      {/* ─── Footer ──────────────────────────────────────────────────────────── */}
-      <footer className="relative border-t border-blue-200/12 bg-blue-950/60 backdrop-blur-sm">
-        {/* Top accent line */}
-        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-amber-300/25 to-transparent" />
-
-        <div className="mx-auto w-full max-w-6xl px-6 py-12">
-          <div className="grid gap-10 md:grid-cols-3">
-            {/* Brand */}
-            <div>
-              <div className="flex items-center gap-2.5 mb-4">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-amber-300/40 bg-amber-300/10 text-xs font-black text-amber-300">
-                  M
-                </div>
-                <span className="text-sm font-bold tracking-[0.22em] text-amber-200">{footer.companyName}</span>
-              </div>
-              <p className="text-sm leading-relaxed text-blue-300/60">{footer.shortDescription}</p>
+      <footer className="border-t border-blue-900/20 bg-[#0b1f57] text-white">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.15fr_0.75fr_0.75fr]">
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_10px_24px_-18px_rgba(11,31,87,0.45)]">
+                <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full object-contain" />
+              </span>
+              <span className="text-sm font-semibold uppercase tracking-[0.24em] text-white">
+                {footer.companyName}
+              </span>
             </div>
-
-            {/* Quick links */}
-            <div>
-              <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-blue-200/50">Quick Links</p>
-              <ul className="space-y-2 text-sm text-blue-300/65">
-                {footer.quickLinks.map((item) => (
-                  <li key={item.label}>{renderFooterLink(item.label, item.href)}</li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-blue-200/50">Kontak</p>
-              <div className="space-y-2 text-sm text-blue-300/65">
-                <p>{footer.email}</p>
-                <p>{footer.phone}</p>
-              </div>
-            </div>
+            <p className="mt-5 max-w-md text-sm leading-7 text-blue-100/72">
+              {footer.shortDescription}
+            </p>
           </div>
 
-          {/* Bottom bar */}
-          <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-blue-200/10 pt-6 md:flex-row">
-            <p className="text-xs text-blue-400/40">© {new Date().getFullYear()} {footer.companyName}. All rights reserved.</p>
-            <p className="text-xs text-blue-400/30">Built with precision & care</p>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]">
+              Quick Links
+            </p>
+            <ul className="mt-5 space-y-3 text-sm text-blue-100/72">
+              {footer.quickLinks.map((item) => (
+                <li key={item.label}>{renderFooterLink(item.label, item.href)}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]">
+              Contact
+            </p>
+            <div className="mt-5 space-y-3 text-sm text-blue-100/72">
+              <p>{footer.email}</p>
+              <p>{footer.phone}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-white/10">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-blue-100/55 md:flex-row md:items-center md:justify-between">
+            <p>© {new Date().getFullYear()} {footer.companyName}. All rights reserved.</p>
+            <p>Built for modern company profile presentation.</p>
           </div>
         </div>
       </footer>
