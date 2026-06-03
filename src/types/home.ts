@@ -70,6 +70,7 @@ export interface PortfolioItem {
 
 export interface TestimonialItem {
   id: string
+  headline: string
   name: string
   role: string
   company: string

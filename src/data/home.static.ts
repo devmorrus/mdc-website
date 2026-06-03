@@ -213,6 +213,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   testimonials: [
     {
       id: '1',
+      headline: 'Tampil Lebih Profesional',
       name: 'Rizki Ramadhan',
       role: 'Business Development',
       company: 'PT Fokus Trading Contractor',
@@ -221,6 +222,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     },
     {
       id: '2',
+      headline: 'Kolaborasi Lancar',
       name: 'Anisa Putri',
       role: 'Operations Lead',
       company: 'JalaDewa Group',
@@ -229,11 +231,21 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     },
     {
       id: '3',
+      headline: 'Brand Tampil Kredibel',
       name: 'Hendra Saputra',
       role: 'Marketing Manager',
       company: 'DAT Indonesia',
       quote:
         'Website baru membuat brand kami tampil lebih kredibel. Struktur informasinya juga lebih membantu saat calon pelanggan mencari detail layanan.',
+    },
+    {
+      id: '4',
+      headline: 'Solutif dan Inovatif',
+      name: 'Budi Santoso',
+      role: 'Product Owner',
+      company: 'TechSynergy',
+      quote:
+        'Mereka tidak hanya mengeksekusi ide, tetapi juga memberi insight yang membuat hasil akhir jauh melampaui ekspektasi awal kami.',
     },
   ],
   partners: [
