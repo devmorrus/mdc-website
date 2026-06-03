@@ -63,6 +63,7 @@ export interface PortfolioItem {
   category: string
   summary: string
   outcome: string
+  href: string
   imageUrl: string
   imageAlt: string
 }

@@ -171,6 +171,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Company Profile',
       summary: 'Website profil perusahaan dengan struktur layanan dan CTA yang lebih tegas.',
       outcome: 'Memperjelas positioning brand dan alur informasi untuk calon klien.',
+      href: '/portfolio',
       imageUrl:
         'https://images.pexels.com/photos/17988760/pexels-photo-17988760.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Gedung kantor modern sebagai placeholder project company profile.',
@@ -181,6 +182,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Internal Platform',
       summary: 'Sistem absensi berbasis web dengan tampilan dashboard yang ringkas dan mudah dipantau.',
       outcome: 'Membantu tim memonitor kehadiran dan ringkasan data operasional lebih cepat.',
+      href: '/portfolio',
       imageUrl:
         'https://images.pexels.com/photos/7947843/pexels-photo-7947843.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Laptop dengan tampilan dashboard analytics sebagai placeholder internal platform.',
@@ -191,6 +193,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Corporate Website',
       summary: 'Website perusahaan kontraktor yang dirancang lebih formal, kuat secara visual, dan informatif.',
       outcome: 'Meningkatkan kesan profesional saat brand diperkenalkan ke calon partner bisnis.',
+      href: '/portfolio',
       imageUrl:
         'https://images.pexels.com/photos/16253977/pexels-photo-16253977.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Struktur bangunan baja sebagai placeholder project website kontraktor.',
@@ -201,6 +204,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Business Landing Page',
       summary: 'Landing page korporat untuk menampilkan layanan utama dan mempermudah jalur kontak.',
       outcome: 'Mempercepat calon pelanggan menemukan layanan dan menghubungi tim.',
+      href: '/portfolio',
       imageUrl:
         'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Tim bisnis sedang rapat sebagai placeholder business landing page.',
