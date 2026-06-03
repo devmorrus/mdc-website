@@ -57,6 +57,32 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     ],
     buttonLabel: 'Pelajari Profil Perusahaan',
     buttonHref: '/about',
+    teamMembers: [
+      {
+        id: 'raka',
+        name: 'Raka Pratama',
+        role: 'Creative Director',
+        imageUrl: 'https://i.pravatar.cc/480?img=12',
+      },
+      {
+        id: 'nadia',
+        name: 'Nadia Putri',
+        role: 'UI/UX Designer',
+        imageUrl: 'https://i.pravatar.cc/480?img=32',
+      },
+      {
+        id: 'bagas',
+        name: 'Bagas Mahendra',
+        role: 'Frontend Developer',
+        imageUrl: 'https://i.pravatar.cc/480?img=15',
+      },
+      {
+        id: 'tiara',
+        name: 'Tiara Lestari',
+        role: 'Project Manager',
+        imageUrl: 'https://i.pravatar.cc/480?img=47',
+      },
+    ],
   },
   services: [
     {

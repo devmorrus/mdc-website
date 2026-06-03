@@ -29,6 +29,12 @@ export interface AboutSnippetContent {
   valuePoints: string[]
   buttonLabel: string
   buttonHref: string
+  teamMembers: {
+    id: string
+    name: string
+    role: string
+    imageUrl: string
+  }[]
 }
 
 export interface ServiceItem {
