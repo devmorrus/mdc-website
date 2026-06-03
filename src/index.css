@@ -66,3 +66,41 @@ h3 {
 	background: rgba(246, 196, 69, 0.4);
 	color: #0b1f57;
 }
+
+@keyframes heroFloat {
+	0%, 100% {
+		transform: translate3d(0, 0, 0);
+	}
+	50% {
+		transform: translate3d(0, -12px, 0);
+	}
+}
+
+@keyframes heroPulse {
+	0%, 100% {
+		opacity: 0.72;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1.05);
+	}
+}
+
+@keyframes heroSpin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes heroSpinReverse {
+	from {
+		transform: rotate(360deg);
+	}
+	to {
+		transform: rotate(0deg);
+	}
+}

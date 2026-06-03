@@ -11,15 +11,15 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   headerCtaLabel: 'Konsultasi Proyek',
   headerCtaHref: '/#contact',
   hero: {
-    eyebrow: 'Morrus Digital Connecting',
-    title: 'Website Company Profile Modern untuk Meningkatkan Kredibilitas Bisnis',
+    eyebrow: '',
+    title: 'Website Company Profile yang Tampil Lebih Meyakinkan',
     description:
-      'Kami membantu perusahaan membangun company profile digital yang profesional, ringan diakses, dan siap mendukung pertumbuhan brand maupun penjualan.',
+      'Bantu brand Anda terlihat lebih profesional dengan tampilan modern, struktur rapi, dan komunikasi yang lebih jelas.',
     primaryCtaLabel: 'Jadwalkan Konsultasi',
     primaryCtaHref: '/contact',
-    secondaryCtaLabel: 'Lihat Portofolio',
-    secondaryCtaHref: '/#portfolio',
-    trustPoints: ['120+ project selesai', '30+ brand ditangani', 'Respons cepat dan terstruktur'],
+    secondaryCtaLabel: 'Layanan Kami',
+    secondaryCtaHref: '/#services',
+    trustPoints: [],
   },
   stats: [
     {
