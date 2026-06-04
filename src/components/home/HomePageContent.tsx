@@ -19,19 +19,19 @@ export function HomePageContent({ model }: HomePageContentProps) {
   return (
     <>
       <HeroSection content={model.hero} />
+      <PartnersSection items={model.partners} />
       <StatsStrip stats={model.stats} />
       <AboutSection content={model.about} />
       <ServicesSection items={model.services} />
       <AdvantagesSection items={model.advantages} />
       <PortfolioPreviewSection items={model.portfolio} />
       <TestimonialsSection items={model.testimonials} />
-      <PartnersSection items={model.partners} />
       {model.articles.length > 0 ? <ArticlesSection items={model.articles} /> : null}
       <ContactCtaSection
         content={model.contactCta}
         whatsappLink={model.whatsappLink}
       />
-      <FloatingWhatsApp whatsappLink={model.whatsappLink} />
+      <FloatingWhatsApp />
     </>
   )
 }

@@ -78,13 +78,13 @@ export function PartnersSection({ items }: PartnersSectionProps) {
       <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
         <SectionHeading
           eyebrow="Klien dan Partner"
-          title="Area logo partner untuk memperkuat kepercayaan"
-          description="Untuk tahap awal, section ini memakai logo placeholder. Nanti bisa diganti ke logo resmi tanpa mengubah struktur layout."
+          title="Dipercaya oleh para pemimpin industri"
+          description="Berkolaborasi dengan organisasi yang berpikiran maju untuk menghadirkan solusi digital transformatif."
           centered
         />
 
 		<div className="mx-auto mt-16 w-full max-w-5xl overflow-hidden">
-			<div className="partners-marquee flex w-max items-center gap-10 md:gap-16 lg:gap-20">
+			<div className="partners-marquee flex w-max items-center gap-14 md:gap-14 lg:gap-14">
 				{marqueeItems.map((item, index) => (
 					<div
 						key={`${item.id}-${index}`}

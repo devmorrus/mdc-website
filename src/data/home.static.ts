@@ -2,21 +2,22 @@ import type { HomeContent } from '../types/home'
 
 export const HOME_STATIC_CONTENT: HomeContent = {
   navItems: [
-    { id: 'home', label: 'Home', href: '/' },
     { id: 'about', label: 'Tentang', href: '/#about' },
     { id: 'services', label: 'Layanan', href: '/#services' },
     { id: 'portfolio', label: 'Portofolio', href: '/#portfolio' },
+    { id: 'blog', label: 'Blog', href: '/#blog' },
     { id: 'contact', label: 'Kontak', href: '/#contact' },
   ],
   headerCtaLabel: 'Konsultasi Proyek',
-  headerCtaHref: '/#contact',
+  headerCtaHref:
+    'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
   hero: {
     eyebrow: '',
-    title: 'Website Company Profile yang Tampil Lebih Meyakinkan',
+    title: 'Hadir Lebih Kredibel dengan Solusi Digital yang Tepat.',
     description:
-      'Bantu brand Anda terlihat lebih profesional dengan tampilan modern, struktur rapi, dan komunikasi yang lebih jelas.',
+      'Dari website hingga platform bisnis, kami membangun pengalaman digital modern yang membuat brand Anda tampil meyakinkan dan profesional.',
     primaryCtaLabel: 'Jadwalkan Konsultasi',
-    primaryCtaHref: '/contact',
+    primaryCtaHref: '/#contact',
     secondaryCtaLabel: 'Layanan Kami',
     secondaryCtaHref: '/#services',
     trustPoints: [],
@@ -45,11 +46,11 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   ],
   about: {
     eyebrow: 'Tentang Perusahaan',
-    title: 'Partner digital yang menggabungkan strategi, desain, dan implementasi teknis.',
+    title: 'Mewujudkan Visi Digital Menjadi Realitas Profesional.',
     summary:
-      'Morrus Digital Connecting berfokus pada pengembangan website company profile dan solusi web bisnis yang membantu perusahaan tampil lebih meyakinkan di hadapan calon klien, partner, dan investor.',
+      'Morrus Digital Connecting lebih dari sekadar pengembang web. Kami adalah mitra strategis yang menerjemahkan identitas bisnis Anda ke dalam ekosistem digital yang kokoh, meyakinkan, dan berorientasi pada hasil.',
     description:
-      'Pendekatan kami dimulai dari struktur informasi, narasi brand, hingga eksekusi antarmuka yang responsif agar website tidak hanya terlihat rapi, tetapi juga efektif menyampaikan value perusahaan.',
+      'Dengan menggabungkan analisis mendalam, desain intuitif, dan keandalan teknis, kami memastikan setiap platform yang kami bangun tidak hanya mencuri perhatian, tetapi juga membangun kepercayaan berkelanjutan dengan audiens Anda.',
     valuePoints: [
       'Struktur konten company profile yang rapi dan mudah dipahami.',
       'Desain modern yang tetap formal, profesional, dan konsisten dengan brand.',
@@ -60,27 +61,24 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     teamMembers: [
       {
         id: 'raka',
-        name: 'Raka Pratama',
-        role: 'Creative Director',
-        imageUrl: 'https://i.pravatar.cc/480?img=12',
+        name: 'Office Meeting',
+        role: 'Gallery Slide',
+        imageUrl:
+          'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       },
       {
         id: 'nadia',
-        name: 'Nadia Putri',
-        role: 'UI/UX Designer',
-        imageUrl: 'https://i.pravatar.cc/480?img=32',
+        name: 'Workspace',
+        role: 'Gallery Slide',
+        imageUrl:
+          'https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       },
       {
         id: 'bagas',
-        name: 'Bagas Mahendra',
-        role: 'Frontend Developer',
-        imageUrl: 'https://i.pravatar.cc/480?img=15',
-      },
-      {
-        id: 'tiara',
-        name: 'Tiara Lestari',
-        role: 'Project Manager',
-        imageUrl: 'https://i.pravatar.cc/480?img=47',
+        name: 'Presentation',
+        role: 'Gallery Slide',
+        imageUrl:
+          'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       },
     ],
   },
@@ -91,10 +89,19 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       tag: 'Website',
       title: 'Website Company Profile',
       price: 'Mulai 8 Jt',
+      originalPrice: '12 Jt',
       priceSuffix: 'per project',
+      isFeatured: true,
       description:
         'Untuk bisnis yang ingin memiliki company profile rapi, profesional, dan siap dipresentasikan ke calon klien.',
-      highlights: ['Struktur halaman lengkap', 'Copy yang lebih rapi', 'Optimasi CTA dan kontak'],
+      features: [
+        { label: 'Struktur halaman lengkap', included: true },
+        { label: 'Copy lebih rapi dan terarah', included: true },
+        { label: 'Optimasi CTA dan kontak', included: true },
+        { label: 'Desain responsif mobile dan desktop', included: true },
+        { label: 'Integrasi API dan sistem custom', included: false },
+        { label: 'Dashboard admin multi-role', included: false },
+      ],
       ctaLabel: 'Pilih Paket Starter',
       href: '/services',
     },
@@ -104,10 +111,18 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       tag: 'Custom Development',
       title: 'Website dan Aplikasi Custom',
       price: 'Mulai 15 Jt',
+      originalPrice: '21 Jt',
       priceSuffix: 'per project',
       description:
         'Untuk kebutuhan website atau aplikasi yang perlu menyesuaikan alur operasional dan proses bisnis perusahaan.',
-      highlights: ['Scope fleksibel', 'UI modern responsif', 'Arsitektur siap scale'],
+      features: [
+        { label: 'Scope pengembangan fleksibel', included: true },
+        { label: 'UI modern dan responsif', included: true },
+        { label: 'Arsitektur siap scale', included: true },
+        { label: 'Integrasi API atau sistem internal', included: true },
+        { label: 'Dashboard KPI multi-role', included: false },
+        { label: 'Maintenance bulanan rutin', included: false },
+      ],
       ctaLabel: 'Pilih Paket Growth',
       href: '/services',
     },
@@ -117,10 +132,18 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       tag: 'Business Tools',
       title: 'Dashboard dan Reporting',
       price: 'Mulai 12 Jt',
+      originalPrice: '18 Jt',
       priceSuffix: 'per module',
       description:
         'Untuk perusahaan yang membutuhkan ringkasan data, KPI, dan reporting yang lebih mudah dipantau tim internal.',
-      highlights: ['Visual KPI', 'Hak akses multi-role', 'Ringkasan data yang jelas'],
+      features: [
+        { label: 'Visual KPI dan insight operasional', included: true },
+        { label: 'Hak akses multi-role', included: true },
+        { label: 'Ringkasan data yang jelas', included: true },
+        { label: 'Filter dan export reporting', included: true },
+        { label: 'Halaman company profile publik', included: false },
+        { label: 'Maintenance bulanan rutin', included: false },
+      ],
       ctaLabel: 'Pilih Paket Business',
       href: '/services',
     },
@@ -130,10 +153,18 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       tag: 'Support',
       title: 'Maintenance dan Improvement',
       price: 'Mulai 3 Jt',
+      originalPrice: '5 Jt',
       priceSuffix: 'per bulan',
       description:
         'Untuk bisnis yang ingin website tetap stabil, aman, dan terus berkembang setelah proses launch selesai.',
-      highlights: ['Monitoring berkala', 'Perbaikan cepat', 'Pengembangan bertahap'],
+      features: [
+        { label: 'Monitoring berkala', included: true },
+        { label: 'Perbaikan cepat untuk issue prioritas', included: true },
+        { label: 'Update keamanan dan performa', included: true },
+        { label: 'Pengembangan bertahap', included: true },
+        { label: 'Pembuatan website baru dari nol', included: false },
+        { label: 'Dashboard bisnis custom penuh', included: false },
+      ],
       ctaLabel: 'Pilih Paket Support',
       href: '/services',
     },
@@ -144,24 +175,36 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       title: 'Brand-first structure',
       description: 'Setiap halaman disusun untuk menegaskan positioning, value, dan kredibilitas perusahaan.',
       stat: 'SEO-ready',
+      imageUrl:
+        'https://images.pexels.com/photos/21405617/pexels-photo-21405617.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200',
+      imageAlt: 'Laptop dan meja kerja modern sebagai representasi fondasi brand digital yang rapi.',
     },
     {
       id: 'responsive',
       title: 'Responsive by default',
       description: 'Pengalaman pengguna tetap nyaman dari mobile hingga desktop tanpa mengorbankan tampilan.',
       stat: 'Mobile-first',
+      imageUrl:
+        'https://images.pexels.com/photos/8068255/pexels-photo-8068255.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200',
+      imageAlt: 'Tim bekerja dengan laptop di kantor modern sebagai representasi pengalaman digital responsif.',
     },
     {
       id: 'scalable',
       title: 'Mudah dikembangkan',
       description: 'Fondasi konten dan komponen dibuat rapi agar mudah dihubungkan ke API atau CMS nanti.',
       stat: 'Future-proof',
+      imageUrl:
+        'https://images.pexels.com/photos/34069/pexels-photo.jpg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200',
+      imageAlt: 'Layar laptop dengan grafik analytics sebagai representasi sistem yang siap dikembangkan.',
     },
     {
       id: 'collaborative',
       title: 'Kolaborasi terarah',
       description: 'Proses kerja dibuat transparan supaya revisi, approval, dan delivery lebih efisien.',
       stat: 'Clear process',
+      imageUrl:
+        'https://images.pexels.com/photos/7643742/pexels-photo-7643742.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200',
+      imageAlt: 'Tim berdiskusi di depan laptop sebagai representasi kolaborasi proyek yang terarah.',
     },
   ],
   portfolio: [
@@ -171,7 +214,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Company Profile',
       summary: 'Website profil perusahaan dengan struktur layanan dan CTA yang lebih tegas.',
       outcome: 'Memperjelas positioning brand dan alur informasi untuk calon klien.',
-      href: '/portfolio',
+      href: '/#',
       imageUrl:
         'https://images.pexels.com/photos/17988760/pexels-photo-17988760.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Gedung kantor modern sebagai placeholder project company profile.',
@@ -182,7 +225,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Internal Platform',
       summary: 'Sistem absensi berbasis web dengan tampilan dashboard yang ringkas dan mudah dipantau.',
       outcome: 'Membantu tim memonitor kehadiran dan ringkasan data operasional lebih cepat.',
-      href: '/portfolio',
+      href: '/#',
       imageUrl:
         'https://images.pexels.com/photos/7947843/pexels-photo-7947843.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Laptop dengan tampilan dashboard analytics sebagai placeholder internal platform.',
@@ -193,7 +236,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Corporate Website',
       summary: 'Website perusahaan kontraktor yang dirancang lebih formal, kuat secara visual, dan informatif.',
       outcome: 'Meningkatkan kesan profesional saat brand diperkenalkan ke calon partner bisnis.',
-      href: '/portfolio',
+      href: '/#',
       imageUrl:
         'https://images.pexels.com/photos/16253977/pexels-photo-16253977.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Struktur bangunan baja sebagai placeholder project website kontraktor.',
@@ -204,7 +247,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Business Landing Page',
       summary: 'Landing page korporat untuk menampilkan layanan utama dan mempermudah jalur kontak.',
       outcome: 'Mempercepat calon pelanggan menemukan layanan dan menghubungi tim.',
-      href: '/portfolio',
+      href: '/#',
       imageUrl:
         'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Tim bisnis sedang rapat sebagai placeholder business landing page.',
@@ -264,7 +307,11 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       summary:
         'Ringkasan struktur konten yang membantu website perusahaan terasa lebih jelas, rapi, dan siap digunakan untuk presentasi bisnis.',
       publishedAt: '02 Juni 2026',
-      readTime: '4 menit baca',
+      author: 'Tim Morrus',
+      href: '/articles/company-profile-elements',
+      imageUrl:
+        'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
+      imageAlt: 'Tim bisnis berdiskusi di ruang meeting sebagai cover artikel company profile.',
     },
     {
       id: '2',
@@ -273,7 +320,11 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       summary:
         'Desain yang baik perlu ditopang hierarchy konten yang tepat agar pengunjung cepat memahami value perusahaan.',
       publishedAt: '28 Mei 2026',
-      readTime: '5 menit baca',
+      author: 'Morrus Insight',
+      href: '/articles/web-structure-strategy',
+      imageUrl:
+        'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
+      imageAlt: 'Sticky notes dan alur strategi sebagai cover artikel web strategy.',
     },
     {
       id: '3',
@@ -282,14 +333,18 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       summary:
         'CTA yang terarah dapat membantu homepage bekerja lebih efektif sebagai titik awal komunikasi dengan prospek.',
       publishedAt: '21 Mei 2026',
-      readTime: '3 menit baca',
+      author: 'Admin Editorial',
+      href: '/articles/cta-digital-branding',
+      imageUrl:
+        'https://images.pexels.com/photos/3182765/pexels-photo-3182765.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
+      imageAlt: 'Laptop dan diskusi tim pemasaran sebagai cover artikel digital branding.',
     },
   ],
   contactCta: {
     eyebrow: 'Siap Memulai?',
-    title: 'Bangun website company profile yang rapi, modern, dan siap dipresentasikan.',
+    title: 'Bangun solusi digital yang rapi, modern, dan meyakinkan.',
     description:
-      'Ceritakan kebutuhan bisnis Anda, lalu kita susun homepage yang selaras dengan branding dan tujuan komunikasi perusahaan.',
+      'Ceritakan tantangan bisnis Anda, lalu tim kami akan merekomendasikan strategi dan pengembangan platform yang selaras dengan tujuan pertumbuhan perusahaan Anda.',
     primaryCtaLabel: 'Hubungi Tim Kami',
     primaryCtaHref: '/contact',
     secondaryCtaLabel: 'Chat via WhatsApp',
@@ -300,16 +355,19 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     companyName: 'Morrus Digital Connecting',
     shortDescription: 'Partner digital untuk website company profile, aplikasi web, dan sistem bisnis yang modern.',
     quickLinks: [
-      { label: 'Home', href: '/' },
-      { label: 'Tentang', href: '/about' },
-      { label: 'Layanan', href: '/services' },
-      { label: 'Portofolio', href: '/portfolio' },
-      { label: 'Kontak', href: '/contact' },
+      { label: 'Tentang', href: '/#about' },
+      { label: 'Layanan', href: '/#services' },
+      { label: 'Portofolio', href: '/#portfolio' },
+      { label: 'Blog', href: '/#blog' },
+      { label: 'Kontak', href: '/#contact' },
     ],
-    address: 'Jakarta, Indonesia',
-    email: 'hello@morrusdigital.com',
-    phone: '+62 812 3456 7890',
-    mapEmbedUrl: 'https://www.google.com/maps?q=Jakarta%2C%20Indonesia&z=12&output=embed',
+    address: 'Jl. Klakahrejo No.6-7, Kandangan, Benowo, Surabaya, Jawa Timur, 60198 - Indonesia',
+    addressHref: 'https://maps.app.goo.gl/9A12Kf1KXUjDPBmR8',
+    fax: '+6231 742 5366',
+    email: 'morrusdigitalconnecting@gmail.com',
+    whatsapp: '+62812 2999 9752',
+    mapEmbedUrl:
+      'https://www.google.com/maps?q=Jl.%20Klakahrejo%20No.6-7%2C%20Kandangan%2C%20Benowo%2C%20Surabaya%2C%20Jawa%20Timur%2060198&z=15&output=embed',
   },
   whatsappNumber: '6281234567890',
   whatsappMessage: 'Halo Morrus Digital Connecting, saya ingin konsultasi pembuatan website company profile.',
