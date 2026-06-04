@@ -264,7 +264,11 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       summary:
         'Ringkasan struktur konten yang membantu website perusahaan terasa lebih jelas, rapi, dan siap digunakan untuk presentasi bisnis.',
       publishedAt: '02 Juni 2026',
-      readTime: '4 menit baca',
+      author: 'Tim Morrus',
+      href: '/articles/company-profile-elements',
+      imageUrl:
+        'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
+      imageAlt: 'Tim bisnis berdiskusi di ruang meeting sebagai cover artikel company profile.',
     },
     {
       id: '2',
@@ -273,7 +277,11 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       summary:
         'Desain yang baik perlu ditopang hierarchy konten yang tepat agar pengunjung cepat memahami value perusahaan.',
       publishedAt: '28 Mei 2026',
-      readTime: '5 menit baca',
+      author: 'Morrus Insight',
+      href: '/articles/web-structure-strategy',
+      imageUrl:
+        'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
+      imageAlt: 'Sticky notes dan alur strategi sebagai cover artikel web strategy.',
     },
     {
       id: '3',
@@ -282,7 +290,11 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       summary:
         'CTA yang terarah dapat membantu homepage bekerja lebih efektif sebagai titik awal komunikasi dengan prospek.',
       publishedAt: '21 Mei 2026',
-      readTime: '3 menit baca',
+      author: 'Admin Editorial',
+      href: '/articles/cta-digital-branding',
+      imageUrl:
+        'https://images.pexels.com/photos/3182765/pexels-photo-3182765.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
+      imageAlt: 'Laptop dan diskusi tim pemasaran sebagai cover artikel digital branding.',
     },
   ],
   contactCta: {

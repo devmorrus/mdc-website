@@ -89,7 +89,10 @@ export interface ArticleItem {
   title: string
   summary: string
   publishedAt: string
-  readTime: string
+  author: string
+  href: string
+  imageUrl: string
+  imageAlt: string
 }
 
 export interface ContactCtaContent {
