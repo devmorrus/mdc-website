@@ -1,23 +1,31 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import gsap from 'gsap'
 import { useHomeHeroAnimation } from '../../animations/useHomeHeroAnimation'
-import heroLogo from '../../assets/logo-hero-removebg-preview.png'
+import heroLogo from '../../assets/man-working-nobg.svg'
 import type { HeroContent } from '../../types/home'
 
 interface HeroSectionProps {
   content: HeroContent
 }
 
-function HeroVisual() {
+interface HeroVisualProps {
+  visualRef: React.RefObject<HTMLDivElement | null>
+}
+
+function HeroVisual({ visualRef }: HeroVisualProps) {
   return (
-    <div className="relative mx-auto flex w-full max-w-2xl items-center justify-center">
+    <div
+      ref={visualRef}
+      className="relative mx-auto flex w-full max-w-[38rem] items-center justify-center md:max-w-[42rem]"
+    >
       <div className="absolute left-[10%] top-[8%] h-32 w-32 rounded-full bg-[#f6c445]/22 blur-3xl" />
       <div className="absolute right-[8%] top-[18%] h-56 w-56 rounded-full bg-[#2e64d3]/28 blur-3xl" />
       <div className="absolute bottom-[10%] left-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
       <img
         src={heroLogo}
         alt="Logo hero Morrus Digital Connecting"
-        className="relative z-10 w-full max-w-[48rem] object-contain scale-115 md:max-w-[54rem] md:scale-125"
+        className="relative z-10 w-full max-w-[36rem] object-contain scale-105 md:max-w-[39rem] md:scale-110"
       />
     </div>
   )
@@ -29,11 +37,49 @@ export function HeroSection({ content }: HeroSectionProps) {
   const titleRef = useRef<HTMLHeadingElement>(null)
   const descriptionRef = useRef<HTMLParagraphElement>(null)
   const actionsRef = useRef<HTMLDivElement>(null)
+  const visualRef = useRef<HTMLDivElement>(null)
 
   useHomeHeroAnimation({
     scope: scopeRef,
     targets: [eyebrowRef, titleRef, descriptionRef, actionsRef],
   })
+
+  useEffect(() => {
+    if (!scopeRef.current || !visualRef.current) return
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
+
+    const section = scopeRef.current
+    const visual = visualRef.current
+    const xTo = gsap.quickTo(visual, 'x', { duration: 0.45, ease: 'power3.out' })
+    const yTo = gsap.quickTo(visual, 'y', { duration: 0.45, ease: 'power3.out' })
+    const rotateTo = gsap.quickTo(visual, 'rotation', { duration: 0.55, ease: 'power3.out' })
+
+    const handlePointerMove = (event: PointerEvent) => {
+      const bounds = section.getBoundingClientRect()
+      const relativeX = (event.clientX - bounds.left) / bounds.width - 0.5
+      const relativeY = (event.clientY - bounds.top) / bounds.height - 0.5
+
+      xTo(relativeX * 22)
+      yTo(relativeY * 18)
+      rotateTo(relativeX * 3.5)
+    }
+
+    const handlePointerLeave = () => {
+      xTo(0)
+      yTo(0)
+      rotateTo(0)
+    }
+
+    section.addEventListener('pointermove', handlePointerMove)
+    section.addEventListener('pointerleave', handlePointerLeave)
+
+    return () => {
+      section.removeEventListener('pointermove', handlePointerMove)
+      section.removeEventListener('pointerleave', handlePointerLeave)
+    }
+  }, [])
 
   return (
     <section
@@ -103,7 +149,7 @@ export function HeroSection({ content }: HeroSectionProps) {
           ) : null}
         </div>
 
-        <HeroVisual />
+        <HeroVisual visualRef={visualRef} />
       </div>
     </section>
   )

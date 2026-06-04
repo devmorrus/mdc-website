@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import gsap from 'gsap'
 import { createWhatsAppLink } from '../../utils/createWhatsAppLink'
 
-const WHATSAPP_TARGET_NUMBER = '6281234567890'
+const WHATSAPP_TARGET_NUMBER = '6281229999752'
 
 interface WhatsAppFormState {
   name: string

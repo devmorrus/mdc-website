@@ -63,9 +63,9 @@ export function SiteLayout({
   const isHeroHeader = headerVariant === 'hero'
   const isExternalHeaderCta = headerCta.href.startsWith('http')
   const navItemBaseClass =
-    'rounded-full px-4 py-2 text-sm font-medium text-blue-100/88 transition hover:bg-white/12 hover:text-white'
+    'rounded-full px-4 py-2 text-sm font-medium text-slate-200/88 transition hover:bg-white/10 hover:text-white'
   const navItemMobileBaseClass =
-    'rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-sm font-medium text-blue-50 transition hover:bg-white/10 hover:text-white'
+    'rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm font-medium text-slate-100 transition hover:bg-white/10 hover:text-white'
   const navItemActiveClass = 'bg-white/12 text-white'
   const navItemMobileActiveClass = 'bg-white/10 text-white'
 
@@ -177,8 +177,8 @@ export function SiteLayout({
           <div
             className={`flex h-18 w-full items-center justify-between border-b border-white/12 px-6 transition-all duration-300 ${
               scrolled
-                ? 'bg-[#0b1f57]/96 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.58)]'
-                : 'bg-[#0b1f57]/84 backdrop-blur-md shadow-[0_18px_38px_-28px_rgba(11,31,87,0.58)]'
+                ? 'bg-[#121417]/96 shadow-[0_18px_38px_-28px_rgba(0,0,0,0.58)]'
+                : 'bg-[#121417]/84 backdrop-blur-md shadow-[0_18px_38px_-28px_rgba(0,0,0,0.58)]'
             }`}
           >
             <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
@@ -223,7 +223,7 @@ export function SiteLayout({
           </div>
 
           {isMobileMenuOpen && (
-            <div className="border-t border-blue-200/20 bg-[#0f2f78]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
+            <div className="border-t border-white/10 bg-[#16191e]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
               <nav className="flex flex-col gap-2">
                 {navItems.map((item) => (
                   renderLink(
@@ -235,7 +235,7 @@ export function SiteLayout({
                 ))}
               </nav>
               {renderHeaderCta(
-                'mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57]',
+                'mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#121417]',
                 () => setIsMobileMenuOpen(false),
               )}
             </div>
@@ -253,8 +253,8 @@ export function SiteLayout({
           <div className="mx-auto flex h-18 w-full max-w-6xl items-center justify-between px-6">
             <div className={`flex w-full items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 ${
               scrolled
-                ? 'border-blue-300/55 bg-[#0f2f78]/94 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.55)]'
-                : 'border-white/12 bg-[#0b1f57]/88 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.55)] backdrop-blur-md'
+                ? 'border-slate-300/55 bg-[#16191e]/94 shadow-[0_18px_38px_-28px_rgba(0,0,0,0.55)]'
+                : 'border-white/10 bg-[#121417]/88 shadow-[0_18px_38px_-28px_rgba(0,0,0,0.55)] backdrop-blur-md'
             }`}>
               <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
                 <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
@@ -299,7 +299,7 @@ export function SiteLayout({
           </div>
 
           {isMobileMenuOpen && (
-            <div className="border-t border-blue-200/20 bg-[#0f2f78]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
+            <div className="border-t border-white/10 bg-[#16191e]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
               <nav className="flex flex-col gap-2">
                 {navItems.map((item) => (
                   renderLink(
@@ -311,7 +311,7 @@ export function SiteLayout({
                 ))}
               </nav>
               {renderHeaderCta(
-                'mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57]',
+                'mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#121417]',
                 () => setIsMobileMenuOpen(false),
               )}
             </div>
@@ -321,15 +321,15 @@ export function SiteLayout({
 
       <main className={`relative ${isHeroHeader ? '-mt-18' : ''}`}>{children}</main>
 
-      <footer className="w-full border-t border-blue-900/20 bg-[#0b1f57] text-white">
-          <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
+      <footer className="w-full border-t border-white/10 bg-[linear-gradient(180deg,#121417_0%,#0f1115_100%)] text-white">
+          <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 md:grid-cols-2 xl:grid-cols-[1.2fr_0.7fr_1fr_1fr] xl:gap-x-6 xl:gap-y-8">
           <div>
             <div className="flex items-center">
               <span className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
                 <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.22] object-contain" />
               </span>
             </div>
-            <p className="mt-2 max-w-md text-sm leading-7 text-blue-100/72">
+            <p className="mt-2 max-w-md text-sm leading-7 text-slate-300/78">
               {footer.shortDescription}
             </p>
           </div>
@@ -338,7 +338,7 @@ export function SiteLayout({
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]">
               Menu
             </p>
-            <ul className="mt-5 space-y-3 text-sm text-blue-100/72">
+            <ul className="mt-5 space-y-3 text-sm text-slate-300/78">
               {footer.quickLinks.map((item) => (
                 <li key={item.label}>{renderFooterLink(item.label, item.href)}</li>
               ))}
@@ -349,7 +349,7 @@ export function SiteLayout({
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]">
               Contact
             </p>
-            <div className="mt-5 space-y-4 text-sm text-blue-100/72">
+            <div className="mt-5 space-y-4 text-sm text-slate-300/78">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/78">Alamat</p>
                 <a
@@ -406,7 +406,7 @@ export function SiteLayout({
         </div>
 
         <div className="border-t border-white/10">
-          <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-blue-100/55 md:flex-row md:items-center md:justify-between">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-slate-400/80 md:flex-row md:items-center md:justify-between">
             <p>© {new Date().getFullYear()} {footer.companyName}. All rights reserved.</p>
             <p>Built for modern company profile presentation.</p>
           </div>
