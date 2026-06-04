@@ -132,108 +132,187 @@ export function SiteLayout({
           'radial-gradient(circle at top left, rgba(246,196,69,0.15), transparent 18%), radial-gradient(circle at top right, rgba(24,74,168,0.08), transparent 20%), linear-gradient(180deg, #f5f9ff 0%, #edf3ff 54%, #f7fbff 100%)',
       }}
     >
-      <header
-        ref={headerRef}
-        className={`sticky top-0 z-40 transition-all duration-300 ${
-          isHeroHeader
-            ? scrolled
-              ? 'bg-transparent'
-              : 'bg-transparent'
-            : scrolled
+      {isHeroHeader ? (
+        <header
+          ref={headerRef}
+          className="sticky top-0 z-40 w-full transition-all duration-300"
+        >
+          <div
+            className={`flex h-18 w-full items-center justify-between border-b border-white/12 px-6 transition-all duration-300 ${
+              scrolled
+                ? 'bg-[#0b1f57]/96 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.58)]'
+                : 'bg-[#0b1f57]/84 backdrop-blur-md shadow-[0_18px_38px_-28px_rgba(11,31,87,0.58)]'
+            }`}
+          >
+            <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
+              <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_10px_24px_-18px_rgba(11,31,87,0.45)]">
+                <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full object-contain" />
+              </span>
+            </Link>
+
+            <nav className="hidden items-center gap-2 md:flex">
+              {navItems.map((item) =>
+                renderLink(
+                  item,
+                  'rounded-full px-4 py-2 text-sm font-medium text-blue-100/88 transition hover:bg-white/12 hover:text-white',
+                ),
+              )}
+            </nav>
+
+            <div className="hidden md:block">
+              {isHeaderCtaAnchor ? (
+                <Link
+                  to={headerCta.href}
+                  className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
+                >
+                  {headerCta.label}
+                </Link>
+              ) : (
+                <Link
+                  to={headerCta.href}
+                  className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
+                >
+                  {headerCta.label}
+                </Link>
+              )}
+            </div>
+
+            <button
+              type="button"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/18 bg-white/8 text-white md:hidden"
+              onClick={() => setIsMobileMenuOpen((current) => !current)}
+              aria-expanded={isMobileMenuOpen}
+              aria-label="Toggle navigation menu"
+            >
+              {isMobileMenuOpen ? (
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 7.5h15m-15 4.5h15m-15 4.5h15" />
+                </svg>
+              )}
+            </button>
+          </div>
+
+          {isMobileMenuOpen && (
+            <div className="border-t border-blue-200/20 bg-[#0f2f78]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-sm font-medium text-blue-50 transition hover:bg-white/10 hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+              <Link
+                to={headerCta.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57]"
+              >
+                {headerCta.label}
+              </Link>
+            </div>
+          )}
+        </header>
+      ) : (
+        <header
+          ref={headerRef}
+          className={`sticky top-0 z-40 transition-all duration-300 ${
+            scrolled
               ? 'border-b border-blue-200/70 bg-[#f7fbff]/82 shadow-[0_10px_35px_-28px_rgba(11,31,87,0.3)] backdrop-blur-xl'
               : 'bg-transparent'
-        }`}
-      >
-        <div className={`mx-auto flex h-18 w-full max-w-6xl items-center justify-between px-6 ${isHeroHeader ? 'pt-3' : ''}`}>
-          <div className={`flex w-full items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 ${
-            isHeroHeader
-              ? scrolled
-                ? 'border-white/12 bg-[#0b1f57]/96 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.58)]'
-                : 'border-white/14 bg-[#0b1f57]/72 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.58)] backdrop-blur-md'
-              : scrolled
+          }`}
+        >
+          <div className="mx-auto flex h-18 w-full max-w-6xl items-center justify-between px-6">
+            <div className={`flex w-full items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 ${
+              scrolled
                 ? 'border-blue-300/55 bg-[#0f2f78]/94 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.55)]'
                 : 'border-white/12 bg-[#0b1f57]/88 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.55)] backdrop-blur-md'
-          }`}>
-          <Link to="/" className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_10px_24px_-18px_rgba(11,31,87,0.45)]">
-              <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full object-contain" />
-            </span>
-            <span className="hidden text-sm font-semibold uppercase tracking-[0.24em] text-white sm:block">
-              Morrus Digital Connecting
-            </span>
-          </Link>
+            }`}>
+              <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
+                <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_10px_24px_-18px_rgba(11,31,87,0.45)]">
+                  <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full object-contain" />
+                </span>
+              </Link>
 
-          <nav className="hidden items-center gap-2 md:flex">
-            {navItems.map((item) =>
-              renderLink(
-                item,
-                'rounded-full px-4 py-2 text-sm font-medium text-blue-100/88 transition hover:bg-white/12 hover:text-white',
-              ),
-            )}
-          </nav>
+              <nav className="hidden items-center gap-2 md:flex">
+                {navItems.map((item) =>
+                  renderLink(
+                    item,
+                    'rounded-full px-4 py-2 text-sm font-medium text-blue-100/88 transition hover:bg-white/12 hover:text-white',
+                  ),
+                )}
+              </nav>
 
-          <div className="hidden md:block">
-            {isHeaderCtaAnchor ? (
+              <div className="hidden md:block">
+                {isHeaderCtaAnchor ? (
+                  <Link
+                    to={headerCta.href}
+                    className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
+                  >
+                    {headerCta.label}
+                  </Link>
+                ) : (
+                  <Link
+                    to={headerCta.href}
+                    className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
+                  >
+                    {headerCta.label}
+                  </Link>
+                )}
+              </div>
+
+              <button
+                type="button"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/18 bg-white/8 text-white md:hidden"
+                onClick={() => setIsMobileMenuOpen((current) => !current)}
+                aria-expanded={isMobileMenuOpen}
+                aria-label="Toggle navigation menu"
+              >
+                {isMobileMenuOpen ? (
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 7.5h15m-15 4.5h15m-15 4.5h15" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {isMobileMenuOpen && (
+            <div className="border-t border-blue-200/20 bg-[#0f2f78]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-sm font-medium text-blue-50 transition hover:bg-white/10 hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
               <Link
                 to={headerCta.href}
-                className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57]"
               >
                 {headerCta.label}
               </Link>
-            ) : (
-              <Link
-                to={headerCta.href}
-                className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
-              >
-                {headerCta.label}
-              </Link>
-            )}
-          </div>
-
-          <button
-            type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/18 bg-white/8 text-white md:hidden"
-            onClick={() => setIsMobileMenuOpen((current) => !current)}
-            aria-expanded={isMobileMenuOpen}
-            aria-label="Toggle navigation menu"
-          >
-            {isMobileMenuOpen ? (
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 7.5h15m-15 4.5h15m-15 4.5h15" />
-              </svg>
-            )}
-          </button>
-          </div>
-        </div>
-
-        {isMobileMenuOpen && (
-          <div className="border-t border-blue-200/20 bg-[#0f2f78]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
-            <nav className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.id}
-                  to={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-sm font-medium text-blue-50 transition hover:bg-white/10 hover:text-white"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-            <Link
-              to={headerCta.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57]"
-            >
-              {headerCta.label}
-            </Link>
-          </div>
-        )}
-      </header>
+            </div>
+          )}
+        </header>
+      )}
 
       <main className={`relative ${isHeroHeader ? '-mt-18' : ''}`}>{children}</main>
 
