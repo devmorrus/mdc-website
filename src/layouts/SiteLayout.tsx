@@ -32,8 +32,10 @@ const DEFAULT_FOOTER: FooterContent = {
   companyName: 'Morrus Digital Connecting',
   shortDescription: 'Partner digital untuk website modern, aplikasi web, dan sistem bisnis yang siap berkembang.',
   quickLinks: DEFAULT_NAV_ITEMS,
+  address: 'Jakarta, Indonesia',
   email: 'hello@morrusdigital.com',
   phone: '+62 812 3456 7890',
+  mapEmbedUrl: 'https://www.google.com/maps?q=Jakarta%2C%20Indonesia&z=12&output=embed',
 }
 
 export function SiteLayout({
@@ -236,7 +238,7 @@ export function SiteLayout({
       <main className={`relative ${isHeroHeader ? '-mt-18' : ''}`}>{children}</main>
 
       <footer className="border-t border-blue-900/20 bg-[#0b1f57] text-white">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.15fr_0.75fr_0.75fr]">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
           <div>
             <div className="flex items-center gap-3">
               <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_10px_24px_-18px_rgba(11,31,87,0.45)]">
@@ -267,8 +269,25 @@ export function SiteLayout({
               Contact
             </p>
             <div className="mt-5 space-y-3 text-sm text-blue-100/72">
+              <p>{footer.address}</p>
               <p>{footer.email}</p>
               <p>{footer.phone}</p>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]">
+              Location
+            </p>
+            <div className="mt-5 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/5 shadow-[0_18px_40px_-30px_rgba(0,0,0,0.35)]">
+              <iframe
+                title={`${footer.companyName} location`}
+                src={footer.mapEmbedUrl}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+                className="h-52 w-full border-0"
+              />
             </div>
           </div>
         </div>

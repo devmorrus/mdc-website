@@ -1,8 +1,8 @@
-import { type FormEvent, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import { useContactInquiryForm } from '../../hooks/useContactInquiryForm'
 import type { ContactInfoContent } from '../../types/contact'
 import { createWhatsAppLink } from '../../utils/createWhatsAppLink'
+import { ContactInquiryFormCard } from './ContactInquiryFormCard'
 
 interface ContactInquirySectionProps {
   content: ContactInfoContent
@@ -33,7 +33,6 @@ const INFO_ICONS: Record<string, React.ReactNode> = {
 }
 
 export function ContactInquirySection({ content }: ContactInquirySectionProps) {
-  const { values, errors, isSubmitting, submitResult, setFieldValue, submitInquiry } = useContactInquiryForm()
   const sectionRef = useRef<HTMLElement>(null)
   const infoRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
@@ -57,15 +56,7 @@ export function ContactInquirySection({ content }: ContactInquirySectionProps) {
     return () => observer.disconnect()
   }, [])
 
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    await submitInquiry()
-  }
-
   const whatsappLink = createWhatsAppLink(content.whatsappNumber, content.whatsappMessage)
-
-  const inputClass = "w-full rounded-xl border border-blue-200/20 bg-blue-950/50 px-4 py-3 text-sm text-blue-50 outline-none placeholder-blue-400/30 backdrop-blur-sm transition-all duration-300 focus:border-amber-300/60 focus:bg-blue-950/70 focus:shadow-[0_0_0_3px_rgba(251,191,36,0.08)]"
-  const labelClass = "mb-1.5 block text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300/60"
 
   return (
     <section ref={sectionRef} className="relative mx-auto w-full max-w-6xl px-6 pb-20 pt-14 md:pb-28 md:pt-16">
@@ -138,72 +129,7 @@ export function ContactInquirySection({ content }: ContactInquirySectionProps) {
 
         {/* ── Form ─────────────────────────────────────────────────────────── */}
         <div ref={formRef}>
-          <div className="relative overflow-hidden rounded-2xl border border-blue-200/15 bg-linear-to-br from-blue-900/30 via-blue-950/55 to-blue-950/80 p-7 backdrop-blur-sm">
-            <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-blue-400/30 to-transparent" />
-            <div className="absolute top-0 right-0 h-20 w-20 bg-linear-to-bl from-amber-300/8 to-transparent rounded-bl-[60px] pointer-events-none" />
-
-            <div className="relative z-10">
-              <h2 className="text-2xl font-extrabold text-blue-50 mb-1.5" style={{ fontFamily: "'Sora', sans-serif" }}>
-                Form Inquiry
-              </h2>
-              <p className="text-sm text-blue-200/55 mb-7">Lengkapi data berikut agar kami bisa menyiapkan rekomendasi terbaik.</p>
-
-              <form onSubmit={onSubmit} noValidate className="space-y-4">
-                {/* Row: Nama + Perusahaan */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="c-name" className={labelClass}>Nama</label>
-                    <input id="c-name" type="text" value={values.name} onChange={e => setFieldValue('name', e.target.value)} className={inputClass} placeholder="Nama lengkap" />
-                    {errors.name && <p className="mt-1.5 text-xs text-amber-300">{errors.name}</p>}
-                  </div>
-                  <div>
-                    <label htmlFor="c-company" className={labelClass}>Perusahaan</label>
-                    <input id="c-company" type="text" value={values.companyName} onChange={e => setFieldValue('companyName', e.target.value)} className={inputClass} placeholder="Nama perusahaan" />
-                    {errors.companyName && <p className="mt-1.5 text-xs text-amber-300">{errors.companyName}</p>}
-                  </div>
-                </div>
-
-                {/* Row: WA + Email */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="c-wa" className={labelClass}>WhatsApp</label>
-                    <input id="c-wa" type="tel" value={values.whatsappNumber} onChange={e => setFieldValue('whatsappNumber', e.target.value)} className={inputClass} placeholder="08xxxxxxxxxx" />
-                    {errors.whatsappNumber && <p className="mt-1.5 text-xs text-amber-300">{errors.whatsappNumber}</p>}
-                  </div>
-                  <div>
-                    <label htmlFor="c-email" className={labelClass}>Email</label>
-                    <input id="c-email" type="email" value={values.email} onChange={e => setFieldValue('email', e.target.value)} className={inputClass} placeholder="email@perusahaan.com" />
-                    {errors.email && <p className="mt-1.5 text-xs text-amber-300">{errors.email}</p>}
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label htmlFor="c-msg" className={labelClass}>Kebutuhan / Pesan</label>
-                  <textarea id="c-msg" rows={5} value={values.message} onChange={e => setFieldValue('message', e.target.value)} className={`${inputClass} resize-none`} placeholder="Ceritakan kebutuhan website atau sistem Anda..." />
-                  {errors.message && <p className="mt-1.5 text-xs text-amber-300">{errors.message}</p>}
-                </div>
-
-                {/* Submit */}
-                <div className="flex items-center gap-4 pt-1">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="group relative overflow-hidden rounded-xl bg-amber-300 px-7 py-3 text-sm font-bold text-blue-950 shadow-[0_0_25px_rgba(251,191,36,0.25)] transition-all duration-300 hover:bg-amber-200 hover:shadow-[0_0_40px_rgba(251,191,36,0.45)] disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    <span className="relative z-10">{isSubmitting ? 'Mengirim...' : 'Kirim Inquiry'}</span>
-                    <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
-                  </button>
-
-                  {submitResult && (
-                    <p className={`text-sm font-medium ${submitResult.status === 'success' ? 'text-emerald-300' : 'text-amber-300'}`}>
-                      {submitResult.message}
-                    </p>
-                  )}
-                </div>
-              </form>
-            </div>
-          </div>
+          <ContactInquiryFormCard />
         </div>
       </div>
     </section>

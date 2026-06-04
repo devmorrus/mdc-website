@@ -112,8 +112,10 @@ export interface FooterContent {
   companyName: string
   shortDescription: string
   quickLinks: FooterQuickLink[]
+  address: string
   email: string
   phone: string
+  mapEmbedUrl: string
 }
 
 export interface HomeContent {
