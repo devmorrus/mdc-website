@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useRef } from 'react'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { TestimonialItem } from '../../types/home'
@@ -59,11 +58,11 @@ export function TestimonialsSection({ items }: TestimonialsSectionProps) {
   )
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-[linear-gradient(180deg,#121f36_0%,#15284a_100%)] py-18 md:py-24">
+    <section ref={sectionRef} className="relative overflow-hidden bg-[linear-gradient(180deg,#121f36_0%,#15284a_100%)] py-0">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(246,196,69,0.08),transparent_14%),radial-gradient(circle_at_82%_24%,rgba(66,122,255,0.12),transparent_20%)]" />
       <div className="mx-auto relative z-10 flex w-full max-w-6xl flex-col gap-12 px-6 lg:flex-row lg:items-start lg:gap-12">
         <div className="w-full lg:w-[44%]">
-          <div className="lg:sticky lg:top-24">
+          <div className="py-10 lg:sticky lg:top-24 lg:py-14">
             <p className="text-xs font-bold uppercase tracking-[0.34em] text-[#f6c445]">
               Testimoni Klien
             </p>
@@ -76,21 +75,6 @@ export function TestimonialsSection({ items }: TestimonialsSectionProps) {
             <p className="mt-6 max-w-xl text-lg leading-9 text-blue-100/64">
               Inovasi digital yang kami rancang bukan sekadar hasil akhir, melainkan solusi yang mengubah cara bisnis beroperasi dan berkomunikasi dengan audiensnya.
             </p>
-
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link
-                to="/portfolio"
-                className="inline-flex items-center justify-center rounded-full bg-[#2563eb] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#1d4ed8]"
-              >
-                Lihat Semua Klien
-              </Link>
-              <Link
-                to="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/12"
-              >
-                Cerita Sukses
-              </Link>
-            </div>
           </div>
         </div>
 
@@ -100,7 +84,7 @@ export function TestimonialsSection({ items }: TestimonialsSectionProps) {
           </div>
 
           <div className="hidden lg:grid lg:grid-cols-2 lg:gap-6">
-            <div className="testimonial-marquee-shell h-[52rem] overflow-hidden">
+            <div className="testimonial-marquee-shell h-[40rem] overflow-hidden xl:h-[42rem]">
               <div className="flex flex-col gap-6 animate-[testimonialsUp_18s_linear_infinite] will-change-transform">
                 {[...leftColumnItems, ...leftColumnItems].map((item, index) =>
                   renderCard(item, index, `${item.id}-left-${index}`),
@@ -108,7 +92,7 @@ export function TestimonialsSection({ items }: TestimonialsSectionProps) {
               </div>
             </div>
 
-            <div className="testimonial-marquee-shell h-[52rem] overflow-hidden pt-12">
+            <div className="testimonial-marquee-shell h-[40rem] overflow-hidden pt-8 xl:h-[42rem]">
               <div className="flex flex-col gap-6 animate-[testimonialsDown_20s_linear_infinite] will-change-transform">
                 {[...rightColumnItems, ...rightColumnItems].map((item, index) =>
                   renderCard(item, index, `${item.id}-right-${index}`),

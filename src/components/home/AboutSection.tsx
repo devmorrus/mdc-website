@@ -7,75 +7,78 @@ interface AboutSectionProps {
   content: AboutSnippetContent
 }
 
-function TeamMemberSlider({ members }: { members: AboutSnippetContent['teamMembers'] }) {
+const ABOUT_GALLERY_SLIDES = [
+  {
+    id: 'office-meeting',
+    imageUrl:
+      'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
+    imageAlt: 'Tim bisnis berdiskusi di ruang meeting modern.',
+  },
+  {
+    id: 'workspace',
+    imageUrl:
+      'https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
+    imageAlt: 'Suasana workspace modern dengan tampilan profesional.',
+  },
+  {
+    id: 'presentation',
+    imageUrl:
+      'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
+    imageAlt: 'Tim perusahaan dalam sesi presentasi dan kolaborasi.',
+  },
+] as const
+
+function AboutGallerySlider() {
   const [activeIndex, setActiveIndex] = useState(0)
 
   useEffect(() => {
-    if (members.length <= 1) return
+    if (ABOUT_GALLERY_SLIDES.length <= 1) return
 
     const intervalId = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % members.length)
+      setActiveIndex((current) => (current + 1) % ABOUT_GALLERY_SLIDES.length)
     }, 3200)
 
     return () => window.clearInterval(intervalId)
-  }, [members.length])
+  }, [])
 
   return (
-    <article className="relative overflow-hidden rounded-[2rem] border border-blue-900/10 bg-gradient-to-br from-[#0b1f57] via-[#0f2f78] to-[#184aa8] p-7 shadow-[0_24px_60px_-34px_rgba(11,31,87,0.55)]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.12),transparent_20%),radial-gradient(circle_at_80%_75%,rgba(255,255,255,0.08),transparent_18%)]" />
-      <p className="relative z-10 text-xs font-bold uppercase tracking-[0.3em] text-[#f6c445]">
-        Tim Kami
-      </p>
-
-      <div className="relative mt-6 h-[24rem] overflow-hidden">
-        {members.map((member, index) => {
+    <article className="relative overflow-hidden rounded-[2rem] p-0">
+      <div className="relative h-[24rem] overflow-hidden rounded-[2rem] shadow-[0_24px_60px_-34px_rgba(11,31,87,0.34)] md:h-[28rem]">
+        {ABOUT_GALLERY_SLIDES.map((slide, index) => {
           const isActive = index === activeIndex
 
           return (
             <div
-              key={member.id}
+              key={slide.id}
               className={`absolute inset-0 transition-all duration-700 ${
                 isActive
                   ? 'translate-x-0 opacity-100'
-                  : index < activeIndex || (activeIndex === 0 && index === members.length - 1)
+                  : index < activeIndex || (activeIndex === 0 && index === ABOUT_GALLERY_SLIDES.length - 1)
                     ? '-translate-x-8 opacity-0'
                     : 'translate-x-8 opacity-0'
               }`}
             >
-              <div className="flex h-full flex-col justify-between rounded-[1.75rem] border border-white/10 bg-white/8 p-4 backdrop-blur-sm">
-                <div className="overflow-hidden rounded-[1.5rem] bg-white/10">
-                  <img
-                    src={member.imageUrl}
-                    alt={member.name}
-                    className="h-64 w-full object-cover object-center"
-                    loading="lazy"
-                  />
-                </div>
-
-                <div className="mt-5">
-                  <h3
-                    className="text-2xl font-bold text-white"
-                    style={{ fontFamily: "'Sora', sans-serif" }}
-                  >
-                    {member.name}
-                  </h3>
-                  <p className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-blue-100/72">
-                    {member.role}
-                  </p>
-                </div>
-              </div>
+              <img
+                src={slide.imageUrl}
+                alt={slide.imageAlt}
+                className="h-full w-full object-cover object-center"
+                loading="lazy"
+              />
             </div>
           )
         })}
+
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(11,31,87,0.04),transparent_20%,transparent_72%,rgba(11,31,87,0.12))]" />
       </div>
 
-      <div className="relative z-10 mt-5 flex items-center justify-center gap-2">
-        {members.map((member, index) => (
+      <div className="mt-5 flex items-center justify-center gap-2">
+        {ABOUT_GALLERY_SLIDES.map((slide, index) => (
           <button
-            key={member.id}
+            key={slide.id}
             type="button"
-            aria-label={`Tampilkan ${member.name}`}
+            aria-label={`Tampilkan gambar ${index + 1}`}
             onClick={() => setActiveIndex(index)}
+            onMouseEnter={() => setActiveIndex(index)}
             className={`h-2.5 rounded-full transition-all ${
               index === activeIndex ? 'w-8 bg-[#f6c445]' : 'w-2.5 bg-white/38'
             }`}
@@ -106,7 +109,7 @@ export function AboutSection({ content }: AboutSectionProps) {
         </div>
 
         <div>
-          <TeamMemberSlider members={content.teamMembers} />
+          <AboutGallerySlider />
         </div>
       </div>
     </section>

@@ -128,7 +128,7 @@ h3 {
 		transform: translate3d(0, 0, 0);
 	}
 	100% {
-		transform: translate3d(calc(-50% - 2.5rem), 0, 0);
+		transform: translate3d(calc(-50% - 1.75rem), 0, 0);
 	}
 }
 

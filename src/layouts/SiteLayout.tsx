@@ -34,11 +34,20 @@ const DEFAULT_HEADER_CTA = {
 const DEFAULT_FOOTER: FooterContent = {
   companyName: 'Morrus Digital Connecting',
   shortDescription: 'Partner digital untuk website modern, aplikasi web, dan sistem bisnis yang siap berkembang.',
-  quickLinks: DEFAULT_NAV_ITEMS,
-  address: 'Jakarta, Indonesia',
-  email: 'hello@morrusdigital.com',
-  phone: '+62 812 3456 7890',
-  mapEmbedUrl: 'https://www.google.com/maps?q=Jakarta%2C%20Indonesia&z=12&output=embed',
+  quickLinks: [
+    { label: 'Tentang', href: '/#about' },
+    { label: 'Layanan', href: '/#services' },
+    { label: 'Portofolio', href: '/#portfolio' },
+    { label: 'Blog', href: '/#blog' },
+    { label: 'Kontak', href: '/#contact' },
+  ],
+  address: 'Jl. Klakahrejo No.6-7, Kandangan, Benowo, Surabaya, Jawa Timur, 60198 - Indonesia',
+  addressHref: 'https://maps.app.goo.gl/9A12Kf1KXUjDPBmR8',
+  fax: '+6231 742 5366',
+  email: 'morrusdigitalconnecting@gmail.com',
+  whatsapp: '+62812 2999 9752',
+  mapEmbedUrl:
+    'https://www.google.com/maps?q=Jl.%20Klakahrejo%20No.6-7%2C%20Kandangan%2C%20Benowo%2C%20Surabaya%2C%20Jawa%20Timur%2060198&z=15&output=embed',
 }
 
 export function SiteLayout({
@@ -312,25 +321,22 @@ export function SiteLayout({
 
       <main className={`relative ${isHeroHeader ? '-mt-18' : ''}`}>{children}</main>
 
-      <footer className="border-t border-blue-900/20 bg-[#0b1f57] text-white">
+      <footer className="w-full border-t border-blue-900/20 bg-[#0b1f57] text-white">
           <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
-                <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.12] object-contain" />
-              </span>
-              <span className="text-sm font-semibold uppercase tracking-[0.24em] text-white">
-                {footer.companyName}
+            <div className="flex items-center">
+              <span className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
+                <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.22] object-contain" />
               </span>
             </div>
-            <p className="mt-5 max-w-md text-sm leading-7 text-blue-100/72">
+            <p className="mt-2 max-w-md text-sm leading-7 text-blue-100/72">
               {footer.shortDescription}
             </p>
           </div>
 
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]">
-              Quick Links
+              Menu
             </p>
             <ul className="mt-5 space-y-3 text-sm text-blue-100/72">
               {footer.quickLinks.map((item) => (
@@ -343,10 +349,42 @@ export function SiteLayout({
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]">
               Contact
             </p>
-            <div className="mt-5 space-y-3 text-sm text-blue-100/72">
-              <p>{footer.address}</p>
-              <p>{footer.email}</p>
-              <p>{footer.phone}</p>
+            <div className="mt-5 space-y-4 text-sm text-blue-100/72">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/78">Alamat</p>
+                <a
+                  href={footer.addressHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-1 block transition hover:text-[#f6c445]"
+                >
+                  {footer.address}
+                </a>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/78">Fax</p>
+                <p className="mt-1">{footer.fax}</p>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/78">Email</p>
+                <a
+                  href={`mailto:${footer.email}`}
+                  className="mt-1 block transition hover:text-[#f6c445]"
+                >
+                  {footer.email}
+                </a>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/78">Whatsapp</p>
+                <a
+                  href={`https://wa.me/${footer.whatsapp.replace(/\D/g, '')}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-1 block transition hover:text-[#f6c445]"
+                >
+                  {footer.whatsapp}
+                </a>
+              </div>
             </div>
           </div>
 

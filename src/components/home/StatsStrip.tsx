@@ -98,7 +98,7 @@ function CountUpValue({ value }: { value: string }) {
   return (
     <p
       ref={countRef}
-      className="text-4xl font-bold text-[#0b1f57] md:text-[2.4rem]"
+      className="text-[35px] font-bold leading-none text-[#0b1f57]"
       style={{ fontFamily: "'Sora', sans-serif" }}
       aria-label={value}
     >
@@ -136,15 +136,17 @@ export function StatsStrip({ stats }: StatsStripProps) {
                   cardsRef.current[index] = element
                 }
               }}
-              className="group rounded-[1.75rem] border border-blue-100 bg-gradient-to-br from-white to-[#f4f8ff] p-6 text-center shadow-[0_18px_50px_-32px_rgba(11,31,87,0.22)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:opacity-90 hover:shadow-[0_24px_60px_-32px_rgba(11,31,87,0.24)]"
+              className="group relative overflow-hidden rounded-[1.75rem] border border-blue-100 bg-gradient-to-br from-white to-[#f4f8ff] p-6 text-center shadow-[0_18px_50px_-32px_rgba(11,31,87,0.22)] transition-all duration-300 hover:-translate-y-2 hover:border-[#184aa8]/30 hover:bg-white hover:opacity-[0.98] hover:shadow-[0_30px_70px_-26px_rgba(11,31,87,0.34)]"
             >
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(24,74,168,0.08),transparent_55%),linear-gradient(180deg,rgba(255,255,255,0.22),transparent_65%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[#184aa8]/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="flex flex-col items-center justify-center">
-                <span className="flex items-center justify-center text-[#184aa8] transition-transform duration-300 group-hover:scale-105">
+                <span className="flex items-center justify-center text-[#184aa8] transition-all duration-300 group-hover:scale-110 group-hover:text-[#0f2f78]">
                   <PlaceholderStatIcon index={index} />
                 </span>
-                <div className="mt-5">
+                <div className="relative z-10 mt-5">
                   <CountUpValue value={item.value} />
-                  <p className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] text-blue-500">
+                  <p className="mt-3 text-[0.95rem] font-semibold uppercase tracking-[0.18em] text-blue-500 md:text-[1rem]">
                     {item.label}
                   </p>
                 </div>

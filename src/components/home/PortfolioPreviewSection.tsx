@@ -8,17 +8,6 @@ interface PortfolioPreviewSectionProps {
   items: PortfolioItem[]
 }
 
-function getPortfolioCtaLabel(category: string) {
-  const normalized = category.toLowerCase()
-
-  if (normalized.includes('company profile')) return 'Lihat Company Profile'
-  if (normalized.includes('internal platform')) return 'Lihat Platform'
-  if (normalized.includes('corporate website')) return 'Lihat Website'
-  if (normalized.includes('landing page')) return 'Lihat Landing Page'
-
-  return 'Lihat Produk'
-}
-
 export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps) {
   const cardsRef = useRef<HTMLElement[]>([])
   const sectionRef = useGsapReveal<HTMLElement>({
@@ -82,7 +71,7 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
                   to={item.href}
                   className="mt-6 inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8]"
                 >
-                  {getPortfolioCtaLabel(item.category)}
+                  Lihat Produk
                 </Link>
               </div>
             </article>

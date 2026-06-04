@@ -84,7 +84,7 @@ export function PartnersSection({ items }: PartnersSectionProps) {
         />
 
 		<div className="mx-auto mt-16 w-full max-w-5xl overflow-hidden">
-			<div className="partners-marquee flex w-max items-center gap-10 md:gap-16 lg:gap-20">
+			<div className="partners-marquee flex w-max items-center gap-14 md:gap-14 lg:gap-14">
 				{marqueeItems.map((item, index) => (
 					<div
 						key={`${item.id}-${index}`}

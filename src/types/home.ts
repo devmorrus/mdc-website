@@ -43,9 +43,14 @@ export interface ServiceItem {
   tag: string
   title: string
   price: string
+  originalPrice: string
   priceSuffix: string
   description: string
-  highlights: string[]
+  isFeatured?: boolean
+  features: {
+    label: string
+    included: boolean
+  }[]
   ctaLabel: string
   href: string
 }
@@ -55,6 +60,8 @@ export interface AdvantageItem {
   title: string
   description: string
   stat: string
+  imageUrl: string
+  imageAlt: string
 }
 
 export interface PortfolioItem {
@@ -116,8 +123,10 @@ export interface FooterContent {
   shortDescription: string
   quickLinks: FooterQuickLink[]
   address: string
+  addressHref: string
+  fax: string
   email: string
-  phone: string
+  whatsapp: string
   mapEmbedUrl: string
 }
 

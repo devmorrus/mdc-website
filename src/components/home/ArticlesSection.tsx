@@ -41,6 +41,7 @@ export function ArticlesSection({ items }: ArticlesSectionProps) {
           eyebrow="Blog dan Artikel Terbaru"
           title="Wawasan strategi digital untuk akselerasi bisnis Anda."
           description="Pelajari bagaimana desain, teknologi, dan strategi komunikasi dapat digabungkan untuk memperkuat kredibilitas perusahaan di era digital."
+          centered
         />
 
         <div className="mt-10 grid gap-4 lg:grid-cols-3">
