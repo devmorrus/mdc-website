@@ -2,7 +2,10 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import gsap from 'gsap'
 import type { FooterContent, NavigationItem } from '../types/home'
-import logoMdc from '../assets/logo-mdc.png'
+import logoMdc from '../assets/logo-mdc-removebg-preview.png'
+
+const WHATSAPP_CONSULTATION_URL =
+  'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.'
 
 interface SiteLayoutProps {
   children: ReactNode
@@ -16,16 +19,16 @@ interface SiteLayoutProps {
 }
 
 const DEFAULT_NAV_ITEMS: NavigationItem[] = [
-  { id: 'home', label: 'Home', href: '/' },
-  { id: 'about', label: 'About', href: '/about' },
-  { id: 'services', label: 'Services', href: '/services' },
-  { id: 'portfolio', label: 'Portfolio', href: '/portfolio' },
-  { id: 'contact', label: 'Contact', href: '/contact' },
+  { id: 'about', label: 'Tentang', href: '/about' },
+  { id: 'services', label: 'Layanan', href: '/services' },
+  { id: 'portfolio', label: 'Portofolio', href: '/portfolio' },
+  { id: 'blog', label: 'Blog', href: '/#blog' },
+  { id: 'contact', label: 'Kontak', href: '/contact' },
 ]
 
 const DEFAULT_HEADER_CTA = {
   label: 'Konsultasi Proyek',
-  href: '/contact',
+  href: WHATSAPP_CONSULTATION_URL,
 }
 
 const DEFAULT_FOOTER: FooterContent = {
@@ -49,6 +52,13 @@ export function SiteLayout({
   const [scrolled, setScrolled] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
   const isHeroHeader = headerVariant === 'hero'
+  const isExternalHeaderCta = headerCta.href.startsWith('http')
+  const navItemBaseClass =
+    'rounded-full px-4 py-2 text-sm font-medium text-blue-100/88 transition hover:bg-white/12 hover:text-white'
+  const navItemMobileBaseClass =
+    'rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-sm font-medium text-blue-50 transition hover:bg-white/10 hover:text-white'
+  const navItemActiveClass = 'bg-white/12 text-white'
+  const navItemMobileActiveClass = 'bg-white/10 text-white'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 12)
@@ -79,10 +89,15 @@ export function SiteLayout({
     favicon.href = logoMdc
   }, [])
 
-  const renderLink = (item: NavigationItem, className: string) => {
+  const renderLink = (
+    item: NavigationItem,
+    className: string,
+    activeClassName: string,
+    onClick?: () => void,
+  ) => {
     if (item.href.includes('#')) {
       return (
-        <Link key={item.id} to={item.href} className={className}>
+        <Link key={item.id} to={item.href} className={className} onClick={onClick}>
           {item.label}
         </Link>
       )
@@ -92,12 +107,27 @@ export function SiteLayout({
       <NavLink
         key={item.id}
         to={item.href}
-        className={({ isActive }) =>
-          `${className} ${isActive ? 'bg-[#f6c445] text-[#0b1f57]' : ''}`.trim()
-        }
+        onClick={onClick}
+        className={({ isActive }) => `${className} ${isActive ? activeClassName : ''}`.trim()}
       >
         {item.label}
       </NavLink>
+    )
+  }
+
+  const renderHeaderCta = (className: string, onClick?: () => void) => {
+    if (isExternalHeaderCta) {
+      return (
+        <a href={headerCta.href} className={className} onClick={onClick}>
+          {headerCta.label}
+        </a>
+      )
+    }
+
+    return (
+      <Link to={headerCta.href} className={className} onClick={onClick}>
+        {headerCta.label}
+      </Link>
     )
   }
 
@@ -122,8 +152,6 @@ export function SiteLayout({
     )
   }
 
-  const isHeaderCtaAnchor = headerCta.href.includes('#')
-
   return (
     <div
       className="min-h-screen bg-[#f7fbff] text-slate-900"
@@ -145,8 +173,8 @@ export function SiteLayout({
             }`}
           >
             <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
-              <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_10px_24px_-18px_rgba(11,31,87,0.45)]">
-                <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full object-contain" />
+              <span className="flex h-25 w-25 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
+                <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.12] object-contain" />
               </span>
             </Link>
 
@@ -154,26 +182,15 @@ export function SiteLayout({
               {navItems.map((item) =>
                 renderLink(
                   item,
-                  'rounded-full px-4 py-2 text-sm font-medium text-blue-100/88 transition hover:bg-white/12 hover:text-white',
+                  navItemBaseClass,
+                  navItemActiveClass,
                 ),
               )}
             </nav>
 
             <div className="hidden md:block">
-              {isHeaderCtaAnchor ? (
-                <Link
-                  to={headerCta.href}
-                  className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
-                >
-                  {headerCta.label}
-                </Link>
-              ) : (
-                <Link
-                  to={headerCta.href}
-                  className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
-                >
-                  {headerCta.label}
-                </Link>
+              {renderHeaderCta(
+                'inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]',
               )}
             </div>
 
@@ -200,23 +217,18 @@ export function SiteLayout({
             <div className="border-t border-blue-200/20 bg-[#0f2f78]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
               <nav className="flex flex-col gap-2">
                 {navItems.map((item) => (
-                  <Link
-                    key={item.id}
-                    to={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-sm font-medium text-blue-50 transition hover:bg-white/10 hover:text-white"
-                  >
-                    {item.label}
-                  </Link>
+                  renderLink(
+                    item,
+                    navItemMobileBaseClass,
+                    navItemMobileActiveClass,
+                    () => setIsMobileMenuOpen(false),
+                  )
                 ))}
               </nav>
-              <Link
-                to={headerCta.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57]"
-              >
-                {headerCta.label}
-              </Link>
+              {renderHeaderCta(
+                'mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57]',
+                () => setIsMobileMenuOpen(false),
+              )}
             </div>
           )}
         </header>
@@ -236,35 +248,24 @@ export function SiteLayout({
                 : 'border-white/12 bg-[#0b1f57]/88 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.55)] backdrop-blur-md'
             }`}>
               <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
-                <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_10px_24px_-18px_rgba(11,31,87,0.45)]">
-                  <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full object-contain" />
+                <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
+                  <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.12] object-contain" />
                 </span>
               </Link>
 
               <nav className="hidden items-center gap-2 md:flex">
-                {navItems.map((item) =>
-                  renderLink(
-                    item,
-                    'rounded-full px-4 py-2 text-sm font-medium text-blue-100/88 transition hover:bg-white/12 hover:text-white',
-                  ),
-                )}
+              {navItems.map((item) =>
+                renderLink(
+                  item,
+                  navItemBaseClass,
+                  navItemActiveClass,
+                ),
+              )}
               </nav>
 
               <div className="hidden md:block">
-                {isHeaderCtaAnchor ? (
-                  <Link
-                    to={headerCta.href}
-                    className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
-                  >
-                    {headerCta.label}
-                  </Link>
-                ) : (
-                  <Link
-                    to={headerCta.href}
-                    className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
-                  >
-                    {headerCta.label}
-                  </Link>
+                {renderHeaderCta(
+                  'inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]',
                 )}
               </div>
 
@@ -292,23 +293,18 @@ export function SiteLayout({
             <div className="border-t border-blue-200/20 bg-[#0f2f78]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
               <nav className="flex flex-col gap-2">
                 {navItems.map((item) => (
-                  <Link
-                    key={item.id}
-                    to={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-sm font-medium text-blue-50 transition hover:bg-white/10 hover:text-white"
-                  >
-                    {item.label}
-                  </Link>
+                  renderLink(
+                    item,
+                    navItemMobileBaseClass,
+                    navItemMobileActiveClass,
+                    () => setIsMobileMenuOpen(false),
+                  )
                 ))}
               </nav>
-              <Link
-                to={headerCta.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57]"
-              >
-                {headerCta.label}
-              </Link>
+              {renderHeaderCta(
+                'mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57]',
+                () => setIsMobileMenuOpen(false),
+              )}
             </div>
           )}
         </header>
@@ -317,11 +313,11 @@ export function SiteLayout({
       <main className={`relative ${isHeroHeader ? '-mt-18' : ''}`}>{children}</main>
 
       <footer className="border-t border-blue-900/20 bg-[#0b1f57] text-white">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
+          <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
           <div>
             <div className="flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_10px_24px_-18px_rgba(11,31,87,0.45)]">
-                <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full object-contain" />
+              <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
+                <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.12] object-contain" />
               </span>
               <span className="text-sm font-semibold uppercase tracking-[0.24em] text-white">
                 {footer.companyName}

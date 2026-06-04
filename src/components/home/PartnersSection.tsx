@@ -78,8 +78,8 @@ export function PartnersSection({ items }: PartnersSectionProps) {
       <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
         <SectionHeading
           eyebrow="Klien dan Partner"
-          title="Area logo partner untuk memperkuat kepercayaan"
-          description="Untuk tahap awal, section ini memakai logo placeholder. Nanti bisa diganti ke logo resmi tanpa mengubah struktur layout."
+          title="Dipercaya oleh para pemimpin industri"
+          description="Berkolaborasi dengan organisasi yang berpikiran maju untuk menghadirkan solusi digital transformatif."
           centered
         />
 

@@ -71,10 +71,10 @@ export function TestimonialsSection({ items }: TestimonialsSectionProps) {
               className="mt-5 text-4xl font-bold leading-tight text-white md:text-5xl"
               style={{ fontFamily: "'Sora', sans-serif" }}
             >
-              Placeholder testimoni yang menegaskan dampak kerja sama dan kualitas hasil proyek.
+              Pengalaman nyata dari partner bisnis yang tumbuh bersama kami.
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-9 text-blue-100/64">
-              Susunan ini sudah siap dipakai untuk menampilkan social proof di homepage, baik dari klien korporat, partner, maupun stakeholder proyek.
+              Inovasi digital yang kami rancang bukan sekadar hasil akhir, melainkan solusi yang mengubah cara bisnis beroperasi dan berkomunikasi dengan audiensnya.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">

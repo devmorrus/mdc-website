@@ -30,13 +30,17 @@ export function ArticlesSection({ items }: ArticlesSectionProps) {
   })
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-[linear-gradient(180deg,#edf3ff_0%,#f7fbff_100%)] py-18 md:py-24">
+    <section
+      id="blog"
+      ref={sectionRef}
+      className="relative overflow-hidden bg-[linear-gradient(180deg,#edf3ff_0%,#f7fbff_100%)] py-18 md:py-24"
+    >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_22%,rgba(246,196,69,0.09),transparent_16%),radial-gradient(circle_at_86%_70%,rgba(24,74,168,0.06),transparent_18%)]" />
       <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
         <SectionHeading
           eyebrow="Blog dan Artikel Terbaru"
-          title="Section insight yang dapat dipakai untuk memperkuat SEO dan menunjukkan kompetensi perusahaan."
-          description="Karena blog masih bersifat opsional, card artikel ini menggunakan konten dummy terlebih dulu sebagai placeholder struktur."
+          title="Wawasan strategi digital untuk akselerasi bisnis Anda."
+          description="Pelajari bagaimana desain, teknologi, dan strategi komunikasi dapat digabungkan untuk memperkuat kredibilitas perusahaan di era digital."
         />
 
         <div className="mt-10 grid gap-4 lg:grid-cols-3">

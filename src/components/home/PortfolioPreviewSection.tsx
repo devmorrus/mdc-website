@@ -32,8 +32,8 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
       <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
         <SectionHeading
           eyebrow="Portofolio dan Proyek"
-          title="Contoh implementasi yang menunjukkan bagaimana kami menerjemahkan kebutuhan bisnis ke tampilan digital."
-          description="Card portofolio ini masih menggunakan data dummy, tetapi strukturnya sudah siap untuk menampilkan kategori proyek, ringkasan hasil, dan outcome yang ingin disorot."
+          title="Bukti nyata bagaimana kami menerjemahkan kebutuhan bisnis menjadi solusi digital."
+          description="Jelajahi hasil karya kami. Dari tahap analisis hingga eksekusi akhir, lihat bagaimana kami merancang platform digital yang memperkuat kredibilitas brand dan mendukung pertumbuhan operasional klien."
           centered
         />
 

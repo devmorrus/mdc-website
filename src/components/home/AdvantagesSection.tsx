@@ -50,7 +50,7 @@ export function AdvantagesSection({ items }: AdvantagesSectionProps) {
           <SectionHeading
             eyebrow="Keunggulan Perusahaan"
             title="Pendekatan yang kami utamakan agar website terasa profesional sekaligus siap dikembangkan."
-            description="Section ini membantu menjelaskan alasan perusahaan layak dipilih, bukan hanya daftar layanan yang tersedia."
+            description="Kami tidak sekadar membuat website, kami membangun fondasi digital yang kuat. Setiap keputusan desain dan teknis ditujukan untuk memaksimalkan kredibilitas brand dan efisiensi bisnis Anda."
             centered
           />
         </div>

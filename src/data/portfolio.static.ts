@@ -2,14 +2,15 @@ import type { PortfolioContent } from '../types/portfolio'
 
 export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
   navItems: [
-    { id: 'home', label: 'Home', href: '/' },
-    { id: 'about', label: 'About', href: '/about' },
-    { id: 'services', label: 'Services', href: '/services' },
-    { id: 'portfolio', label: 'Portfolio', href: '/portfolio' },
-    { id: 'contact', label: 'Contact', href: '/contact' },
+    { id: 'about', label: 'Tentang', href: '/about' },
+    { id: 'services', label: 'Layanan', href: '/services' },
+    { id: 'portfolio', label: 'Portofolio', href: '/portfolio' },
+    { id: 'blog', label: 'Blog', href: '/#blog' },
+    { id: 'contact', label: 'Kontak', href: '/contact' },
   ],
   headerCtaLabel: 'Konsultasi Sekarang',
-  headerCtaHref: '/contact',
+  headerCtaHref:
+    'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
   footer: {
     companyName: 'Morrus Digital Connecting',
     shortDescription: 'Partner digital untuk website, aplikasi, dan sistem bisnis yang modern serta scalable.',

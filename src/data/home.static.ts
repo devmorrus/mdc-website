@@ -2,19 +2,20 @@ import type { HomeContent } from '../types/home'
 
 export const HOME_STATIC_CONTENT: HomeContent = {
   navItems: [
-    { id: 'home', label: 'Home', href: '/' },
     { id: 'about', label: 'Tentang', href: '/#about' },
     { id: 'services', label: 'Layanan', href: '/#services' },
     { id: 'portfolio', label: 'Portofolio', href: '/#portfolio' },
+    { id: 'blog', label: 'Blog', href: '/#blog' },
     { id: 'contact', label: 'Kontak', href: '/#contact' },
   ],
   headerCtaLabel: 'Konsultasi Proyek',
-  headerCtaHref: '/#contact',
+  headerCtaHref:
+    'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
   hero: {
     eyebrow: '',
-    title: 'Website Company Profile yang Tampil Lebih Meyakinkan',
+    title: 'Hadir Lebih Kredibel dengan Solusi Digital yang Tepat.',
     description:
-      'Bantu brand Anda terlihat lebih profesional dengan tampilan modern, struktur rapi, dan komunikasi yang lebih jelas.',
+      'Dari website hingga platform bisnis, kami membangun pengalaman digital modern yang membuat brand Anda tampil meyakinkan dan profesional.',
     primaryCtaLabel: 'Jadwalkan Konsultasi',
     primaryCtaHref: '/contact',
     secondaryCtaLabel: 'Layanan Kami',
@@ -45,11 +46,11 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   ],
   about: {
     eyebrow: 'Tentang Perusahaan',
-    title: 'Partner digital yang menggabungkan strategi, desain, dan implementasi teknis.',
+    title: 'Mewujudkan Visi Digital Menjadi Realitas Profesional.',
     summary:
-      'Morrus Digital Connecting berfokus pada pengembangan website company profile dan solusi web bisnis yang membantu perusahaan tampil lebih meyakinkan di hadapan calon klien, partner, dan investor.',
+      'Morrus Digital Connecting lebih dari sekadar pengembang web. Kami adalah mitra strategis yang menerjemahkan identitas bisnis Anda ke dalam ekosistem digital yang kokoh, meyakinkan, dan berorientasi pada hasil.',
     description:
-      'Pendekatan kami dimulai dari struktur informasi, narasi brand, hingga eksekusi antarmuka yang responsif agar website tidak hanya terlihat rapi, tetapi juga efektif menyampaikan value perusahaan.',
+      'Dengan menggabungkan analisis mendalam, desain intuitif, dan keandalan teknis, kami memastikan setiap platform yang kami bangun tidak hanya mencuri perhatian, tetapi juga membangun kepercayaan berkelanjutan dengan audiens Anda.',
     valuePoints: [
       'Struktur konten company profile yang rapi dan mudah dipahami.',
       'Desain modern yang tetap formal, profesional, dan konsisten dengan brand.',
@@ -299,9 +300,9 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   ],
   contactCta: {
     eyebrow: 'Siap Memulai?',
-    title: 'Bangun website company profile yang rapi, modern, dan siap dipresentasikan.',
+    title: 'Bangun solusi digital yang rapi, modern, dan meyakinkan.',
     description:
-      'Ceritakan kebutuhan bisnis Anda, lalu kita susun homepage yang selaras dengan branding dan tujuan komunikasi perusahaan.',
+      'Ceritakan tantangan bisnis Anda, lalu tim kami akan merekomendasikan strategi dan pengembangan platform yang selaras dengan tujuan pertumbuhan perusahaan Anda.',
     primaryCtaLabel: 'Hubungi Tim Kami',
     primaryCtaHref: '/contact',
     secondaryCtaLabel: 'Chat via WhatsApp',

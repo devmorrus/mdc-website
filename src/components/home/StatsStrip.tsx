@@ -121,9 +121,9 @@ export function StatsStrip({ stats }: StatsStripProps) {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(246,196,69,0.12),transparent_18%),radial-gradient(circle_at_88%_82%,rgba(24,74,168,0.08),transparent_20%)]" />
       <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Company Highlights"
-          title="Angka yang menggambarkan pengalaman, kecepatan, dan kontinuitas kerja kami."
-          description="Statistik ini masih menggunakan data dummy, namun struktur section-nya sudah disiapkan untuk kebutuhan company profile yang lebih formal dan meyakinkan."
+          eyebrow="REKAM JEJAK KAMI"
+          title="Bukti nyata di balik setiap solusi digital yang kami bangun."
+          description="Lebih dari sekadar tampilan modern, angka-angka ini mewakili dedikasi kami dalam memberikan hasil yang konsisten, cepat, dan dapat diandalkan oleh partner bisnis kami."
           centered
         />
 

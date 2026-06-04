@@ -8,7 +8,7 @@ export function HomePage() {
   const { data, isLoading, error } = useHomePageViewModel()
 
   usePageMetadata({
-    title: 'Morrus Digital Connecting | Website Company Profile dan Solusi Digital Bisnis',
+    title: 'Jasa Pembuatan Website & Aplikasi Custom - Morrus Digital Connecting',
     description:
       'Morrus Digital Connecting membantu perusahaan membangun website company profile modern, responsif, dan siap memperkuat kredibilitas bisnis.',
   })

@@ -47,7 +47,7 @@ export function ServicesSection({ items }: ServicesSectionProps) {
         <SectionHeading
           eyebrow="Layanan Utama"
           title="Layanan digital yang disusun untuk memperkuat profil, operasional, dan pertumbuhan bisnis."
-          description="Bagian ini dirancang sebagai ringkasan layanan utama di homepage, sehingga pengunjung cepat memahami area expertise perusahaan tanpa harus membaca terlalu jauh."
+          description="Solusi menyeluruh dari perancangan identitas digital hingga sistem kustom untuk mendukung alur kerja unik perusahaan Anda."
           centered
           tone="dark"
         />
