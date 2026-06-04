@@ -20,8 +20,10 @@ export const ABOUT_STATIC_CONTENT: AboutContent = {
       { label: 'Portfolio', href: '/portfolio' },
       { label: 'Contact', href: '/contact' },
     ],
+    address: 'Jakarta, Indonesia',
     email: 'hello@morrusdigital.com',
     phone: '+62 812 3456 7890',
+    mapEmbedUrl: 'https://www.google.com/maps?q=Jakarta%2C%20Indonesia&z=12&output=embed',
   },
   hero: {
     eyebrow: 'About Us',

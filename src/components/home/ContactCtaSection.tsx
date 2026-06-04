@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { ContactCtaContent } from '../../types/home'
+import { ContactInquiryFormCard } from '../contact/ContactInquiryFormCard'
 
 interface ContactCtaSectionProps {
   content: ContactCtaContent
@@ -23,7 +24,7 @@ export function ContactCtaSection({ content, whatsappLink }: ContactCtaSectionPr
           <div className="pointer-events-none absolute right-0 top-0 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
 
-          <div className="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="relative grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.34em] text-[#f6c445]">
                 {content.eyebrow}
@@ -66,21 +67,10 @@ export function ContactCtaSection({ content, whatsappLink }: ContactCtaSectionPr
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-              {content.bulletPoints.map((point, index) => (
-                <article
-                  key={point}
-                  className="rounded-[1.5rem] border border-white/10 bg-white/6 p-5"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
-                    0{index + 1}
-                  </p>
-                  <h3 className="mt-3 text-base font-semibold leading-7 text-white">
-                    {point}
-                  </h3>
-                </article>
-              ))}
-            </div>
+            <ContactInquiryFormCard
+              title="Form Inquiry"
+              description="Isi kebutuhan singkat Anda di sini, lalu tim kami akan menindaklanjuti dengan rekomendasi yang sesuai."
+            />
           </div>
         </div>
       </div>

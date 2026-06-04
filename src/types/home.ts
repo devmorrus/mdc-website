@@ -29,14 +29,24 @@ export interface AboutSnippetContent {
   valuePoints: string[]
   buttonLabel: string
   buttonHref: string
+  teamMembers: {
+    id: string
+    name: string
+    role: string
+    imageUrl: string
+  }[]
 }
 
 export interface ServiceItem {
   id: string
+  tier: string
   tag: string
   title: string
+  price: string
+  priceSuffix: string
   description: string
   highlights: string[]
+  ctaLabel: string
   href: string
 }
 
@@ -53,12 +63,14 @@ export interface PortfolioItem {
   category: string
   summary: string
   outcome: string
+  href: string
   imageUrl: string
   imageAlt: string
 }
 
 export interface TestimonialItem {
   id: string
+  headline: string
   name: string
   role: string
   company: string
@@ -100,8 +112,10 @@ export interface FooterContent {
   companyName: string
   shortDescription: string
   quickLinks: FooterQuickLink[]
+  address: string
   email: string
   phone: string
+  mapEmbedUrl: string
 }
 
 export interface HomeContent {

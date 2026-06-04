@@ -8,6 +8,17 @@ interface PortfolioPreviewSectionProps {
   items: PortfolioItem[]
 }
 
+function getPortfolioCtaLabel(category: string) {
+  const normalized = category.toLowerCase()
+
+  if (normalized.includes('company profile')) return 'Lihat Company Profile'
+  if (normalized.includes('internal platform')) return 'Lihat Platform'
+  if (normalized.includes('corporate website')) return 'Lihat Website'
+  if (normalized.includes('landing page')) return 'Lihat Landing Page'
+
+  return 'Lihat Produk'
+}
+
 export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps) {
   const cardsRef = useRef<HTMLElement[]>([])
   const sectionRef = useGsapReveal<HTMLElement>({
@@ -23,6 +34,7 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
           eyebrow="Portofolio dan Proyek"
           title="Contoh implementasi yang menunjukkan bagaimana kami menerjemahkan kebutuhan bisnis ke tampilan digital."
           description="Card portofolio ini masih menggunakan data dummy, tetapi strukturnya sudah siap untuk menampilkan kategori proyek, ringkasan hasil, dan outcome yang ingin disorot."
+          centered
         />
 
         <div className="mt-10 grid gap-5 md:grid-cols-2">
@@ -66,15 +78,18 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
                 <p className="mt-4 text-base leading-7 text-slate-600">
                   {item.summary}
                 </p>
-                <p className="mt-5 rounded-[1.25rem] bg-[#f4f8ff] px-4 py-4 text-sm leading-6 text-slate-700">
-                  <span className="font-semibold text-[#0b1f57]">Outcome:</span> {item.outcome}
-                </p>
+                <Link
+                  to={item.href}
+                  className="mt-6 inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8]"
+                >
+                  {getPortfolioCtaLabel(item.category)}
+                </Link>
               </div>
             </article>
           ))}
         </div>
 
-        <div className="mt-10">
+        <div className="mt-10 flex justify-center">
           <Link
             to="/portfolio"
             className="inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8]"
