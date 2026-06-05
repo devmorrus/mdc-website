@@ -46,9 +46,9 @@ export function ServicesSection({ items }: ServicesSectionProps) {
                   cardsRef.current[index] = element
                 }
               }}
-              className="group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/30 bg-white shadow-[0_24px_80px_-42px_rgba(7,15,35,0.7)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_28px_90px_-38px_rgba(7,15,35,0.85)] max-md:active:-translate-y-2 max-md:active:shadow-[0_28px_90px_-38px_rgba(7,15,35,0.85)]"
+              className="group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/30 bg-white shadow-[0_24px_80px_-42px_rgba(7,15,35,0.7)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_28px_90px_-38px_rgba(7,15,35,0.85)]"
             >
-              <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 max-md:group-active:opacity-100">
+              <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100">
                 <div className="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.24),transparent_68%)]" />
               </div>
 
@@ -71,16 +71,7 @@ export function ServicesSection({ items }: ServicesSectionProps) {
               </div>
 
               <div className="relative z-10 flex flex-1 flex-col px-6 pb-6 pt-7 text-center text-[#243147]">
-                <div className="text-sm text-slate-400">
-                  <span className="line-through decoration-[1.5px]">{item.originalPrice} harga normal</span>
-                </div>
-
-                <div className="mt-3 flex items-end justify-center gap-1 text-[#1f2d3d]">
-                  <p className="text-[2.15rem] font-bold leading-none xl:text-[2.35rem]">{item.price}</p>
-                  <p className="pb-1 text-sm text-slate-500">{item.priceSuffix.replace(/^per\s+/i, '/ ')}</p>
-                </div>
-
-                <ul className="mt-8 flex flex-1 flex-col">
+                <ul className="mt-2 flex flex-1 flex-col">
                   {item.features.map((feature, featureIndex) => (
                     <li
                       key={feature.label}
@@ -110,7 +101,7 @@ export function ServicesSection({ items }: ServicesSectionProps) {
 
                 <Link
                   to={item.href}
-                  className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-[#f7a40c] px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_28px_-18px_rgba(247,164,12,0.75)] transition hover:bg-[#ffb220] max-md:active:bg-[#ffb220]"
+                  className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-[#f7a40c] px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_28px_-18px_rgba(247,164,12,0.75)] transition hover:bg-[#ffb220]"
                 >
                   {item.ctaLabel}
                 </Link>

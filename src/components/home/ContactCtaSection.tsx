@@ -42,7 +42,7 @@ export function ContactCtaSection({ content, whatsappLink }: ContactCtaSectionPr
               <div className="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
                 <Link
                   to={content.primaryCtaHref}
-                  className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-6 py-3.5 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c] max-md:active:bg-[#ffd15c]"
+                  className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-6 py-3.5 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]"
                 >
                   {content.primaryCtaLabel}
                 </Link>

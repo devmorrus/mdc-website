@@ -162,11 +162,6 @@ h3 {
 	transform: scale(1.05);
 }
 
-.partner-logo:active {
-	filter: grayscale(0%) opacity(1);
-	transform: scale(1.05);
-}
-
 .partners-marquee {
 	animation: partnersMarquee 24s linear infinite;
 	will-change: transform;
@@ -211,6 +206,16 @@ h3 {
 	will-change: transform, filter;
 }
 
+.hero-illustration-svg .hero-gear-group--primary {
+	animation: heroSpin 2.9s linear infinite;
+	filter: drop-shadow(0 0 16px rgba(79, 82, 255, 0.3));
+}
+
+.hero-illustration-svg .hero-gear-group--secondary {
+	animation: heroSpinReverse 2.55s linear infinite;
+	filter: drop-shadow(0 0 18px rgba(246, 196, 69, 0.3));
+}
+
 .hero-illustration-svg .hero-person-group {
 	pointer-events: none;
 	transform-box: fill-box;
@@ -222,20 +227,6 @@ h3 {
 .hero-illustration-svg .hero-gear-group:hover,
 .hero-illustration-svg .hero-gear-group:focus-visible {
 	outline: none;
-}
-
-.hero-illustration-svg .hero-gear-group--primary:hover,
-.hero-illustration-svg .hero-gear-group--primary:focus-visible,
-.hero-illustration-svg .hero-gear-group--primary:active {
-	animation: heroSpin 2.9s linear infinite;
-	filter: drop-shadow(0 0 16px rgba(79, 82, 255, 0.3));
-}
-
-.hero-illustration-svg .hero-gear-group--secondary:hover,
-.hero-illustration-svg .hero-gear-group--secondary:focus-visible,
-.hero-illustration-svg .hero-gear-group--secondary:active {
-	animation: heroSpinReverse 2.55s linear infinite;
-	filter: drop-shadow(0 0 18px rgba(246, 196, 69, 0.3));
 }
 
 .hero-illustration-shell[data-active-person="lower"] .hero-person-group--lower {

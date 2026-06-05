@@ -68,9 +68,9 @@ export function SiteLayout({
   const navItemBaseClass =
     'rounded-full px-4 py-2 text-sm font-medium text-[#16336f] transition hover:bg-[#dce8ff] hover:text-[#0b1f57]'
   const navItemMobileBaseClass =
-    'rounded-2xl border border-[#c9d7f0] bg-white/72 px-4 py-3 text-sm font-medium text-[#16336f] transition hover:bg-[#e6efff] hover:text-[#0b1f57]'
+    'block px-0 py-4 text-left text-base font-medium text-[#16336f] transition hover:text-[#0b1f57]'
   const navItemActiveClass = 'bg-[#dce8ff] text-[#0b1f57]'
-  const navItemMobileActiveClass = 'bg-[#dce8ff] text-[#0b1f57]'
+  const navItemMobileActiveClass = 'text-[#0b1f57]'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 12)
@@ -146,7 +146,7 @@ export function SiteLayout({
   const renderFooterLink = (label: string, href: string) => {
     if (href.includes('#')) {
       return (
-        <Link to={href} className="transition hover:text-[#f6c445]">
+        <Link to={href} className="transition hover:text-[#f6c445] active:text-[#f6c445]">
           {label}
         </Link>
       )
@@ -156,7 +156,7 @@ export function SiteLayout({
       <NavLink
         to={href}
         className={({ isActive }) =>
-          `transition hover:text-[#f6c445] ${isActive ? 'text-[#f6c445]' : ''}`.trim()
+          `transition hover:text-[#f6c445] active:text-[#f6c445] ${isActive ? 'text-[#f6c445]' : ''}`.trim()
         }
       >
         {label}
@@ -195,18 +195,20 @@ export function SiteLayout({
   )
 
   const renderMobileMenuPanel = () => (
-    <div
-      className={`overflow-hidden transition-all duration-300 ease-out md:hidden ${
-        isMobileMenuOpen ? 'max-h-[24rem] opacity-100' : 'pointer-events-none max-h-0 opacity-0'
-      }`}
-    >
+    <div className="fixed inset-x-0 top-18 z-50 md:hidden pointer-events-none">
       <div
-        className={`border-t border-[#d5e1f5] px-6 pb-5 pt-4 transition-all duration-300 ease-out ${
-          isMobileMenuOpen ? 'translate-y-0' : '-translate-y-3'
+        className={`pointer-events-none absolute inset-0 h-[calc(100vh-4.5rem)] w-full bg-[#0b1f57]/8 transition duration-300 ${
+          isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
         }`}
+      />
+      <div
+        className={`relative w-full overflow-hidden border-t border-[#d5e1f5] bg-[#f7fbff] px-6 pb-6 pt-3 shadow-[0_26px_60px_-34px_rgba(11,31,87,0.22)] transition-all duration-300 ease-out ${
+          isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'
+        } ${isMobileMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
         style={{ backgroundColor: HEADER_BACKGROUND }}
       >
-        <nav className="flex flex-col gap-2">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#184aa8]/26 to-transparent" />
+        <nav className="flex flex-col">
           {navItems.map((item) => (
             renderLink(
               item,
@@ -217,7 +219,7 @@ export function SiteLayout({
           ))}
         </nav>
         {renderHeaderCta(
-          'mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#121417]',
+          'mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#121417] shadow-[0_18px_35px_-22px_rgba(246,196,69,0.85)] transition hover:bg-[#ffd15c]',
           () => setIsMobileMenuOpen(false),
         )}
       </div>
@@ -235,7 +237,7 @@ export function SiteLayout({
       {isHeroHeader ? (
         <header
           ref={headerRef}
-          className="sticky top-0 z-40 w-full overflow-hidden transition-all duration-300"
+          className="sticky top-0 z-50 w-full overflow-visible transition-all duration-300"
         >
           <div
             className={`flex h-18 w-full items-center justify-between border-b border-[#d5e1f5] px-6 transition-all duration-300 ${
@@ -275,7 +277,7 @@ export function SiteLayout({
       ) : (
         <header
           ref={headerRef}
-          className={`sticky top-0 z-40 transition-all duration-300 ${
+          className={`sticky top-0 z-50 overflow-visible transition-all duration-300 ${
             scrolled
               ? 'border-b border-blue-200/70 bg-[#f7fbff] shadow-[0_10px_35px_-28px_rgba(11,31,87,0.3)]'
               : 'bg-transparent'
@@ -360,7 +362,7 @@ export function SiteLayout({
                   href={footer.addressHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-1 block transition hover:text-[#f6c445]"
+                  className="mt-1 block transition hover:text-[#f6c445] active:text-[#f6c445]"
                 >
                   {footer.address}
                 </a>
@@ -373,7 +375,7 @@ export function SiteLayout({
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f214d]/78">Email</p>
                 <a
                   href={`mailto:${footer.email}`}
-                  className="mt-1 block transition hover:text-[#f6c445]"
+                  className="mt-1 block transition hover:text-[#f6c445] active:text-[#f6c445]"
                 >
                   {footer.email}
                 </a>
@@ -384,7 +386,7 @@ export function SiteLayout({
                   href={`https://wa.me/${footer.whatsapp.replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-1 block transition hover:text-[#f6c445]"
+                  className="mt-1 block transition hover:text-[#f6c445] active:text-[#f6c445]"
                 >
                   {footer.whatsapp}
                 </a>
