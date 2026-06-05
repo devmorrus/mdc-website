@@ -102,7 +102,7 @@ export function FloatingWhatsApp() {
   }
 
   return (
-    <div ref={shellRef} className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div ref={shellRef} className="pointer-events-none fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
       <div
         ref={popupRef}
         id="whatsapp-popup"
@@ -185,7 +185,7 @@ export function FloatingWhatsApp() {
         aria-controls="whatsapp-popup"
         aria-label="Buka formulir WhatsApp"
         onClick={() => setIsOpen((current) => !current)}
-        className="inline-flex items-center gap-3 rounded-full bg-[#25d366] px-4 py-3 text-sm font-bold text-white shadow-[0_20px_55px_-18px_rgba(37,211,102,0.7)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#20bd5a]"
+        className="pointer-events-auto inline-flex items-center gap-3 rounded-full bg-[#25d366] px-4 py-3 text-sm font-bold text-white shadow-[0_20px_55px_-18px_rgba(37,211,102,0.7)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#20bd5a]"
       >
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#25d366] shadow-[0_8px_22px_-10px_rgba(255,255,255,0.95)]">
           <WhatsAppIcon />
