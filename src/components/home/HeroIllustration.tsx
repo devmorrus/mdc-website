@@ -135,9 +135,6 @@ export function HeroIllustration() {
           style={hotspots.upper}
           onMouseEnter={() => setActivePerson('upper')}
           onMouseLeave={() => setActivePerson('')}
-          onTouchStart={() => setActivePerson('upper')}
-          onTouchEnd={() => setActivePerson('')}
-          onTouchCancel={() => setActivePerson('')}
           onFocus={() => setActivePerson('upper')}
           onBlur={() => setActivePerson('')}
         />
@@ -150,9 +147,6 @@ export function HeroIllustration() {
           style={hotspots.lower}
           onMouseEnter={() => setActivePerson('lower')}
           onMouseLeave={() => setActivePerson('')}
-          onTouchStart={() => setActivePerson('lower')}
-          onTouchEnd={() => setActivePerson('')}
-          onTouchCancel={() => setActivePerson('')}
           onFocus={() => setActivePerson('lower')}
           onBlur={() => setActivePerson('')}
         />

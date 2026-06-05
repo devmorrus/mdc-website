@@ -32,7 +32,7 @@ export function TestimonialsSection({ items }: TestimonialsSectionProps) {
           cardsRef.current[index] = element
         }
       }}
-      className="break-inside-avoid rounded-[2rem] bg-white p-8 text-center shadow-[0_18px_50px_-32px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 max-md:active:-translate-y-1 md:text-left"
+      className="break-inside-avoid rounded-[2rem] bg-white p-8 text-center shadow-[0_18px_50px_-32px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 md:text-left"
     >
       <h3
         className="text-[1.9rem] font-bold leading-tight text-[#1a2b4c]"

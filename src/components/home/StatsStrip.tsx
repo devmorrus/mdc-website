@@ -136,12 +136,12 @@ export function StatsStrip({ stats }: StatsStripProps) {
                   cardsRef.current[index] = element
                 }
               }}
-              className="group relative overflow-hidden rounded-[1.75rem] border border-blue-100 bg-gradient-to-br from-white to-[#f4f8ff] p-6 text-center shadow-[0_18px_50px_-32px_rgba(11,31,87,0.22)] transition-all duration-300 hover:-translate-y-2 hover:border-[#184aa8]/30 hover:bg-white hover:opacity-[0.98] hover:shadow-[0_30px_70px_-26px_rgba(11,31,87,0.34)] max-md:active:-translate-y-2 max-md:active:border-[#184aa8]/30 max-md:active:bg-white max-md:active:opacity-[0.98] max-md:active:shadow-[0_30px_70px_-26px_rgba(11,31,87,0.34)]"
+              className="group relative overflow-hidden rounded-[1.75rem] border border-blue-100 bg-gradient-to-br from-white to-[#f4f8ff] p-6 text-center shadow-[0_18px_50px_-32px_rgba(11,31,87,0.22)] transition-all duration-300 hover:-translate-y-2 hover:border-[#184aa8]/30 hover:bg-white hover:opacity-[0.98] hover:shadow-[0_30px_70px_-26px_rgba(11,31,87,0.34)]"
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(24,74,168,0.08),transparent_55%),linear-gradient(180deg,rgba(255,255,255,0.22),transparent_65%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100 max-md:group-active:opacity-100" />
-              <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[#184aa8]/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 max-md:group-active:opacity-100" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(24,74,168,0.08),transparent_55%),linear-gradient(180deg,rgba(255,255,255,0.22),transparent_65%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[#184aa8]/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="flex flex-col items-center justify-center">
-                <span className="flex items-center justify-center text-[#184aa8] transition-all duration-300 group-hover:scale-110 group-hover:text-[#0f2f78] max-md:group-active:scale-110 max-md:group-active:text-[#0f2f78]">
+                <span className="flex items-center justify-center text-[#184aa8] transition-all duration-300 group-hover:scale-110 group-hover:text-[#0f2f78]">
                   <PlaceholderStatIcon index={index} />
                 </span>
                 <div className="relative z-10 mt-5">

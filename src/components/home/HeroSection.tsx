@@ -81,13 +81,13 @@ export function HeroSection({ content }: HeroSectionProps) {
           <div ref={actionsRef} className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
             <Link
               to={content.primaryCtaHref}
-              className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-6 py-3.5 text-sm font-semibold text-[#0b1f57] transition hover:-translate-y-0.5 hover:bg-[#ffd15c] max-md:active:-translate-y-0.5 max-md:active:bg-[#ffd15c]"
+              className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-6 py-3.5 text-sm font-semibold text-[#0b1f57] transition hover:-translate-y-0.5 hover:bg-[#ffd15c]"
             >
               {content.primaryCtaLabel}
             </Link>
             <Link
               to={content.secondaryCtaHref}
-              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-[#f6c445]/55 hover:text-[#f6c445] max-md:active:-translate-y-0.5 max-md:active:border-[#f6c445]/55 max-md:active:text-[#f6c445]"
+              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-[#f6c445]/55 hover:text-[#f6c445]"
             >
               {content.secondaryCtaLabel}
             </Link>

@@ -73,20 +73,20 @@ export function AdvantagesSection({ items }: AdvantagesSectionProps) {
                       cardsRef.current[index] = element
                     }
                   }}
-                  className="group flex min-h-[284px] flex-col items-center rounded-[1.8rem] border border-slate-100 bg-white px-7 py-8 text-center shadow-[0_18px_50px_-38px_rgba(15,23,42,0.16)] transition duration-500 hover:-translate-y-2 hover:border-[#1a2b4c] hover:bg-[#1a2b4c] hover:shadow-[0_30px_70px_-40px_rgba(26,43,76,0.55)] max-md:active:-translate-y-2 max-md:active:border-[#1a2b4c] max-md:active:bg-[#1a2b4c] max-md:active:shadow-[0_30px_70px_-40px_rgba(26,43,76,0.55)] md:px-8 md:py-9"
+                  className="group flex min-h-[284px] flex-col items-center rounded-[1.8rem] border border-slate-100 bg-white px-7 py-8 text-center shadow-[0_18px_50px_-38px_rgba(15,23,42,0.16)] transition duration-500 hover:-translate-y-2 hover:border-[#1a2b4c] hover:bg-[#1a2b4c] hover:shadow-[0_30px_70px_-40px_rgba(26,43,76,0.55)] md:px-8 md:py-9"
                 >
-                  <div className="flex h-18 w-18 items-center justify-center rounded-[1.25rem] bg-[#fdf6e3] text-[#b2822a] transition duration-500 group-hover:bg-white/10 group-hover:text-white max-md:group-active:bg-white/10 max-md:group-active:text-white">
+                  <div className="flex h-18 w-18 items-center justify-center rounded-[1.25rem] bg-[#fdf6e3] text-[#b2822a] transition duration-500 group-hover:bg-white/10 group-hover:text-white">
                     {icon}
                   </div>
 
                   <h3
-                    className="mt-6 text-[1.75rem] font-bold leading-tight text-[#1a2b4c] transition duration-500 group-hover:text-white max-md:group-active:text-white md:text-[1.85rem]"
+                    className="mt-6 text-[1.75rem] font-bold leading-tight text-[#1a2b4c] transition duration-500 group-hover:text-white md:text-[1.85rem]"
                     style={{ fontFamily: "'Sora', sans-serif" }}
                   >
                     {item.title}
                   </h3>
 
-                  <p className="mt-4 max-w-[16.5rem] text-[0.97rem] leading-7 text-slate-500 transition duration-500 group-hover:text-blue-100/80 max-md:group-active:text-blue-100/80">
+                  <p className="mt-4 max-w-[16.5rem] text-[0.97rem] leading-7 text-slate-500 transition duration-500 group-hover:text-blue-100/80">
                     {item.description}
                   </p>
                 </article>
