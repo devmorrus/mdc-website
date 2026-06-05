@@ -67,6 +67,17 @@ h3 {
 	color: #0b1f57;
 }
 
+@media (max-width: 767.98px) {
+	section {
+		padding-top: 100px !important;
+		padding-bottom: 100px !important;
+	}
+
+	section.partners-section {
+		padding-bottom: 50px !important;
+	}
+}
+
 @keyframes heroFloat {
 	0%, 100% {
 		transform: translate3d(0, 0, 0);
@@ -102,6 +113,15 @@ h3 {
 	}
 	to {
 		transform: rotate(0deg);
+	}
+}
+
+@keyframes heroFigureLift {
+	0% {
+		transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+	}
+	100% {
+		transform: translate3d(0, -18px, 0) scale(1.035) rotate(-2.2deg);
 	}
 }
 
@@ -142,6 +162,11 @@ h3 {
 	transform: scale(1.05);
 }
 
+.partner-logo:active {
+	filter: grayscale(0%) opacity(1);
+	transform: scale(1.05);
+}
+
 .partners-marquee {
 	animation: partnersMarquee 24s linear infinite;
 	will-change: transform;
@@ -149,4 +174,76 @@ h3 {
 
 .partners-marquee:hover {
 	animation-play-state: paused;
+}
+
+.hero-illustration-shell {
+	isolation: isolate;
+}
+
+.hero-person-hotspot {
+	position: absolute;
+	z-index: 20;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	border-radius: 9999px;
+	padding: 0;
+}
+
+.hero-person-hotspot:focus-visible {
+	outline: 2px solid rgba(246, 196, 69, 0.7);
+	outline-offset: 4px;
+}
+
+.hero-illustration-shell svg {
+	display: block;
+	height: auto;
+	overflow: visible;
+	width: 100%;
+}
+
+.hero-illustration-svg .hero-gear-group {
+	cursor: pointer;
+	pointer-events: visiblePainted;
+	transform-box: fill-box;
+	transform-origin: center;
+	transition: filter 0.35s ease, transform 0.35s ease;
+	will-change: transform, filter;
+}
+
+.hero-illustration-svg .hero-person-group {
+	pointer-events: none;
+	transform-box: fill-box;
+	transform-origin: center;
+	transition: filter 0.35s ease, transform 0.35s ease;
+	will-change: transform, filter;
+}
+
+.hero-illustration-svg .hero-gear-group:hover,
+.hero-illustration-svg .hero-gear-group:focus-visible {
+	outline: none;
+}
+
+.hero-illustration-svg .hero-gear-group--primary:hover,
+.hero-illustration-svg .hero-gear-group--primary:focus-visible,
+.hero-illustration-svg .hero-gear-group--primary:active {
+	animation: heroSpin 2.9s linear infinite;
+	filter: drop-shadow(0 0 16px rgba(79, 82, 255, 0.3));
+}
+
+.hero-illustration-svg .hero-gear-group--secondary:hover,
+.hero-illustration-svg .hero-gear-group--secondary:focus-visible,
+.hero-illustration-svg .hero-gear-group--secondary:active {
+	animation: heroSpinReverse 2.55s linear infinite;
+	filter: drop-shadow(0 0 18px rgba(246, 196, 69, 0.3));
+}
+
+.hero-illustration-shell[data-active-person="lower"] .hero-person-group--lower {
+	animation: heroFigureLift 0.95s ease-in-out infinite alternate;
+	filter: drop-shadow(0 16px 24px rgba(11, 31, 87, 0.12));
+}
+
+.hero-illustration-shell[data-active-person="upper"] .hero-person-group--upper {
+	animation: heroFigureLift 0.82s ease-in-out infinite alternate;
+	filter: drop-shadow(0 14px 20px rgba(11, 31, 87, 0.14));
 }

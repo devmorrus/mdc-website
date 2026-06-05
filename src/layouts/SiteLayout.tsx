@@ -50,6 +50,9 @@ const DEFAULT_FOOTER: FooterContent = {
     'https://www.google.com/maps?q=Jl.%20Klakahrejo%20No.6-7%2C%20Kandangan%2C%20Benowo%2C%20Surabaya%2C%20Jawa%20Timur%2060198&z=15&output=embed',
 }
 
+const HEADER_BACKGROUND = '#f7fbff'
+const FOOTER_BACKGROUND = '#f3f7ff'
+
 export function SiteLayout({
   children,
   navItems = DEFAULT_NAV_ITEMS,
@@ -63,11 +66,11 @@ export function SiteLayout({
   const isHeroHeader = headerVariant === 'hero'
   const isExternalHeaderCta = headerCta.href.startsWith('http')
   const navItemBaseClass =
-    'rounded-full px-4 py-2 text-sm font-medium text-slate-200/88 transition hover:bg-white/10 hover:text-white'
+    'rounded-full px-4 py-2 text-sm font-medium text-[#16336f] transition hover:bg-[#dce8ff] hover:text-[#0b1f57]'
   const navItemMobileBaseClass =
-    'rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm font-medium text-slate-100 transition hover:bg-white/10 hover:text-white'
-  const navItemActiveClass = 'bg-white/12 text-white'
-  const navItemMobileActiveClass = 'bg-white/10 text-white'
+    'rounded-2xl border border-[#c9d7f0] bg-white/72 px-4 py-3 text-sm font-medium text-[#16336f] transition hover:bg-[#e6efff] hover:text-[#0b1f57]'
+  const navItemActiveClass = 'bg-[#dce8ff] text-[#0b1f57]'
+  const navItemMobileActiveClass = 'bg-[#dce8ff] text-[#0b1f57]'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 12)
@@ -161,6 +164,66 @@ export function SiteLayout({
     )
   }
 
+  const renderMobileMenuButton = () => (
+    <button
+      type="button"
+      className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-[#c9d7f0] bg-white/78 text-[#0b1f57] shadow-[0_12px_24px_-18px_rgba(11,31,87,0.22)] transition-all duration-300 hover:scale-[1.03] md:hidden ${
+        isMobileMenuOpen ? 'shadow-[0_18px_30px_-18px_rgba(11,31,87,0.28)]' : ''
+      }`}
+      onClick={() => setIsMobileMenuOpen((current) => !current)}
+      aria-expanded={isMobileMenuOpen}
+      aria-label="Toggle navigation menu"
+    >
+      <span className="relative h-5 w-5">
+        <span
+          className={`absolute left-0 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-out ${
+            isMobileMenuOpen ? 'top-[9px] rotate-45' : 'top-[4px]'
+          }`}
+        />
+        <span
+          className={`absolute left-0 top-[9px] h-0.5 w-5 rounded-full bg-current transition-all duration-200 ease-out ${
+            isMobileMenuOpen ? 'scale-x-0 opacity-0' : 'scale-x-100 opacity-100'
+          }`}
+        />
+        <span
+          className={`absolute left-0 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-out ${
+            isMobileMenuOpen ? 'top-[9px] -rotate-45' : 'top-[14px]'
+          }`}
+        />
+      </span>
+    </button>
+  )
+
+  const renderMobileMenuPanel = () => (
+    <div
+      className={`overflow-hidden transition-all duration-300 ease-out md:hidden ${
+        isMobileMenuOpen ? 'max-h-[24rem] opacity-100' : 'pointer-events-none max-h-0 opacity-0'
+      }`}
+    >
+      <div
+        className={`border-t border-[#d5e1f5] px-6 pb-5 pt-4 transition-all duration-300 ease-out ${
+          isMobileMenuOpen ? 'translate-y-0' : '-translate-y-3'
+        }`}
+        style={{ backgroundColor: HEADER_BACKGROUND }}
+      >
+        <nav className="flex flex-col gap-2">
+          {navItems.map((item) => (
+            renderLink(
+              item,
+              navItemMobileBaseClass,
+              navItemMobileActiveClass,
+              () => setIsMobileMenuOpen(false),
+            )
+          ))}
+        </nav>
+        {renderHeaderCta(
+          'mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#121417]',
+          () => setIsMobileMenuOpen(false),
+        )}
+      </div>
+    </div>
+  )
+
   return (
     <div
       className="min-h-screen bg-[#f7fbff] text-slate-900"
@@ -172,14 +235,15 @@ export function SiteLayout({
       {isHeroHeader ? (
         <header
           ref={headerRef}
-          className="sticky top-0 z-40 w-full transition-all duration-300"
+          className="sticky top-0 z-40 w-full overflow-hidden transition-all duration-300"
         >
           <div
-            className={`flex h-18 w-full items-center justify-between border-b border-white/12 px-6 transition-all duration-300 ${
+            className={`flex h-18 w-full items-center justify-between border-b border-[#d5e1f5] px-6 transition-all duration-300 ${
               scrolled
-                ? 'bg-[#121417]/96 shadow-[0_18px_38px_-28px_rgba(0,0,0,0.58)]'
-                : 'bg-[#121417]/84 backdrop-blur-md shadow-[0_18px_38px_-28px_rgba(0,0,0,0.58)]'
+                ? 'shadow-[0_18px_38px_-28px_rgba(11,31,87,0.22)]'
+                : 'shadow-[0_18px_38px_-28px_rgba(11,31,87,0.18)]'
             }`}
+            style={{ backgroundColor: HEADER_BACKGROUND }}
           >
             <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
               <span className="flex h-25 w-25 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
@@ -203,59 +267,29 @@ export function SiteLayout({
               )}
             </div>
 
-            <button
-              type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/18 bg-white/8 text-white md:hidden"
-              onClick={() => setIsMobileMenuOpen((current) => !current)}
-              aria-expanded={isMobileMenuOpen}
-              aria-label="Toggle navigation menu"
-            >
-              {isMobileMenuOpen ? (
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 7.5h15m-15 4.5h15m-15 4.5h15" />
-                </svg>
-              )}
-            </button>
+            {renderMobileMenuButton()}
           </div>
 
-          {isMobileMenuOpen && (
-            <div className="border-t border-white/10 bg-[#16191e]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
-              <nav className="flex flex-col gap-2">
-                {navItems.map((item) => (
-                  renderLink(
-                    item,
-                    navItemMobileBaseClass,
-                    navItemMobileActiveClass,
-                    () => setIsMobileMenuOpen(false),
-                  )
-                ))}
-              </nav>
-              {renderHeaderCta(
-                'mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#121417]',
-                () => setIsMobileMenuOpen(false),
-              )}
-            </div>
-          )}
+          {renderMobileMenuPanel()}
         </header>
       ) : (
         <header
           ref={headerRef}
           className={`sticky top-0 z-40 transition-all duration-300 ${
             scrolled
-              ? 'border-b border-blue-200/70 bg-[#f7fbff]/82 shadow-[0_10px_35px_-28px_rgba(11,31,87,0.3)] backdrop-blur-xl'
+              ? 'border-b border-blue-200/70 bg-[#f7fbff] shadow-[0_10px_35px_-28px_rgba(11,31,87,0.3)]'
               : 'bg-transparent'
           }`}
         >
           <div className="mx-auto flex h-18 w-full max-w-6xl items-center justify-between px-6">
-            <div className={`flex w-full items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 ${
-              scrolled
-                ? 'border-slate-300/55 bg-[#16191e]/94 shadow-[0_18px_38px_-28px_rgba(0,0,0,0.55)]'
-                : 'border-white/10 bg-[#121417]/88 shadow-[0_18px_38px_-28px_rgba(0,0,0,0.55)] backdrop-blur-md'
-            }`}>
+            <div
+              className={`flex w-full items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 ${
+                scrolled
+                  ? 'border-[#d5e1f5] shadow-[0_18px_38px_-28px_rgba(11,31,87,0.2)]'
+                  : 'border-white/70 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.18)]'
+              }`}
+              style={{ backgroundColor: HEADER_BACKGROUND }}
+            >
               <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
                 <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
                   <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.12] object-contain" />
@@ -263,13 +297,13 @@ export function SiteLayout({
               </Link>
 
               <nav className="hidden items-center gap-2 md:flex">
-              {navItems.map((item) =>
-                renderLink(
-                  item,
-                  navItemBaseClass,
-                  navItemActiveClass,
-                ),
-              )}
+                {navItems.map((item) =>
+                  renderLink(
+                    item,
+                    navItemBaseClass,
+                    navItemActiveClass,
+                  ),
+                )}
               </nav>
 
               <div className="hidden md:block">
@@ -278,80 +312,50 @@ export function SiteLayout({
                 )}
               </div>
 
-              <button
-                type="button"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/18 bg-white/8 text-white md:hidden"
-                onClick={() => setIsMobileMenuOpen((current) => !current)}
-                aria-expanded={isMobileMenuOpen}
-                aria-label="Toggle navigation menu"
-              >
-                {isMobileMenuOpen ? (
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                ) : (
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 7.5h15m-15 4.5h15m-15 4.5h15" />
-                  </svg>
-                )}
-              </button>
+              {renderMobileMenuButton()}
             </div>
           </div>
 
-          {isMobileMenuOpen && (
-            <div className="border-t border-white/10 bg-[#16191e]/96 px-6 pb-5 pt-4 backdrop-blur-xl md:hidden">
-              <nav className="flex flex-col gap-2">
-                {navItems.map((item) => (
-                  renderLink(
-                    item,
-                    navItemMobileBaseClass,
-                    navItemMobileActiveClass,
-                    () => setIsMobileMenuOpen(false),
-                  )
-                ))}
-              </nav>
-              {renderHeaderCta(
-                'mt-4 inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#121417]',
-                () => setIsMobileMenuOpen(false),
-              )}
-            </div>
-          )}
+          {renderMobileMenuPanel()}
         </header>
       )}
 
-      <main className={`relative ${isHeroHeader ? '-mt-18' : ''}`}>{children}</main>
+      <main className={`relative ${isHeroHeader ? 'md:-mt-18' : ''}`}>{children}</main>
 
-      <footer className="w-full border-t border-white/10 bg-[linear-gradient(180deg,#121417_0%,#0f1115_100%)] text-white">
-          <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 md:grid-cols-2 xl:grid-cols-[1.2fr_0.7fr_1fr_1fr] xl:gap-x-6 xl:gap-y-8">
-          <div>
-            <div className="flex items-center">
+      <footer
+        className="w-full border-t border-[#d5e1f5] text-[#0f214d]"
+        style={{ backgroundColor: FOOTER_BACKGROUND }}
+      >
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-8 py-14 text-center md:px-6 md:grid-cols-2 md:text-left xl:grid-cols-[1.2fr_0.7fr_1fr_1fr] xl:gap-x-6 xl:gap-y-8">
+          <div className="px-2 md:px-0">
+            <div className="flex items-center justify-center md:justify-start">
               <span className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
                 <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.22] object-contain" />
               </span>
             </div>
-            <p className="mt-2 max-w-md text-sm leading-7 text-slate-300/78">
+            <p className="mt-2 mx-auto max-w-md text-sm leading-7 text-[#4f628d] md:mx-0">
               {footer.shortDescription}
             </p>
           </div>
 
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]">
+          <div className="px-2 md:px-0">
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#16336f]">
               Menu
             </p>
-            <ul className="mt-5 space-y-3 text-sm text-slate-300/78">
+            <ul className="mt-5 space-y-3 text-sm text-[#4f628d]">
               {footer.quickLinks.map((item) => (
                 <li key={item.label}>{renderFooterLink(item.label, item.href)}</li>
               ))}
             </ul>
           </div>
 
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]">
+          <div className="px-2 md:px-0">
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#16336f]">
               Contact
             </p>
-            <div className="mt-5 space-y-4 text-sm text-slate-300/78">
+            <div className="mt-5 space-y-4 text-sm text-[#4f628d]">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/78">Alamat</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f214d]/78">Alamat</p>
                 <a
                   href={footer.addressHref}
                   target="_blank"
@@ -362,11 +366,11 @@ export function SiteLayout({
                 </a>
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/78">Fax</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f214d]/78">Fax</p>
                 <p className="mt-1">{footer.fax}</p>
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/78">Email</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f214d]/78">Email</p>
                 <a
                   href={`mailto:${footer.email}`}
                   className="mt-1 block transition hover:text-[#f6c445]"
@@ -375,7 +379,7 @@ export function SiteLayout({
                 </a>
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/78">Whatsapp</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f214d]/78">Whatsapp</p>
                 <a
                   href={`https://wa.me/${footer.whatsapp.replace(/\D/g, '')}`}
                   target="_blank"
@@ -388,27 +392,26 @@ export function SiteLayout({
             </div>
           </div>
 
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#f6c445]">
+          <div className="px-2 md:px-0">
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#16336f]">
               Location
             </p>
-            <div className="mt-5 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/5 shadow-[0_18px_40px_-30px_rgba(0,0,0,0.35)]">
+            <div className="mt-5 overflow-hidden rounded-[1.5rem] border border-[#d5e1f5] bg-white shadow-[0_18px_40px_-30px_rgba(11,31,87,0.18)]">
               <iframe
                 title={`${footer.companyName} location`}
                 src={footer.mapEmbedUrl}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
-                className="h-52 w-full border-0"
+                className="h-64 w-full border-0"
               />
             </div>
           </div>
         </div>
 
-        <div className="border-t border-white/10">
-          <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-slate-400/80 md:flex-row md:items-center md:justify-between">
-            <p>© {new Date().getFullYear()} {footer.companyName}. All rights reserved.</p>
-            <p>Built for modern company profile presentation.</p>
+        <div className="border-t border-[#d5e1f5]">
+          <div className="mx-auto w-full max-w-6xl px-8 py-6 text-center text-xs text-[#6a7ca6] md:px-6">
+            <p>© {new Date().getFullYear()} {footer.companyName}. All rights reserved. Built for modern company profile presentation.</p>
           </div>
         </div>
       </footer>

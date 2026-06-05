@@ -1,8 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import gsap from 'gsap'
 import { useHomeHeroAnimation } from '../../animations/useHomeHeroAnimation'
-import heroLogo from '../../assets/man-working-nobg.svg'
+import { HeroIllustration } from './HeroIllustration'
 import type { HeroContent } from '../../types/home'
 
 interface HeroSectionProps {
@@ -22,11 +21,7 @@ function HeroVisual({ visualRef }: HeroVisualProps) {
       <div className="absolute left-[10%] top-[8%] h-32 w-32 rounded-full bg-[#f6c445]/22 blur-3xl" />
       <div className="absolute right-[8%] top-[18%] h-56 w-56 rounded-full bg-[#2e64d3]/28 blur-3xl" />
       <div className="absolute bottom-[10%] left-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
-      <img
-        src={heroLogo}
-        alt="Logo hero Morrus Digital Connecting"
-        className="relative z-10 w-full max-w-[36rem] object-contain scale-105 md:max-w-[39rem] md:scale-110"
-      />
+      <HeroIllustration />
     </div>
   )
 }
@@ -44,48 +39,11 @@ export function HeroSection({ content }: HeroSectionProps) {
     targets: [eyebrowRef, titleRef, descriptionRef, actionsRef],
   })
 
-  useEffect(() => {
-    if (!scopeRef.current || !visualRef.current) return
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion) return
-
-    const section = scopeRef.current
-    const visual = visualRef.current
-    const xTo = gsap.quickTo(visual, 'x', { duration: 0.45, ease: 'power3.out' })
-    const yTo = gsap.quickTo(visual, 'y', { duration: 0.45, ease: 'power3.out' })
-    const rotateTo = gsap.quickTo(visual, 'rotation', { duration: 0.55, ease: 'power3.out' })
-
-    const handlePointerMove = (event: PointerEvent) => {
-      const bounds = section.getBoundingClientRect()
-      const relativeX = (event.clientX - bounds.left) / bounds.width - 0.5
-      const relativeY = (event.clientY - bounds.top) / bounds.height - 0.5
-
-      xTo(relativeX * 22)
-      yTo(relativeY * 18)
-      rotateTo(relativeX * 3.5)
-    }
-
-    const handlePointerLeave = () => {
-      xTo(0)
-      yTo(0)
-      rotateTo(0)
-    }
-
-    section.addEventListener('pointermove', handlePointerMove)
-    section.addEventListener('pointerleave', handlePointerLeave)
-
-    return () => {
-      section.removeEventListener('pointermove', handlePointerMove)
-      section.removeEventListener('pointerleave', handlePointerLeave)
-    }
-  }, [])
-
   return (
     <section
       id="home"
       ref={scopeRef}
-      className="relative -mt-px overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(246,196,69,0.14),transparent_18%),radial-gradient(circle_at_85%_18%,rgba(46,100,211,0.32),transparent_24%),linear-gradient(135deg,#081a4a_0%,#0d2c76_48%,#1949a6_100%)] pb-18 pt-28 text-white md:pb-24 md:pt-32"
+      className="relative -mt-px overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(246,196,69,0.14),transparent_18%),radial-gradient(circle_at_85%_18%,rgba(46,100,211,0.32),transparent_24%),linear-gradient(135deg,#081a4a_0%,#0d2c76_48%,#1949a6_100%)] pb-18 pt-32 text-white md:pb-24 md:pt-36"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_8%,rgba(255,255,255,0.08),transparent_18%),radial-gradient(circle_at_75%_30%,rgba(255,255,255,0.06),transparent_22%)]" />
       <div className="pointer-events-none absolute -left-10 top-0 h-72 w-72 rounded-full bg-[#f6c445]/15 blur-3xl" />
@@ -95,7 +53,7 @@ export function HeroSection({ content }: HeroSectionProps) {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-[linear-gradient(to_bottom,rgba(245,249,255,0)_0%,rgba(245,249,255,0.16)_25%,rgba(245,249,255,0.92)_78%,#f5f9ff_100%)]" />
 
       <div className="mx-auto grid w-full max-w-6xl gap-14 px-6 md:grid-cols-[1fr_0.95fr] md:items-center">
-        <div className="relative z-10">
+        <div className="relative z-10 text-center md:text-left">
           {content.eyebrow ? (
             <p
               ref={eyebrowRef}
@@ -107,7 +65,7 @@ export function HeroSection({ content }: HeroSectionProps) {
 
           <h1
             ref={titleRef}
-            className={`${content.eyebrow ? 'mt-6' : 'mt-0'} max-w-3xl text-4xl font-bold leading-tight text-white md:text-5xl xl:text-6xl`}
+            className={`${content.eyebrow ? 'mt-6' : 'mt-0'} mx-auto max-w-3xl text-4xl font-bold leading-tight text-white md:mx-0 md:text-5xl xl:text-6xl`}
             style={{ fontFamily: "'Sora', sans-serif" }}
           >
             {content.title}
@@ -115,28 +73,28 @@ export function HeroSection({ content }: HeroSectionProps) {
 
           <p
             ref={descriptionRef}
-            className="mt-6 max-w-2xl text-lg leading-8 text-blue-100/82"
+            className="mt-6 mx-auto max-w-2xl text-lg leading-8 text-blue-100/82 md:mx-0"
           >
             {content.description}
           </p>
 
-          <div ref={actionsRef} className="mt-8 flex flex-wrap gap-4">
+          <div ref={actionsRef} className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
             <Link
               to={content.primaryCtaHref}
-              className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-6 py-3.5 text-sm font-semibold text-[#0b1f57] transition hover:-translate-y-0.5 hover:bg-[#ffd15c]"
+              className="inline-flex items-center justify-center rounded-full bg-[#f6c445] px-6 py-3.5 text-sm font-semibold text-[#0b1f57] transition hover:-translate-y-0.5 hover:bg-[#ffd15c] max-md:active:-translate-y-0.5 max-md:active:bg-[#ffd15c]"
             >
               {content.primaryCtaLabel}
             </Link>
             <Link
               to={content.secondaryCtaHref}
-              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-[#f6c445]/55 hover:text-[#f6c445]"
+              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-[#f6c445]/55 hover:text-[#f6c445] max-md:active:-translate-y-0.5 max-md:active:border-[#f6c445]/55 max-md:active:text-[#f6c445]"
             >
               {content.secondaryCtaLabel}
             </Link>
           </div>
 
           {content.trustPoints.length > 0 ? (
-            <ul className="mt-8 flex flex-wrap gap-3">
+            <ul className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
               {content.trustPoints.map((point) => (
                 <li
                   key={point}

@@ -26,6 +26,8 @@ export interface HomeViewModel {
   whatsappLink: string
 }
 
+const ARTICLE_READ_MORE_FALLBACK_HREF = '/#'
+
 export function mapHomeContentToViewModel(content: HomeContent): HomeViewModel {
   return {
     layout: {
@@ -44,7 +46,10 @@ export function mapHomeContentToViewModel(content: HomeContent): HomeViewModel {
     portfolio: content.portfolio,
     testimonials: content.testimonials,
     partners: content.partners,
-    articles: content.articles,
+    articles: content.articles.map((article) => ({
+      ...article,
+      href: ARTICLE_READ_MORE_FALLBACK_HREF,
+    })),
     contactCta: content.contactCta,
     whatsappNumber: content.whatsappNumber,
     whatsappLink: createWhatsAppLink(content.whatsappNumber, content.whatsappMessage),

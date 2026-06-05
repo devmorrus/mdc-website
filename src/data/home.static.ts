@@ -147,27 +147,27 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       ctaLabel: 'Pilih Paket Business',
       href: '/services',
     },
-    {
-      id: 'support',
-      tier: 'Support',
-      tag: 'Support',
-      title: 'Maintenance dan Improvement',
-      price: 'Mulai 3 Jt',
-      originalPrice: '5 Jt',
-      priceSuffix: 'per bulan',
-      description:
-        'Untuk bisnis yang ingin website tetap stabil, aman, dan terus berkembang setelah proses launch selesai.',
-      features: [
-        { label: 'Monitoring berkala', included: true },
-        { label: 'Perbaikan cepat untuk issue prioritas', included: true },
-        { label: 'Update keamanan dan performa', included: true },
-        { label: 'Pengembangan bertahap', included: true },
-        { label: 'Pembuatan website baru dari nol', included: false },
-        { label: 'Dashboard bisnis custom penuh', included: false },
-      ],
-      ctaLabel: 'Pilih Paket Support',
-      href: '/services',
-    },
+    // {
+    //   id: 'support',
+    //   tier: 'Support',
+    //   tag: 'Support',
+    //   title: 'Maintenance dan Improvement',
+    //   price: 'Mulai 3 Jt',
+    //   originalPrice: '5 Jt',
+    //   priceSuffix: 'per bulan',
+    //   description:
+    //     'Untuk bisnis yang ingin website tetap stabil, aman, dan terus berkembang setelah proses launch selesai.',
+    //   features: [
+    //     { label: 'Monitoring berkala', included: true },
+    //     { label: 'Perbaikan cepat untuk issue prioritas', included: true },
+    //     { label: 'Update keamanan dan performa', included: true },
+    //     { label: 'Pengembangan bertahap', included: true },
+    //     { label: 'Pembuatan website baru dari nol', included: false },
+    //     { label: 'Dashboard bisnis custom penuh', included: false },
+    //   ],
+    //   ctaLabel: 'Pilih Paket Support',
+    //   href: '/services',
+    // },
   ],
   advantages: [
     {
@@ -292,12 +292,10 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     },
   ],
   partners: [
-    { id: '1', name: 'JalaDewa Group', abbreviation: 'JG' },
-    { id: '2', name: 'Focus Trading', abbreviation: 'FT' },
-    { id: '3', name: 'DAT Indonesia', abbreviation: 'DI' },
-    { id: '4', name: 'Nusa Integrasi', abbreviation: 'NI' },
-    { id: '5', name: 'Astra Karya Mitra', abbreviation: 'AK' },
-    { id: '6', name: 'Urban Logistik', abbreviation: 'UL' },
+    { id: '1', name: 'Jaladewa Champion', abbreviation: 'JC' },
+    { id: '2', name: 'Focus Trading Contractor', abbreviation: 'FTC' },
+    { id: '3', name: 'Mitra Cemerlang Bersama', abbreviation: 'MCB' },
+    { id: '4', name: 'Deferd Concept', abbreviation: 'DC' },
   ],
   articles: [
     {
@@ -308,7 +306,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
         'Ringkasan struktur konten yang membantu website perusahaan terasa lebih jelas, rapi, dan siap digunakan untuk presentasi bisnis.',
       publishedAt: '02 Juni 2026',
       author: 'Tim Morrus',
-      href: '/articles/company-profile-elements',
+      href: '/#',
       imageUrl:
         'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Tim bisnis berdiskusi di ruang meeting sebagai cover artikel company profile.',
@@ -321,7 +319,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
         'Desain yang baik perlu ditopang hierarchy konten yang tepat agar pengunjung cepat memahami value perusahaan.',
       publishedAt: '28 Mei 2026',
       author: 'Morrus Insight',
-      href: '/articles/web-structure-strategy',
+      href: '/#',
       imageUrl:
         'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Sticky notes dan alur strategi sebagai cover artikel web strategy.',
@@ -334,7 +332,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
         'CTA yang terarah dapat membantu homepage bekerja lebih efektif sebagai titik awal komunikasi dengan prospek.',
       publishedAt: '21 Mei 2026',
       author: 'Admin Editorial',
-      href: '/articles/cta-digital-branding',
+      href: '/#',
       imageUrl:
         'https://images.pexels.com/photos/3182765/pexels-photo-3182765.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Laptop dan diskusi tim pemasaran sebagai cover artikel digital branding.',

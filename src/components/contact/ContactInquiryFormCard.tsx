@@ -102,14 +102,14 @@ export function ContactInquiryFormCard({
             {errors.message && <p className="mt-1.5 text-xs text-amber-300">{errors.message}</p>}
           </div>
 
-          <div className="flex items-center gap-4 pt-1">
+          <div className="flex flex-col items-center gap-4 pt-1 md:flex-row md:items-center">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="group relative overflow-hidden rounded-xl bg-amber-300 px-7 py-3 text-sm font-bold text-blue-950 shadow-[0_0_25px_rgba(251,191,36,0.25)] transition-all duration-300 hover:bg-amber-200 hover:shadow-[0_0_40px_rgba(251,191,36,0.45)] disabled:cursor-not-allowed disabled:opacity-60"
+              className="group relative overflow-hidden rounded-xl bg-amber-300 px-7 py-3 text-sm font-bold text-blue-950 shadow-[0_0_25px_rgba(251,191,36,0.25)] transition-all duration-300 hover:bg-amber-200 hover:shadow-[0_0_40px_rgba(251,191,36,0.45)] max-md:active:bg-amber-200 max-md:active:shadow-[0_0_40px_rgba(251,191,36,0.45)] disabled:cursor-not-allowed disabled:opacity-60"
             >
               <span className="relative z-10">{isSubmitting ? 'Mengirim...' : 'Kirim Inquiry'}</span>
-              <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
+              <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full max-md:group-active:translate-x-full" />
             </button>
 
             {submitResult && (

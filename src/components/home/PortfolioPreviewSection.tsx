@@ -29,7 +29,7 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
         <div className="mt-8 flex justify-center">
           <Link
             to="/portfolio"
-            className="inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8]"
+            className="inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8] max-md:active:bg-[#184aa8]"
           >
             Lihat semua portofolio
           </Link>
@@ -51,7 +51,7 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
                   src={item.imageUrl}
                   alt={item.imageAlt}
                   loading="lazy"
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04] max-md:group-active:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b1f57]/64 via-[#0b1f57]/14 to-[#0b1f57]/8" />
                 <div className="absolute inset-x-0 top-0 p-6">
@@ -76,12 +76,14 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
                 <p className="mt-4 text-base leading-7 text-slate-600">
                   {item.summary}
                 </p>
-                <Link
-                  to={item.href}
-                  className="mt-6 inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8]"
-                >
-                  Lihat Produk
-                </Link>
+                <div className="mt-6 flex justify-center md:justify-start">
+                  <Link
+                    to={item.href}
+                    className="inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8] max-md:active:bg-[#184aa8]"
+                  >
+                    Lihat Produk
+                  </Link>
+                </div>
               </div>
             </article>
           ))}
