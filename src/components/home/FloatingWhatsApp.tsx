@@ -169,7 +169,7 @@ export function FloatingWhatsApp() {
 
           <button
             type="submit"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25d366] px-5 py-3 text-sm font-bold text-white shadow-[0_16px_36px_-18px_rgba(37,211,102,0.75)] transition hover:-translate-y-0.5 hover:bg-[#20bd5a]"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25d366] px-5 py-3 text-sm font-bold text-white shadow-[0_16px_36px_-18px_rgba(37,211,102,0.75)] transition hover:-translate-y-0.5 hover:bg-[#20bd5a] max-md:active:-translate-y-0.5 max-md:active:bg-[#20bd5a]"
           >
             <WhatsAppIcon />
             Kirim ke WhatsApp
@@ -185,7 +185,7 @@ export function FloatingWhatsApp() {
         aria-controls="whatsapp-popup"
         aria-label="Buka formulir WhatsApp"
         onClick={() => setIsOpen((current) => !current)}
-        className="inline-flex items-center gap-3 rounded-full bg-[#25d366] px-4 py-3 text-sm font-bold text-white shadow-[0_20px_55px_-18px_rgba(37,211,102,0.7)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#20bd5a]"
+        className="inline-flex items-center gap-3 rounded-full bg-[#25d366] px-4 py-3 text-sm font-bold text-white shadow-[0_20px_55px_-18px_rgba(37,211,102,0.7)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#20bd5a] max-md:active:-translate-y-1 max-md:active:bg-[#20bd5a]"
       >
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#25d366] shadow-[0_8px_22px_-10px_rgba(255,255,255,0.95)]">
           <WhatsAppIcon />

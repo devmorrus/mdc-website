@@ -1,5 +1,5 @@
+import { useRef, type MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { useRef } from 'react'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { ArticleItem } from '../../types/home'
 import { SectionHeading } from './SectionHeading'
@@ -22,12 +22,26 @@ function isArticleSummaryTruncated(summary: string) {
   return summary.length > ARTICLE_SUMMARY_MAX_LENGTH
 }
 
+function isModifiedClick(event: MouseEvent<HTMLAnchorElement>) {
+  return event.metaKey || event.altKey || event.ctrlKey || event.shiftKey || event.button !== 0
+}
+
 export function ArticlesSection({ items }: ArticlesSectionProps) {
   const cardsRef = useRef<HTMLElement[]>([])
   const sectionRef = useGsapReveal<HTMLElement>({
     targets: () => cardsRef.current,
     to: { stagger: 0.08 },
   })
+
+  const handleReadMoreClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href !== '/#' || isModifiedClick(event)) {
+      return
+    }
+
+    event.preventDefault()
+    window.history.replaceState(window.history.state, '', '/#')
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  }
 
   return (
     <section
@@ -56,14 +70,14 @@ export function ArticlesSection({ items }: ArticlesSectionProps) {
                     cardsRef.current[index] = element
                   }
                 }}
-                className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-[0_18px_50px_-38px_rgba(11,31,87,0.16)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-36px_rgba(11,31,87,0.22)]"
+                className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-[0_18px_50px_-38px_rgba(11,31,87,0.16)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-36px_rgba(11,31,87,0.22)] max-md:active:-translate-y-1 max-md:active:shadow-[0_28px_60px_-36px_rgba(11,31,87,0.22)]"
               >
                 <div className="relative h-56 overflow-hidden bg-[#dfe9ff]">
                   <img
                     src={item.imageUrl}
                     alt={item.imageAlt}
                     loading="lazy"
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04] max-md:group-active:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0b1f57]/54 via-[#0b1f57]/10 to-transparent" />
                   <div className="absolute left-5 top-5">
@@ -84,13 +98,13 @@ export function ArticlesSection({ items }: ArticlesSectionProps) {
 
                     <div className="group/summary relative mt-4 min-h-[5.25rem]">
                       <p
-                        className={`text-sm leading-7 text-slate-600 transition-opacity duration-200 ${summaryIsTruncated ? 'cursor-help group-hover/summary:opacity-0' : ''}`}
+                        className={`text-sm leading-7 text-slate-600 transition-opacity duration-200 ${summaryIsTruncated ? 'cursor-help group-hover/summary:opacity-0 max-md:group-active:opacity-0' : ''}`}
                       >
                         {truncateArticleSummary(item.summary)}
                       </p>
 
                       {summaryIsTruncated ? (
-                        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-white opacity-0 transition duration-200 group-hover/summary:opacity-100">
+                        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-white opacity-0 transition duration-200 group-hover/summary:opacity-100 max-md:group-active:opacity-100">
                           <p className="text-sm leading-7 text-slate-600">
                             {item.summary}
                           </p>
@@ -101,10 +115,11 @@ export function ArticlesSection({ items }: ArticlesSectionProps) {
 
                   <Link
                     to={item.href}
-                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#0f2f78] transition hover:text-[#184aa8]"
+                    onClick={(event) => handleReadMoreClick(event, item.href)}
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#0f2f78] transition hover:text-[#184aa8] max-md:active:text-[#184aa8]"
                   >
                     Read more
-                    <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">{'->'}</span>
+                    <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1 max-md:group-active:translate-x-1">{'->'}</span>
                   </Link>
 
                   <div className="mt-6 border-t border-blue-100 pt-4">

@@ -96,14 +96,14 @@ export function AboutSection({ content }: AboutSectionProps) {
     <section ref={sectionRef} id="about" className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f7fbff_100%)] py-18 md:py-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(246,196,69,0.08),transparent_18%),radial-gradient(circle_at_86%_32%,rgba(24,74,168,0.08),transparent_22%)]" />
       <div className="mx-auto relative z-10 grid w-full max-w-6xl gap-8 px-6 lg:grid-cols-[1fr_0.95fr] lg:items-start">
-        <div>
+        <div className="text-center lg:text-left">
           <SectionHeading
             eyebrow={content.eyebrow}
             title={content.title}
             description={content.summary}
           />
 
-          <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600">
+          <p className="mt-6 mx-auto max-w-2xl text-base leading-8 text-slate-600 lg:mx-0">
             {content.description}
           </p>
         </div>

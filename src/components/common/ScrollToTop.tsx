@@ -5,17 +5,19 @@ export function ScrollToTop() {
   const location = useLocation()
 
   useEffect(() => {
-    if (location.hash) {
+    const hasNamedHash = location.hash.length > 1
+
+    if (hasNamedHash) {
       const elementId = location.hash.replace('#', '')
       const element = document.getElementById(elementId)
 
       if (element) {
-        element.scrollIntoView({ behavior: 'auto', block: 'start' })
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
         return
       }
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }, [location.hash, location.pathname])
 
   return null
