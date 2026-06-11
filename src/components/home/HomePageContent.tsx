@@ -29,7 +29,6 @@ export function HomePageContent({ model }: HomePageContentProps) {
       {model.articles.length > 0 ? <ArticlesSection items={model.articles} /> : null}
       <ContactCtaSection
         content={model.contactCta}
-        whatsappLink={model.whatsappLink}
       />
       <FloatingWhatsApp />
     </>

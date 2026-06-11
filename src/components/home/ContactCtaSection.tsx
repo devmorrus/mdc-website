@@ -5,15 +5,10 @@ import { ContactInquiryFormCard } from '../contact/ContactInquiryFormCard'
 
 interface ContactCtaSectionProps {
   content: ContactCtaContent
-  whatsappLink: string
 }
 
-export function ContactCtaSection({ content, whatsappLink }: ContactCtaSectionProps) {
+export function ContactCtaSection({ content }: ContactCtaSectionProps) {
   const sectionRef = useGsapReveal<HTMLElement>()
-  const secondaryHref = content.secondaryCtaHref === '#whatsapp'
-    ? whatsappLink
-    : content.secondaryCtaHref
-  const isSecondaryExternal = secondaryHref.startsWith('http')
 
   return (
     <section ref={sectionRef} id="contact" className="relative overflow-hidden bg-[linear-gradient(180deg,#edf3ff_0%,#f5f9ff_100%)] pb-18 pt-8 md:pb-24">
@@ -46,24 +41,6 @@ export function ContactCtaSection({ content, whatsappLink }: ContactCtaSectionPr
                 >
                   {content.primaryCtaLabel}
                 </Link>
-
-                {isSecondaryExternal ? (
-                  <a
-                    href={secondaryHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hidden items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition hover:border-[#f6c445]/55 hover:bg-white/6 hover:text-[#f6c445] md:inline-flex"
-                  >
-                    {content.secondaryCtaLabel}
-                  </a>
-                ) : (
-                  <Link
-                    to={secondaryHref}
-                    className="hidden items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition hover:border-[#f6c445]/55 hover:bg-white/6 hover:text-[#f6c445] md:inline-flex"
-                  >
-                    {content.secondaryCtaLabel}
-                  </Link>
-                )}
               </div>
             </div>
 

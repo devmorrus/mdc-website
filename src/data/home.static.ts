@@ -8,7 +8,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     { id: 'blog', label: 'Blog', href: '/#blog' },
     { id: 'contact', label: 'Kontak', href: '/#contact' },
   ],
-  headerCtaLabel: 'Konsultasi Proyek',
+  headerCtaLabel: 'Konsultasi Sekarang',
   headerCtaHref:
     'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
   hero: {

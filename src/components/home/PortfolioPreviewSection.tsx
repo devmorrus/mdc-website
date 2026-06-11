@@ -26,15 +26,6 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
           centered
         />
 
-        <div className="mt-8 flex justify-center">
-          <Link
-            to="/portfolio"
-            className="inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8]"
-          >
-            Lihat semua portofolio
-          </Link>
-        </div>
-
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {items.map((item, index) => (
             <article
