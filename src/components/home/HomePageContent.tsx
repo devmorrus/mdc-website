@@ -18,7 +18,7 @@ interface HomePageContentProps {
 export function HomePageContent({ model }: HomePageContentProps) {
   return (
     <>
-      <HeroSection content={model.hero} />
+      <HeroSection content={model.hero} services={model.services} />
       <PartnersSection items={model.partners} />
       <StatsStrip stats={model.stats} />
       <AboutSection content={model.about} />

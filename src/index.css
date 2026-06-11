@@ -73,6 +73,11 @@ h3 {
 		padding-bottom: 100px !important;
 	}
 
+	section.hero-section {
+		padding-top: 128px !important;
+		padding-bottom: 180px !important;
+	}
+
 	section.partners-section {
 		padding-bottom: 50px !important;
 	}
@@ -122,6 +127,21 @@ h3 {
 	}
 	100% {
 		transform: translate3d(0, -18px, 0) scale(1.035) rotate(-2.2deg);
+	}
+}
+
+@keyframes heroBlobDrift {
+	0% {
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+	33% {
+		transform: translate3d(30px, -44px, 0) scale(1.08);
+	}
+	66% {
+		transform: translate3d(-18px, 18px, 0) scale(0.94);
+	}
+	100% {
+		transform: translate3d(0, 0, 0) scale(1);
 	}
 }
 

@@ -65,22 +65,24 @@ export function PartnersSection({ items }: PartnersSectionProps) {
         />
       </div>
 
-      <div className="relative z-10 mt-16 w-full overflow-hidden">
-        <div className="partners-marquee flex w-max items-center gap-14 px-6 md:gap-16 md:px-8 lg:gap-[4.5rem] lg:px-10 xl:px-12">
-          {marqueeItems.map((item, index) => (
-            <div
-              key={`${item.id}-${index}`}
-              ref={(element) => {
-                if (element) {
-                  cardsRef.current[index] = element
-                }
-              }}
-              aria-label={item.name}
-              className="flex h-20 w-44 shrink-0 items-center justify-center transition duration-300 md:h-24 md:w-56 lg:w-60"
-            >
-              <PartnerLogo item={item} />
-            </div>
-          ))}
+      <div className="relative z-10 mt-16 w-full px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="overflow-hidden">
+          <div className="partners-marquee flex w-max items-center gap-14 md:gap-16 lg:gap-[4.5rem]">
+            {marqueeItems.map((item, index) => (
+              <div
+                key={`${item.id}-${index}`}
+                ref={(element) => {
+                  if (element) {
+                    cardsRef.current[index] = element
+                  }
+                }}
+                aria-label={item.name}
+                className="flex h-20 w-44 shrink-0 items-center justify-center transition duration-300 md:h-24 md:w-56 lg:w-60"
+              >
+                <PartnerLogo item={item} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
