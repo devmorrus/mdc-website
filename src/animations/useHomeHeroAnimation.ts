@@ -3,19 +3,18 @@ import gsap from 'gsap'
 
 interface UseHomeHeroAnimationParams {
   scope: React.RefObject<HTMLElement | null>
-  targets: Array<React.RefObject<HTMLElement | null>>
 }
 
-export function useHomeHeroAnimation({ scope, targets }: UseHomeHeroAnimationParams): void {
+export function useHomeHeroAnimation({ scope }: UseHomeHeroAnimationParams): void {
   useLayoutEffect(() => {
     if (!scope.current) return
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion) return
 
-    const tweenTargets = targets
-      .map((target) => target.current)
-      .filter((element): element is HTMLElement => element !== null)
+    const tweenTargets = Array.from(scope.current.querySelectorAll<HTMLElement>('[data-hero-animate]'))
+
+    if (tweenTargets.length === 0) return
 
     const context = gsap.context(() => {
       gsap.from(tweenTargets, {
@@ -30,5 +29,5 @@ export function useHomeHeroAnimation({ scope, targets }: UseHomeHeroAnimationPar
     return () => {
       context.revert()
     }
-  }, [scope, targets])
+  }, [scope])
 }

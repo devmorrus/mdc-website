@@ -52,6 +52,7 @@ export interface ServiceItem {
     included: boolean
   }[]
   ctaLabel: string
+  whatsappMessage: string
   href: string
 }
 
@@ -60,6 +61,11 @@ export interface AdvantageItem {
   title: string
   description: string
   stat: string
+  accent: {
+    iconColor: string
+    iconBackground: string
+    iconHoverBackground: string
+  }
   imageUrl: string
   imageAlt: string
 }

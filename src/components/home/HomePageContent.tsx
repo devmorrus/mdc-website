@@ -18,7 +18,7 @@ interface HomePageContentProps {
 export function HomePageContent({ model }: HomePageContentProps) {
   return (
     <>
-      <HeroSection content={model.hero} />
+      <HeroSection content={model.hero} services={model.services} />
       <PartnersSection items={model.partners} />
       <StatsStrip stats={model.stats} />
       <AboutSection content={model.about} />
@@ -29,7 +29,6 @@ export function HomePageContent({ model }: HomePageContentProps) {
       {model.articles.length > 0 ? <ArticlesSection items={model.articles} /> : null}
       <ContactCtaSection
         content={model.contactCta}
-        whatsappLink={model.whatsappLink}
       />
       <FloatingWhatsApp />
     </>

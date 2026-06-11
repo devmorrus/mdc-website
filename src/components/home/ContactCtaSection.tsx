@@ -5,21 +5,16 @@ import { ContactInquiryFormCard } from '../contact/ContactInquiryFormCard'
 
 interface ContactCtaSectionProps {
   content: ContactCtaContent
-  whatsappLink: string
 }
 
-export function ContactCtaSection({ content, whatsappLink }: ContactCtaSectionProps) {
+export function ContactCtaSection({ content }: ContactCtaSectionProps) {
   const sectionRef = useGsapReveal<HTMLElement>()
-  const secondaryHref = content.secondaryCtaHref === '#whatsapp'
-    ? whatsappLink
-    : content.secondaryCtaHref
-  const isSecondaryExternal = secondaryHref.startsWith('http')
 
   return (
     <section ref={sectionRef} id="contact" className="relative overflow-hidden bg-[linear-gradient(180deg,#edf3ff_0%,#f5f9ff_100%)] pb-18 pt-8 md:pb-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(246,196,69,0.08),transparent_18%),radial-gradient(circle_at_84%_76%,rgba(24,74,168,0.07),transparent_18%)]" />
       <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
-        <div className="relative overflow-hidden rounded-[2.25rem] bg-gradient-to-br from-[#0b1f57] via-[#0f2f78] to-[#123a93] px-6 py-[100px] text-white shadow-[0_30px_90px_-40px_rgba(11,31,87,0.65)] md:px-10 md:py-10">
+        <div className="relative overflow-hidden rounded-[2.25rem] bg-linear-to-br from-[#0b1f57] via-[#0f2f78] to-[#123a93] px-25 text-white shadow-[0_30px_90px_-40px_rgba(11,31,87,0.65)] md:px-10 md:py-10">
           <div className="pointer-events-none absolute -left-12 top-0 h-40 w-40 rounded-full bg-[#f6c445]/20 blur-3xl" />
           <div className="pointer-events-none absolute right-0 top-0 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
@@ -46,24 +41,6 @@ export function ContactCtaSection({ content, whatsappLink }: ContactCtaSectionPr
                 >
                   {content.primaryCtaLabel}
                 </Link>
-
-                {isSecondaryExternal ? (
-                  <a
-                    href={secondaryHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hidden items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition hover:border-[#f6c445]/55 hover:bg-white/6 hover:text-[#f6c445] md:inline-flex"
-                  >
-                    {content.secondaryCtaLabel}
-                  </a>
-                ) : (
-                  <Link
-                    to={secondaryHref}
-                    className="hidden items-center justify-center rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition hover:border-[#f6c445]/55 hover:bg-white/6 hover:text-[#f6c445] md:inline-flex"
-                  >
-                    {content.secondaryCtaLabel}
-                  </Link>
-                )}
               </div>
             </div>
 

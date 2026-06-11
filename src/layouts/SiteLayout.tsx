@@ -27,7 +27,7 @@ const DEFAULT_NAV_ITEMS: NavigationItem[] = [
 ]
 
 const DEFAULT_HEADER_CTA = {
-  label: 'Konsultasi Proyek',
+  label: 'Konsultasi Sekarang',
   href: WHATSAPP_CONSULTATION_URL,
 }
 

@@ -56,15 +56,17 @@ export function PartnersSection({ items }: PartnersSectionProps) {
       className="partners-section relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)] pt-[100px] pb-[50px] md:py-24"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_18%,rgba(246,196,69,0.07),transparent_16%),radial-gradient(circle_at_84%_76%,rgba(24,74,168,0.05),transparent_16%)]" />
-      <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
         <SectionHeading
           eyebrow="Klien dan Partner"
           title="Dipercaya oleh para pemimpin industri"
           description="Berkolaborasi dengan organisasi yang berpikiran maju untuk menghadirkan solusi digital transformatif."
           centered
         />
+      </div>
 
-        <div className="mx-auto mt-16 w-full max-w-5xl overflow-hidden">
+      <div className="relative z-10 mt-16 w-full px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="overflow-hidden">
           <div className="partners-marquee flex w-max items-center gap-14 md:gap-16 lg:gap-[4.5rem]">
             {marqueeItems.map((item, index) => (
               <div

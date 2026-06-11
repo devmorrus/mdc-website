@@ -1,5 +1,4 @@
-import { useRef, type MouseEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { useRef } from 'react'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { ArticleItem } from '../../types/home'
 import { SectionHeading } from './SectionHeading'
@@ -22,26 +21,12 @@ function isArticleSummaryTruncated(summary: string) {
   return summary.length > ARTICLE_SUMMARY_MAX_LENGTH
 }
 
-function isModifiedClick(event: MouseEvent<HTMLAnchorElement>) {
-  return event.metaKey || event.altKey || event.ctrlKey || event.shiftKey || event.button !== 0
-}
-
 export function ArticlesSection({ items }: ArticlesSectionProps) {
   const cardsRef = useRef<HTMLElement[]>([])
   const sectionRef = useGsapReveal<HTMLElement>({
     targets: () => cardsRef.current,
     to: { stagger: 0.08 },
   })
-
-  const handleReadMoreClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href !== '/#' || isModifiedClick(event)) {
-      return
-    }
-
-    event.preventDefault()
-    window.history.replaceState(window.history.state, '', '/#')
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-  }
 
   return (
     <section
@@ -113,16 +98,7 @@ export function ArticlesSection({ items }: ArticlesSectionProps) {
                     </div>
                   </div>
 
-                  <Link
-                    to={item.href}
-                    onClick={(event) => handleReadMoreClick(event, item.href)}
-                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#0f2f78] transition hover:text-[#184aa8]"
-                  >
-                    Read more
-                    <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">{'->'}</span>
-                  </Link>
-
-                  <div className="mt-6 border-t border-blue-100 pt-4">
+                  <div className="mt-5 border-t border-blue-100 pt-4">
                     <div className="flex items-center justify-between gap-4 text-xs font-medium text-slate-500">
                       <span>{item.publishedAt}</span>
                       <span>{item.author}</span>
