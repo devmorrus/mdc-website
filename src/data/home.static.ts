@@ -103,6 +103,8 @@ export const HOME_STATIC_CONTENT: HomeContent = {
         { label: 'Dashboard admin multi-role', included: false },
       ],
       ctaLabel: 'Pilih Paket Starter',
+      whatsappMessage:
+        'Halo Morrus Digital Connecting, saya tertarik dengan Paket Starter untuk Website Company Profile. Saya ingin konsultasi lebih lanjut.',
       href: '/services',
     },
     {
@@ -124,6 +126,8 @@ export const HOME_STATIC_CONTENT: HomeContent = {
         { label: 'Maintenance bulanan rutin', included: false },
       ],
       ctaLabel: 'Pilih Paket Growth',
+      whatsappMessage:
+        'Halo Morrus Digital Connecting, saya tertarik dengan Paket Growth untuk Website dan Aplikasi Custom. Saya ingin diskusi kebutuhan project saya.',
       href: '/services',
     },
     {
@@ -145,6 +149,8 @@ export const HOME_STATIC_CONTENT: HomeContent = {
         { label: 'Maintenance bulanan rutin', included: false },
       ],
       ctaLabel: 'Pilih Paket Business',
+      whatsappMessage:
+        'Halo Morrus Digital Connecting, saya tertarik dengan Paket Business untuk Dashboard dan Reporting. Saya ingin konsultasi lebih lanjut.',
       href: '/services',
     },
     // {
@@ -166,6 +172,8 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     //     { label: 'Dashboard bisnis custom penuh', included: false },
     //   ],
     //   ctaLabel: 'Pilih Paket Support',
+    //   whatsappMessage:
+    //     'Halo Morrus Digital Connecting, saya tertarik dengan Paket Support untuk Maintenance dan Improvement. Saya ingin konsultasi lebih lanjut.',
     //   href: '/services',
     // },
   ],

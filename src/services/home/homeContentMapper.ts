@@ -41,7 +41,10 @@ export function mapHomeContentToViewModel(content: HomeContent): HomeViewModel {
     hero: content.hero,
     stats: content.stats,
     about: content.about,
-    services: content.services,
+    services: content.services.map((service) => ({
+      ...service,
+      href: createWhatsAppLink(content.whatsappNumber, service.whatsappMessage),
+    })),
     advantages: content.advantages,
     portfolio: content.portfolio,
     testimonials: content.testimonials,

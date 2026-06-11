@@ -52,6 +52,7 @@ export interface ServiceItem {
     included: boolean
   }[]
   ctaLabel: string
+  whatsappMessage: string
   href: string
 }
 

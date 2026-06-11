@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { ServiceItem } from '../../types/home'
 import { SectionHeading } from './SectionHeading'
@@ -99,12 +98,14 @@ export function ServicesSection({ items }: ServicesSectionProps) {
                   ))}
                 </ul>
 
-                <Link
-                  to={item.href}
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
                   className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-[#f7a40c] px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_28px_-18px_rgba(247,164,12,0.75)] transition hover:bg-[#ffb220]"
                 >
                   {item.ctaLabel}
-                </Link>
+                </a>
 
                 <p className="mt-5 text-xs leading-6 text-slate-500 sm:text-sm">{item.description}</p>
               </div>
