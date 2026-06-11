@@ -181,8 +181,13 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     {
       id: 'brand-first',
       title: 'Brand-first structure',
-      description: 'Setiap halaman disusun untuk menegaskan positioning, value, dan kredibilitas perusahaan.',
+      description: 'Struktur halaman menonjolkan positioning dan kredibilitas brand.',
       stat: 'SEO-ready',
+      accent: {
+        iconColor: '#b7791f',
+        iconBackground: '#fff3d6',
+        iconHoverBackground: 'rgba(255,243,214,0.18)',
+      },
       imageUrl:
         'https://images.pexels.com/photos/21405617/pexels-photo-21405617.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200',
       imageAlt: 'Laptop dan meja kerja modern sebagai representasi fondasi brand digital yang rapi.',
@@ -190,8 +195,13 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     {
       id: 'responsive',
       title: 'Responsive by default',
-      description: 'Pengalaman pengguna tetap nyaman dari mobile hingga desktop tanpa mengorbankan tampilan.',
+      description: 'Tampilan tetap nyaman dari mobile sampai desktop.',
       stat: 'Mobile-first',
+      accent: {
+        iconColor: '#1d6fd8',
+        iconBackground: '#e6f1ff',
+        iconHoverBackground: 'rgba(230,241,255,0.18)',
+      },
       imageUrl:
         'https://images.pexels.com/photos/8068255/pexels-photo-8068255.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200',
       imageAlt: 'Tim bekerja dengan laptop di kantor modern sebagai representasi pengalaman digital responsif.',
@@ -199,8 +209,13 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     {
       id: 'scalable',
       title: 'Mudah dikembangkan',
-      description: 'Fondasi konten dan komponen dibuat rapi agar mudah dihubungkan ke API atau CMS nanti.',
+      description: 'Fondasi rapi untuk integrasi API atau CMS berikutnya.',
       stat: 'Future-proof',
+      accent: {
+        iconColor: '#118a66',
+        iconBackground: '#e1f6ef',
+        iconHoverBackground: 'rgba(225,246,239,0.18)',
+      },
       imageUrl:
         'https://images.pexels.com/photos/34069/pexels-photo.jpg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200',
       imageAlt: 'Layar laptop dengan grafik analytics sebagai representasi sistem yang siap dikembangkan.',
@@ -208,8 +223,13 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     {
       id: 'collaborative',
       title: 'Kolaborasi terarah',
-      description: 'Proses kerja dibuat transparan supaya revisi, approval, dan delivery lebih efisien.',
+      description: 'Alur kerja transparan membuat revisi dan approval lebih efisien.',
       stat: 'Clear process',
+      accent: {
+        iconColor: '#8b5cf6',
+        iconBackground: '#efe7ff',
+        iconHoverBackground: 'rgba(239,231,255,0.18)',
+      },
       imageUrl:
         'https://images.pexels.com/photos/7643742/pexels-photo-7643742.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200',
       imageAlt: 'Tim berdiskusi di depan laptop sebagai representasi kolaborasi proyek yang terarah.',
