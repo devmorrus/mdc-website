@@ -153,13 +153,15 @@ h3 {
 }
 
 .partner-logo {
-	filter: grayscale(100%) opacity(0.4);
-	transition: all 0.3s ease;
+	opacity: 0.96;
+	filter: none;
+	transform: translate3d(0, 0, 0);
+	transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .partner-logo:hover {
-	filter: grayscale(0%) opacity(1);
-	transform: scale(1.05);
+	opacity: 1;
+	transform: translate3d(0, -2px, 0) scale(1.03);
 }
 
 .partners-marquee {
