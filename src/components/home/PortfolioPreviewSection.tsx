@@ -66,17 +66,17 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="flex flex-col items-center p-6 text-center">
                 <h3
                   className="text-2xl font-bold text-[#0b1f57]"
                   style={{ fontFamily: "'Sora', sans-serif" }}
                 >
                   {item.name}
                 </h3>
-                <p className="mt-4 text-base leading-7 text-slate-600">
+                <p className="mt-4 max-w-[30rem] text-base leading-7 text-slate-600">
                   {item.summary}
                 </p>
-                <div className="mt-6 flex justify-center md:justify-start">
+                <div className="mt-6 flex justify-center">
                   <Link
                     to={item.href}
                     className="inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8]"
