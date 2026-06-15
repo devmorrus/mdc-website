@@ -6,10 +6,16 @@ import konsepImplementasiPdf from '../../assets/Konsep_Implementasi_Fitur_Lanjut
 
 interface ContactCtaSectionProps {
   content: ContactCtaContent
+  primaryCtaHref?: string
 }
 
-export function ContactCtaSection({ content }: ContactCtaSectionProps) {
+function isExternalHref(href: string) {
+  return href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')
+}
+
+export function ContactCtaSection({ content, primaryCtaHref }: ContactCtaSectionProps) {
   const sectionRef = useGsapReveal<HTMLElement>()
+  const resolvedPrimaryCtaHref = primaryCtaHref ?? content.primaryCtaHref
 
   return (
     <section
@@ -40,12 +46,23 @@ export function ContactCtaSection({ content }: ContactCtaSectionProps) {
               </p>
 
               <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start">
-                <Link
-                  to={content.primaryCtaHref}
-                  className="inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-6 py-3.5 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c] sm:w-auto"
-                >
-                  {content.primaryCtaLabel}
-                </Link>
+                {isExternalHref(resolvedPrimaryCtaHref) ? (
+                  <a
+                    href={resolvedPrimaryCtaHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-6 py-3.5 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c] sm:w-auto"
+                  >
+                    {content.primaryCtaLabel}
+                  </a>
+                ) : (
+                  <Link
+                    to={resolvedPrimaryCtaHref}
+                    className="inline-flex w-full items-center justify-center rounded-full bg-[#f6c445] px-6 py-3.5 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c] sm:w-auto"
+                  >
+                    {content.primaryCtaLabel}
+                  </Link>
+                )}
                 <a
                   href={konsepImplementasiPdf}
                   download="Konsep_Implementasi_Fitur_Lanjutan_Klinik.pdf"
