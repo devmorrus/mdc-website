@@ -16,8 +16,7 @@ const PROCESS_STEPS: ProcessStep[] = [
   {
     id: '01',
     title: 'Konsultasi & Analisis',
-    description:
-      'Memahami visi dan kebutuhan teknis Anda, lalu menyusun spesifikasi serta peta jalan proyek.',
+    description: 'Memahami kebutuhan inti dan menyusun arah proyek yang jelas.',
     colorClass: 'bg-[#2f6df6]',
     textClass: 'text-[#2f6df6]',
     icon: (
@@ -33,8 +32,7 @@ const PROCESS_STEPS: ProcessStep[] = [
   {
     id: '02',
     title: 'Desain UI/UX',
-    description:
-      'Mengubah ide menjadi prototipe visual interaktif yang estetis dan intuitif untuk pengguna.',
+    description: 'Menerjemahkan ide menjadi tampilan yang intuitif dan menarik.',
     colorClass: 'bg-[#8b3cf1]',
     textClass: 'text-[#8b3cf1]',
     icon: (
@@ -51,8 +49,7 @@ const PROCESS_STEPS: ProcessStep[] = [
   {
     id: '03',
     title: 'Pengembangan',
-    description:
-      'Menulis kode dengan standar industri terbaik, membangun arsitektur yang aman dan cepat.',
+    description: 'Membangun sistem yang rapi, aman, dan siap digunakan.',
     colorClass: 'bg-[#5a4df0]',
     textClass: 'text-[#5a4df0]',
     icon: (
@@ -65,8 +62,7 @@ const PROCESS_STEPS: ProcessStep[] = [
   {
     id: '04',
     title: 'QA & Testing',
-    description:
-      'Melakukan pengujian ketat untuk fungsionalitas, performa, dan keamanan agar bebas bug.',
+    description: 'Menguji fitur utama, performa, dan stabilitas aplikasi.',
     colorClass: 'bg-[#ef1f5f]',
     textClass: 'text-[#ef1f5f]',
     icon: (
@@ -83,8 +79,7 @@ const PROCESS_STEPS: ProcessStep[] = [
   {
     id: '05',
     title: 'Deployment',
-    description:
-      'Mengelola proses rilis aplikasi ke server produksi, Play Store, atau App Store dengan mulus.',
+    description: 'Merilis aplikasi ke lingkungan produksi dengan aman.',
     colorClass: 'bg-[#f97316]',
     textClass: 'text-[#f97316]',
     icon: (
@@ -101,8 +96,7 @@ const PROCESS_STEPS: ProcessStep[] = [
   {
     id: '06',
     title: 'Maintenance',
-    description:
-      'Menyediakan dukungan teknis, pemantauan server, dan pembaruan sistem secara berkala.',
+    description: 'Menjaga sistem tetap terpantau, stabil, dan terbarui.',
     colorClass: 'bg-[#0f9f97]',
     textClass: 'text-[#0f9f97]',
     icon: (
@@ -193,7 +187,7 @@ export function ProcessTimelineSection() {
                     {step.icon}
                   </div>
 
-                  <div className="relative z-10 mt-6 max-w-[13rem] rounded-[1.4rem] bg-white/78 px-3 py-2 backdrop-blur-[2px]">
+                  <div className="relative z-10 mt-6 max-w-[13rem] px-3 py-2">
                     <div
                       className={`text-5xl font-black leading-none tracking-tight ${step.textClass}`}
                       style={{ fontFamily: "'Sora', sans-serif" }}
