@@ -6,6 +6,7 @@ import { FloatingWhatsApp } from './FloatingWhatsApp'
 import { HeroSection } from './HeroSection'
 import { PartnersSection } from './PartnersSection'
 import { PortfolioPreviewSection } from './PortfolioPreviewSection'
+import { ProcessTimelineSection } from './ProcessTimelineSection'
 import { ServicesSection } from './ServicesSection'
 import { StatsStrip } from './StatsStrip'
 import { TestimonialsSection } from './TestimonialsSection'
@@ -23,6 +24,7 @@ export function HomePageContent({ model }: HomePageContentProps) {
       <StatsStrip stats={model.stats} />
       <AboutSection content={model.about} />
       <ServicesSection items={model.services} />
+      <ProcessTimelineSection />
       <AdvantagesSection items={model.advantages} />
       <PortfolioPreviewSection items={model.portfolio} />
       <TestimonialsSection items={model.testimonials} />
