@@ -24,15 +24,15 @@ export function ContactInquiryFormCard({
   const labelClass = 'mb-1.5 block text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300/60'
 
   return (
-    <div className={`relative overflow-hidden rounded-2xl border border-blue-200/15 bg-linear-to-br from-blue-900/30 via-blue-950/55 to-blue-950/80 p-7 backdrop-blur-sm ${className}`}>
+    <div className={`relative overflow-hidden rounded-2xl border border-blue-200/15 bg-linear-to-br from-blue-900/30 via-blue-950/55 to-blue-950/80 p-5 backdrop-blur-sm sm:p-7 ${className}`}>
       <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-blue-400/30 to-transparent" />
       <div className="absolute top-0 right-0 h-20 w-20 rounded-bl-[60px] bg-linear-to-bl from-amber-300/8 to-transparent pointer-events-none" />
 
       <div className="relative z-10">
-        <h2 className="mb-1.5 text-2xl font-extrabold text-blue-50" style={{ fontFamily: "'Sora', sans-serif" }}>
+        <h2 className="mb-1.5 text-xl font-extrabold text-blue-50 sm:text-2xl" style={{ fontFamily: "'Sora', sans-serif" }}>
           {title}
         </h2>
-        <p className="mb-7 text-sm text-blue-200/55">{description}</p>
+        <p className="mb-6 text-sm leading-6 text-blue-200/55 sm:mb-7">{description}</p>
 
         <form onSubmit={onSubmit} noValidate className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
@@ -102,11 +102,11 @@ export function ContactInquiryFormCard({
             {errors.message && <p className="mt-1.5 text-xs text-amber-300">{errors.message}</p>}
           </div>
 
-          <div className="flex flex-col items-center gap-4 pt-1 md:flex-row md:items-center">
+          <div className="flex flex-col items-stretch gap-4 pt-1 sm:flex-row sm:items-center">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="group relative overflow-hidden rounded-xl bg-amber-300 px-7 py-3 text-sm font-bold text-blue-950 shadow-[0_0_25px_rgba(251,191,36,0.25)] transition-all duration-300 hover:bg-amber-200 hover:shadow-[0_0_40px_rgba(251,191,36,0.45)] disabled:cursor-not-allowed disabled:opacity-60"
+              className="group relative w-full overflow-hidden rounded-xl bg-amber-300 px-7 py-3 text-sm font-bold text-blue-950 shadow-[0_0_25px_rgba(251,191,36,0.25)] transition-all duration-300 hover:bg-amber-200 hover:shadow-[0_0_40px_rgba(251,191,36,0.45)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
               <span className="relative z-10">{isSubmitting ? 'Mengirim...' : 'Kirim Inquiry'}</span>
               <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full" />

@@ -11,11 +11,27 @@ interface PartnersSectionProps {
   items: PartnerItem[]
 }
 
-const partnerLogos: Record<string, { src: string; className: string }> = {
-  '1': { src: logoJaladewa, className: 'max-h-14 md:max-h-16' },
-  '2': { src: logoFtc, className: 'max-h-12 md:max-h-14' },
-  '3': { src: logoMcb, className: 'max-h-11 md:max-h-12' },
-  '4': { src: logoDefert, className: 'max-h-14 md:max-h-16' },
+const partnerLogos: Record<string, { src: string; frameClassName: string; imageClassName: string }> = {
+  '1': {
+    src: logoJaladewa,
+    frameClassName: 'w-[15.5rem] sm:w-[17.5rem] md:w-[19rem] lg:w-[20rem]',
+    imageClassName: 'max-h-[4.8rem] sm:max-h-[5.4rem] md:max-h-[6rem]',
+  },
+  '2': {
+    src: logoFtc,
+    frameClassName: 'w-[15rem] sm:w-[17rem] md:w-[18.5rem] lg:w-[19.5rem]',
+    imageClassName: 'max-h-[4.3rem] sm:max-h-[4.8rem] md:max-h-[5.3rem]',
+  },
+  '3': {
+    src: logoMcb,
+    frameClassName: 'w-[14.75rem] sm:w-[16.75rem] md:w-[18.25rem] lg:w-[19rem]',
+    imageClassName: 'max-h-[4.2rem] sm:max-h-[4.7rem] md:max-h-[5.1rem]',
+  },
+  '4': {
+    src: logoDefert,
+    frameClassName: 'w-[14.5rem] sm:w-[16.25rem] md:w-[17.5rem] lg:w-[18.5rem]',
+    imageClassName: 'max-h-[4.9rem] sm:max-h-[5.5rem] md:max-h-[6.1rem]',
+  },
 }
 
 function PartnerLogo({ item }: { item: PartnerItem }) {
@@ -23,11 +39,11 @@ function PartnerLogo({ item }: { item: PartnerItem }) {
 
   if (logo) {
     return (
-      <div className="partner-logo flex items-center justify-center">
+      <div className={`partner-logo flex items-center justify-center ${logo.frameClassName}`}>
         <img
           src={logo.src}
           alt={`${item.name} logo`}
-          className={`h-auto w-full max-w-full object-contain ${logo.className}`}
+          className={`h-auto w-full max-w-full object-contain ${logo.imageClassName}`}
           loading="lazy"
         />
       </div>
@@ -67,7 +83,7 @@ export function PartnersSection({ items }: PartnersSectionProps) {
 
       <div className="relative z-10 mt-16 w-full px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="overflow-hidden">
-          <div className="partners-marquee flex w-max items-center gap-14 md:gap-16 lg:gap-[4.5rem]">
+          <div className="partners-marquee flex w-max items-center gap-12 sm:gap-14 md:gap-16 lg:gap-[4.5rem]">
             {marqueeItems.map((item, index) => (
               <div
                 key={`${item.id}-${index}`}
@@ -77,7 +93,7 @@ export function PartnersSection({ items }: PartnersSectionProps) {
                   }
                 }}
                 aria-label={item.name}
-                className="flex h-20 w-44 shrink-0 items-center justify-center transition duration-300 md:h-24 md:w-56 lg:w-60"
+                className="flex h-24 w-[17rem] shrink-0 items-center justify-center transition duration-300 sm:h-[6.25rem] sm:w-[19rem] md:h-28 md:w-[21rem] lg:h-[7.25rem] lg:w-[22rem]"
               >
                 <PartnerLogo item={item} />
               </div>

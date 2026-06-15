@@ -274,10 +274,10 @@ export function HeroSection({ content, projects }: HeroSectionProps) {
 
             <h1
               data-hero-animate
-              className="mt-6 text-2xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-3xl lg:text-[2.85rem]"
+              className="mt-6 text-2xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-3xl lg:text-[2.85rem]"
             >
-              {content.title}
-              <span className="mt-3 block text-[#facc15]">
+              <span className="block">{content.title}</span>
+              <span className="block text-[#facc15]">
                 Lebih{' '}
                 <span className="whitespace-nowrap">
                   {displayedWord}
