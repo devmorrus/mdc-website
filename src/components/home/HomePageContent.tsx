@@ -2,6 +2,7 @@ import { AdvantagesSection } from './AdvantagesSection'
 import { AboutSection } from './AboutSection'
 import { ArticlesSection } from './ArticlesSection'
 import { ContactCtaSection } from './ContactCtaSection'
+import { FaqSection } from './FaqSection'
 import { FloatingWhatsApp } from './FloatingWhatsApp'
 import { HeroSection } from './HeroSection'
 import { PartnersSection } from './PartnersSection'
@@ -29,6 +30,7 @@ export function HomePageContent({ model }: HomePageContentProps) {
       <PortfolioPreviewSection items={model.portfolio} />
       <TestimonialsSection items={model.testimonials} />
       {model.articles.length > 0 ? <ArticlesSection items={model.articles} /> : null}
+      <FaqSection />
       <ContactCtaSection
         content={model.contactCta}
         primaryCtaHref={model.layout.headerCta.href}

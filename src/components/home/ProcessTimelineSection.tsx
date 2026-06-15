@@ -125,7 +125,7 @@ export function ProcessTimelineSection() {
       className="relative overflow-hidden bg-[linear-gradient(180deg,#f4f8ff_0%,#ffffff_54%,#f8fbff_100%)] py-18 md:py-24"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(99,102,241,0.1),transparent_20%),radial-gradient(circle_at_86%_30%,rgba(59,130,246,0.12),transparent_18%),radial-gradient(circle_at_48%_82%,rgba(15,159,151,0.08),transparent_22%)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c7d4ff] to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#c7d4ff] to-transparent" />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
         <SectionHeading
@@ -187,7 +187,7 @@ export function ProcessTimelineSection() {
                     {step.icon}
                   </div>
 
-                  <div className="relative z-10 mt-6 max-w-[13rem] px-3 py-2">
+                  <div className="relative z-10 mt-6 max-w-52 px-3 py-2">
                     <div
                       className={`text-5xl font-black leading-none tracking-tight ${step.textClass}`}
                       style={{ fontFamily: "'Sora', sans-serif" }}
