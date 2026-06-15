@@ -12,10 +12,10 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   headerCtaHref:
     'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
   hero: {
-    eyebrow: '',
-    title: 'Hadir Lebih Kredibel dengan Solusi Digital yang Tepat.',
+    eyebrow: 'Kami Memiliki Pengalaman & Profesionalitas',
+    title: 'Tampil Kredibel dengan Solusi Digital.',
     description:
-      'Dari website hingga platform bisnis, kami membangun pengalaman digital modern yang membuat brand Anda tampil meyakinkan dan profesional.',
+      'Kami membangun website dan platform bisnis yang modern, rapi, dan meyakinkan.',
     primaryCtaLabel: 'Jadwalkan Konsultasi',
     primaryCtaHref: '/#contact',
     secondaryCtaLabel: 'Layanan Kami',

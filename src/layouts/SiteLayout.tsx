@@ -237,39 +237,41 @@ export function SiteLayout({
       {isHeroHeader ? (
         <header
           ref={headerRef}
-          className="sticky top-0 z-50 w-full overflow-visible transition-all duration-300"
+          className="sticky top-0 z-50 overflow-visible px-4 pt-4 transition-all duration-300 md:px-6"
         >
-          <div
-            className={`flex h-18 w-full items-center justify-between border-b border-[#d5e1f5] px-6 transition-all duration-300 ${
-              scrolled
-                ? 'shadow-[0_18px_38px_-28px_rgba(11,31,87,0.22)]'
-                : 'shadow-[0_18px_38px_-28px_rgba(11,31,87,0.18)]'
-            }`}
-            style={{ backgroundColor: HEADER_BACKGROUND }}
-          >
-            <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
-              <span className="flex h-25 w-25 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
-                <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.12] object-contain" />
-              </span>
-            </Link>
+          <div className="mx-auto w-full max-w-7xl">
+            <div
+              className={`flex h-18 w-full items-center justify-between rounded-[1.75rem] border px-4 py-3 transition-all duration-300 md:px-6 ${
+                scrolled
+                  ? 'border-[#d5e1f5] shadow-[0_18px_38px_-28px_rgba(11,31,87,0.22)]'
+                  : 'border-white/65 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.18)]'
+              }`}
+              style={{ backgroundColor: HEADER_BACKGROUND }}
+            >
+              <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
+                <span className="flex h-25 w-25 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
+                  <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.12] object-contain" />
+                </span>
+              </Link>
 
-            <nav className="hidden items-center gap-2 md:flex">
-              {navItems.map((item) =>
-                renderLink(
-                  item,
-                  navItemBaseClass,
-                  navItemActiveClass,
-                ),
-              )}
-            </nav>
+              <nav className="hidden items-center gap-2 md:flex">
+                {navItems.map((item) =>
+                  renderLink(
+                    item,
+                    navItemBaseClass,
+                    navItemActiveClass,
+                  ),
+                )}
+              </nav>
 
-            <div className="hidden md:block">
-              {renderHeaderCta(
-                'inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]',
-              )}
+              <div className="hidden md:block">
+                {renderHeaderCta(
+                  'inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]',
+                )}
+              </div>
+
+              {renderMobileMenuButton()}
             </div>
-
-            {renderMobileMenuButton()}
           </div>
 
           {renderMobileMenuPanel()}
@@ -322,7 +324,7 @@ export function SiteLayout({
         </header>
       )}
 
-      <main className={`relative ${isHeroHeader ? 'md:-mt-18' : ''}`}>{children}</main>
+      <main className={`relative ${isHeroHeader ? '-mt-[5.5rem]' : ''}`}>{children}</main>
 
       <footer
         className="w-full border-t border-[#d5e1f5] text-[#0f214d]"

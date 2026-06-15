@@ -172,6 +172,50 @@ h3 {
 	}
 }
 
+@keyframes heroProjectSlideEnterFromRight {
+	0% {
+		opacity: 0;
+		transform: translate3d(36px, 0, 0) scale(0.985);
+	}
+	100% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+}
+
+@keyframes heroProjectSlideEnterFromLeft {
+	0% {
+		opacity: 0;
+		transform: translate3d(-36px, 0, 0) scale(0.985);
+	}
+	100% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+}
+
+@keyframes heroProjectSlideExitToLeft {
+	0% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: translate3d(-36px, 0, 0) scale(0.985);
+	}
+}
+
+@keyframes heroProjectSlideExitToRight {
+	0% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: translate3d(36px, 0, 0) scale(0.985);
+	}
+}
+
 .partner-logo {
 	opacity: 0.96;
 	filter: none;
@@ -191,6 +235,26 @@ h3 {
 
 .partners-marquee:hover {
 	animation-play-state: paused;
+}
+
+.hero-project-slide {
+	will-change: opacity, transform;
+}
+
+.hero-project-slide--enter-right {
+	animation: heroProjectSlideEnterFromRight 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-project-slide--enter-left {
+	animation: heroProjectSlideEnterFromLeft 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-project-slide--exit-left {
+	animation: heroProjectSlideExitToLeft 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-project-slide--exit-right {
+	animation: heroProjectSlideExitToRight 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .hero-illustration-shell {

@@ -18,7 +18,7 @@ const INITIAL_FORM: WhatsAppFormState = {
 
 function WhatsAppIcon() {
   return (
-    <svg viewBox="0 0 32 32" aria-hidden="true" className="h-6 w-6 fill-current">
+    <svg viewBox="0 0 32 32" aria-hidden="true" className="h-8 w-8 fill-current">
       <path d="M19.11 17.23c-.27-.14-1.6-.79-1.84-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.31.21-.58.07-.27-.14-1.12-.41-2.14-1.31-.79-.7-1.33-1.56-1.49-1.82-.16-.27-.02-.41.12-.55.12-.12.27-.31.41-.47.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.47-.07-.14-.61-1.47-.84-2.02-.22-.53-.44-.46-.61-.47l-.52-.01c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.27s.97 2.64 1.11 2.82c.14.18 1.91 2.92 4.62 4.09.64.28 1.15.45 1.54.57.65.21 1.24.18 1.71.11.52-.08 1.6-.65 1.82-1.27.22-.61.22-1.14.16-1.27-.07-.13-.25-.2-.52-.34z" />
       <path d="M16.01 3.2c-7.06 0-12.79 5.72-12.79 12.78 0 2.25.58 4.44 1.69 6.37L3 29l6.84-1.79a12.75 12.75 0 0 0 6.16 1.57h.01c7.05 0 12.79-5.73 12.79-12.79A12.78 12.78 0 0 0 16.01 3.2zm0 23.44h-.01c-1.91 0-3.78-.51-5.42-1.47l-.39-.23-4.06 1.06 1.08-3.96-.25-.41a10.61 10.61 0 0 1-1.63-5.65c0-5.88 4.79-10.67 10.68-10.67 2.85 0 5.53 1.11 7.54 3.12a10.58 10.58 0 0 1 3.12 7.55c0 5.89-4.79 10.67-10.66 10.67z" />
     </svg>
@@ -185,12 +185,11 @@ export function FloatingWhatsApp() {
         aria-controls="whatsapp-popup"
         aria-label="Buka formulir WhatsApp"
         onClick={() => setIsOpen((current) => !current)}
-        className="pointer-events-auto inline-flex items-center gap-3 rounded-full bg-[#25d366] px-4 py-3 text-sm font-bold text-white shadow-[0_20px_55px_-18px_rgba(37,211,102,0.7)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#20bd5a]"
+        className="pointer-events-auto inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#25d366] p-0 text-white shadow-[0_20px_55px_-18px_rgba(37,211,102,0.7)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#20bd5a]"
       >
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#25d366] shadow-[0_8px_22px_-10px_rgba(255,255,255,0.95)]">
+        <span className="inline-flex h-10 w-10 items-center justify-center text-white">
           <WhatsAppIcon />
         </span>
-        <span className="hidden sm:inline">Chat WhatsApp</span>
       </button>
     </div>
   )
