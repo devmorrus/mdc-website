@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { ContactCtaContent } from '../../types/home'
 import { ContactInquiryFormCard } from '../contact/ContactInquiryFormCard'
+import konsepImplementasiPdf from '../../assets/Konsep_Implementasi_Fitur_Lanjutan_Klinik.pdf'
 
 interface ContactCtaSectionProps {
   content: ContactCtaContent
@@ -25,12 +26,12 @@ export function ContactCtaSection({ content }: ContactCtaSectionProps) {
                 {content.eyebrow}
               </p>
               <h2
-                className="mt-4 mx-auto max-w-3xl text-3xl font-bold leading-tight md:text-4xl lg:mx-0"
+                className="mt-4 mx-auto max-w-3xl text-2xl font-bold leading-snug md:text-3xl lg:mx-0"
                 style={{ fontFamily: "'Sora', sans-serif" }}
               >
                 {content.title}
               </h2>
-              <p className="mt-4 mx-auto max-w-2xl text-base leading-8 text-slate-300 lg:mx-0">
+              <p className="mt-4 mx-auto max-w-2xl text-sm leading-7 text-slate-300 md:text-base lg:mx-0">
                 {content.description}
               </p>
 
@@ -41,6 +42,13 @@ export function ContactCtaSection({ content }: ContactCtaSectionProps) {
                 >
                   {content.primaryCtaLabel}
                 </Link>
+                <a
+                  href={konsepImplementasiPdf}
+                  download="Konsep_Implementasi_Fitur_Lanjutan_Klinik.pdf"
+                  className="inline-flex items-center justify-center rounded-full border border-white/18 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/16"
+                >
+                  Download PDF
+                </a>
               </div>
             </div>
 
