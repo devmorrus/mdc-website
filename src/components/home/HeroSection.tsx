@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode, type SVGProps } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type SVGProps } from 'react'
 import { Link } from 'react-router-dom'
 import { useHomeHeroAnimation } from '../../animations/useHomeHeroAnimation'
 import type { HeroContent, PortfolioItem } from '../../types/home'
@@ -114,13 +114,16 @@ function HeroProjectSlideContent({ project }: { project: PortfolioItem }) {
 
 export function HeroSection({ content, projects }: HeroSectionProps) {
   const scopeRef = useRef<HTMLDivElement>(null)
+  const measurementSlideRefs = useRef<Array<HTMLDivElement | null>>([])
   const [activeWordIndex, setActiveWordIndex] = useState(0)
   const [typedWord, setTypedWord] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
   const [activeProjectIndex, setActiveProjectIndex] = useState(0)
   const [transitionProjectIndex, setTransitionProjectIndex] = useState<number | null>(null)
   const [projectSlideDirection, setProjectSlideDirection] = useState<1 | -1>(1)
+  const [projectStageMinHeight, setProjectStageMinHeight] = useState<number | null>(null)
   const featuredProjects = projects.slice(0, 4)
+  const featuredProjectIds = featuredProjects.map((project) => project.id).join('|')
   const normalizedActiveProjectIndex =
     featuredProjects.length > 0 ? activeProjectIndex % featuredProjects.length : 0
   const normalizedTransitionProjectIndex =
@@ -200,6 +203,52 @@ export function HeroSection({ content, projects }: HeroSectionProps) {
       window.clearTimeout(timeoutId)
     }
   }, [transitionProjectIndex])
+
+  useLayoutEffect(() => {
+    if (featuredProjects.length === 0) {
+      measurementSlideRefs.current = []
+      return
+    }
+
+    const measureTallestSlide = () => {
+      const slideHeights = measurementSlideRefs.current
+        .filter((node): node is HTMLDivElement => node !== null)
+        .map((node) => node.offsetHeight)
+
+      if (slideHeights.length === 0) {
+        return
+      }
+
+      const tallestSlideHeight = Math.max(...slideHeights)
+      setProjectStageMinHeight((currentHeight) =>
+        currentHeight === tallestSlideHeight ? currentHeight : tallestSlideHeight,
+      )
+    }
+
+    measureTallestSlide()
+
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', measureTallestSlide)
+
+      return () => {
+        window.removeEventListener('resize', measureTallestSlide)
+      }
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      measureTallestSlide()
+    })
+
+    measurementSlideRefs.current.forEach((node) => {
+      if (node) {
+        resizeObserver.observe(node)
+      }
+    })
+
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [featuredProjectIds, featuredProjects.length])
 
   const requestProjectChange = (nextIndex: number, direction: -1 | 1) => {
     if (featuredProjects.length < 2 || transitionProjectIndex !== null) {
@@ -358,31 +407,49 @@ export function HeroSection({ content, projects }: HeroSectionProps) {
               </div>
 
               {activeProject ? (
-                <div className="mt-5 grid">
-                  <div
-                    className={`hero-project-slide col-start-1 row-start-1 ${
-                      transitionProject
-                        ? projectSlideDirection === 1
-                          ? 'hero-project-slide--exit-left'
-                          : 'hero-project-slide--exit-right'
-                        : ''
-                    }`}
-                  >
-                    <HeroProjectSlideContent project={activeProject} />
+                <>
+                  <div aria-hidden="true" className="pointer-events-none invisible h-0 overflow-hidden">
+                    {featuredProjects.map((project, index) => (
+                      <div
+                        key={`${project.id}-measurement`}
+                        ref={(node) => {
+                          measurementSlideRefs.current[index] = node
+                        }}
+                      >
+                        <HeroProjectSlideContent project={project} />
+                      </div>
+                    ))}
                   </div>
 
-                  {transitionProject ? (
+                  <div
+                    className="mt-5 grid"
+                    style={projectStageMinHeight && featuredProjects.length > 0 ? { minHeight: `${projectStageMinHeight}px` } : undefined}
+                  >
                     <div
                       className={`hero-project-slide col-start-1 row-start-1 ${
-                        projectSlideDirection === 1
-                          ? 'hero-project-slide--enter-right'
-                          : 'hero-project-slide--enter-left'
+                        transitionProject
+                          ? projectSlideDirection === 1
+                            ? 'hero-project-slide--exit-left'
+                            : 'hero-project-slide--exit-right'
+                          : ''
                       }`}
                     >
-                      <HeroProjectSlideContent project={transitionProject} />
+                      <HeroProjectSlideContent project={activeProject} />
                     </div>
-                  ) : null}
-                </div>
+
+                    {transitionProject ? (
+                      <div
+                        className={`hero-project-slide col-start-1 row-start-1 ${
+                          projectSlideDirection === 1
+                            ? 'hero-project-slide--enter-right'
+                            : 'hero-project-slide--enter-left'
+                        }`}
+                      >
+                        <HeroProjectSlideContent project={transitionProject} />
+                      </div>
+                    ) : null}
+                  </div>
+                </>
               ) : (
                 <div className="mt-6 rounded-[1.6rem] border border-dashed border-white/18 px-6 py-12 text-center text-blue-100/76">
                   Project unggulan akan ditampilkan di area ini.

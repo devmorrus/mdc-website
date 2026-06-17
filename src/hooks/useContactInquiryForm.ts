@@ -1,11 +1,15 @@
 import { useMemo, useState } from 'react'
 
-import { createContactContentService } from '../services/contact/contactContentService'
-import type { ContactInquiryFormData, ContactInquiryResult } from '../types/contact'
+import { createContactInquiryService } from '../services/contact/contactContentService'
+import type {
+  ContactInquiryFieldErrors,
+  ContactInquiryFormData,
+  ContactInquiryResult,
+} from '../types/contact'
 
 interface ContactInquiryFormState {
   values: ContactInquiryFormData
-  errors: Partial<Record<keyof ContactInquiryFormData, string>>
+  errors: ContactInquiryFieldErrors
   isSubmitting: boolean
   submitResult: ContactInquiryResult | null
 }
@@ -26,10 +30,10 @@ const INITIAL_VALUES: ContactInquiryFormData = {
 }
 
 export function useContactInquiryForm(): UseContactInquiryFormResult {
-  const service = useMemo(() => createContactContentService(), [])
+  const service = useMemo(() => createContactInquiryService(), [])
 
   const [values, setValues] = useState<ContactInquiryFormData>(INITIAL_VALUES)
-  const [errors, setErrors] = useState<Partial<Record<keyof ContactInquiryFormData, string>>>({})
+  const [errors, setErrors] = useState<ContactInquiryFieldErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitResult, setSubmitResult] = useState<ContactInquiryResult | null>(null)
 
@@ -46,7 +50,7 @@ export function useContactInquiryForm(): UseContactInquiryFormResult {
   }
 
   const validate = (): boolean => {
-    const nextErrors: Partial<Record<keyof ContactInquiryFormData, string>> = {}
+    const nextErrors: ContactInquiryFieldErrors = {}
 
     if (!values.name.trim()) {
       nextErrors.name = 'Nama wajib diisi.'
@@ -85,10 +89,12 @@ export function useContactInquiryForm(): UseContactInquiryFormResult {
 
     try {
       const result = await service.submitContactInquiry(values)
+      setErrors(result.fieldErrors ?? {})
       setSubmitResult(result)
 
       if (result.status === 'success') {
         setValues(INITIAL_VALUES)
+        setErrors({})
       }
     } catch {
       setSubmitResult({
