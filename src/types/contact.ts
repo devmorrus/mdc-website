@@ -29,9 +29,14 @@ export interface ContactInquiryFormData {
   message: string
 }
 
+export type ContactInquiryField = keyof ContactInquiryFormData
+
+export type ContactInquiryFieldErrors = Partial<Record<ContactInquiryField, string>>
+
 export interface ContactInquiryResult {
   status: 'success' | 'failed'
   message: string
+  fieldErrors?: ContactInquiryFieldErrors
 }
 
 export interface ContactContent {

@@ -324,6 +324,8 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     { id: '2', name: 'Focus Trading Contractor', abbreviation: 'FTC' },
     { id: '3', name: 'Mitra Cemerlang Bersama', abbreviation: 'MCB' },
     { id: '4', name: 'Deferd Concept', abbreviation: 'DC' },
+    { id: '5', name: 'DAT Indonesia', abbreviation: 'DAT' },
+    { id: '6', name: 'iPhone Gresik', abbreviation: 'IG' },
   ],
   articles: [
     {

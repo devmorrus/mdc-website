@@ -1,5 +1,7 @@
 import { useRef } from 'react'
 import logoDefert from '../../assets/logo-defert.png'
+import logoDat from '../../assets/dat.png'
+import logoIphone from '../../assets/iphone_gresik.png'
 import logoFtc from '../../assets/logo-ftc.png'
 import logoJaladewa from '../../assets/logo-jaladewa.png'
 import logoMcb from '../../assets/logo-mcb.png'
@@ -32,6 +34,16 @@ const partnerLogos: Record<string, { src: string; frameClassName: string; imageC
     frameClassName: 'w-[14.5rem] sm:w-[16.25rem] md:w-[17.5rem] lg:w-[18.5rem]',
     imageClassName: 'max-h-[4.9rem] sm:max-h-[5.5rem] md:max-h-[6.1rem]',
   },
+  '5': {
+    src: logoDat,
+    frameClassName: 'w-[12rem] sm:w-[13.5rem] md:w-[15rem] lg:w-[16rem]',
+    imageClassName: 'max-h-[3.2rem] sm:max-h-[3.6rem] md:max-h-[4rem]',
+  },
+  '6': {
+    src: logoIphone,
+    frameClassName: 'w-[12.5rem] sm:w-[14rem] md:w-[15.5rem] lg:w-[16.5rem]',
+    imageClassName: 'max-h-[3.5rem] sm:max-h-[3.9rem] md:max-h-[4.3rem]',
+  }
 }
 
 function PartnerLogo({ item }: { item: PartnerItem }) {

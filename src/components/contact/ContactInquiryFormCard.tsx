@@ -108,7 +108,7 @@ export function ContactInquiryFormCard({
               disabled={isSubmitting}
               className="group relative w-full overflow-hidden rounded-xl bg-amber-300 px-7 py-3 text-sm font-bold text-blue-950 shadow-[0_0_25px_rgba(251,191,36,0.25)] transition-all duration-300 hover:bg-amber-200 hover:shadow-[0_0_40px_rgba(251,191,36,0.45)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
-              <span className="relative z-10">{isSubmitting ? 'Mengirim...' : 'Kirim Inquiry'}</span>
+              <span className="relative z-10">{isSubmitting ? 'Mengirim...' : 'Kirim'}</span>
               <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
             </button>
 
