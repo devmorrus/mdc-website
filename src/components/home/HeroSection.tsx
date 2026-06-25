@@ -15,7 +15,7 @@ interface HeroActionLinkProps {
   children: ReactNode
 }
 
-const HERO_TYPEWRITER_WORDS = ['Terintegrasi.', 'Skalabel.', 'Profesional.', 'Inovatif.']
+const HERO_TYPEWRITER_WORDS = ['Dipercaya.', 'Cepat.', 'Skalabel.', 'Siap Tumbuh.']
 
 function isExternalHref(href: string) {
   return href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')
@@ -52,14 +52,6 @@ function MessageCircleIcon(props: SVGProps<SVGSVGElement>) {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" {...props}>
       <path d="M7.9 20A8.7 8.7 0 1 1 20 12.1" />
       <path d="M11.9 20H6l1.1-4.8" />
-    </svg>
-  )
-}
-
-function ArrowDownIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="M12 5v14M5 12l7 7 7-7" />
     </svg>
   )
 }
@@ -254,29 +246,6 @@ export function HeroSection({ content }: HeroSectionProps) {
             </div>
           </div>
         </div>
-
-        {/* ── Scroll indicator ── */}
-        <div
-          data-hero-animate
-          className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2"
-          aria-hidden="true"
-        >
-          <div className="hero-scroll-indicator flex flex-col items-center gap-2 text-white/40">
-            <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-            <div className="hero-scroll-bounce">
-              <ArrowDownIcon className="h-4 w-4" />
-            </div>
-          </div>
-        </div>
-
-        {/* ── Bottom fade to page background ── */}
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-32"
-          style={{
-            background: 'linear-gradient(to bottom, transparent, #f7fbff)',
-          }}
-          aria-hidden="true"
-        />
       </section>
     </div>
   )

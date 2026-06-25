@@ -12,13 +12,13 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   headerCtaHref:
     'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
   hero: {
-    eyebrow: 'Kami Memiliki Pengalaman & Profesionalitas',
-    title: 'Tampil Kredibel dengan Solusi Digital.',
+    eyebrow: 'Website untuk Bisnis yang Ingin Naik Kelas',
+    title: 'Website Profesional yang Lebih Meyakinkan.',
     description:
-      'Kami membangun website dan platform bisnis yang modern, rapi, dan meyakinkan.',
-    primaryCtaLabel: 'Jadwalkan Konsultasi',
+      'Kami bantu bisnis tampil lebih rapi, lebih cepat dipercaya, dan lebih siap mendatangkan klien.',
+    primaryCtaLabel: 'Konsultasi Gratis',
     primaryCtaHref: '/#contact',
-    secondaryCtaLabel: 'Layanan Kami',
+    secondaryCtaLabel: 'Lihat Layanan',
     secondaryCtaHref: '/#services',
     trustPoints: [],
   },
@@ -26,31 +26,31 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     {
       label: 'Project Selesai',
       value: '120+',
-      description: 'Implementasi website, dashboard, dan landing page lintas kebutuhan bisnis.',
+      description: 'Website, landing page, dan dashboard untuk berbagai kebutuhan bisnis.',
     },
     {
       label: 'Mitra Aktif',
       value: '30+',
-      description: 'Kolaborasi berulang dengan perusahaan yang membutuhkan partner digital jangka panjang.',
+      description: 'Bisnis yang terus mempercayakan pengembangan digitalnya kepada kami.',
     },
     {
       label: 'Retensi Klien',
       value: '94%',
-      description: 'Mayoritas klien kembali untuk pengembangan lanjutan dan dukungan maintenance.',
+      description: 'Mayoritas klien kembali untuk pengembangan lanjutan dan maintenance.',
     },
     {
       label: 'Rata-rata Kickoff',
       value: '7 Hari',
-      description: 'Alur kerja yang jelas membantu proyek bergerak cepat sejak fase awal.',
+      description: 'Proyek bergerak lebih cepat dengan alur kerja yang jelas sejak awal.',
     },
   ],
   about: {
     eyebrow: 'Tentang Perusahaan',
-    title: 'Mewujudkan Visi Digital Menjadi Realitas Profesional.',
+    title: 'Partner Digital untuk Bisnis yang Ingin Naik Kelas.',
     summary:
-      'Morrus Digital Connecting lebih dari sekadar pengembang web. Kami adalah mitra strategis yang menerjemahkan identitas bisnis Anda ke dalam ekosistem digital yang kokoh, meyakinkan, dan berorientasi pada hasil.',
+      'Kami membantu bisnis tampil lebih profesional, lebih dipercaya, dan lebih siap bersaing di ranah digital.',
     description:
-      'Dengan menggabungkan analisis mendalam, desain intuitif, dan keandalan teknis, kami memastikan setiap platform yang kami bangun tidak hanya mencuri perhatian, tetapi juga membangun kepercayaan berkelanjutan dengan audiens Anda.',
+      'Dari strategi, desain, hingga pengembangan, kami membangun website dan platform yang tidak hanya enak dilihat, tetapi juga membantu bisnis bergerak lebih percaya diri.',
     valuePoints: [
       'Struktur konten company profile yang rapi dan mudah dipahami.',
       'Desain modern yang tetap formal, profesional, dan konsisten dengan brand.',
