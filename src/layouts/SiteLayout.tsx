@@ -203,9 +203,9 @@ export function SiteLayout({
   )
 
   const renderMobileMenuPanel = () => (
-    <div className="fixed inset-x-0 top-18 z-50 md:hidden pointer-events-none">
+    <div className="fixed inset-x-0 top-[4.85rem] z-50 md:hidden pointer-events-none">
       <div
-        className={`pointer-events-none absolute inset-0 h-[calc(100vh-4.5rem)] w-full bg-[#0b1f57]/8 transition duration-300 ${
+        className={`pointer-events-none absolute inset-0 h-[calc(100vh-4.85rem)] w-full bg-[#0b1f57]/8 transition duration-300 ${
           isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
         }`}
       />
@@ -245,14 +245,14 @@ export function SiteLayout({
       {isHeroHeader ? (
         <header
           ref={headerRef}
-          className="sticky top-0 z-50 overflow-visible px-4 pt-4 transition-all duration-300 md:px-6"
+          className="sticky top-0 z-50 overflow-visible px-4 pt-3 transition-all duration-300 md:px-6"
         >
           <div className="mx-auto w-full max-w-7xl">
             <div
-              className={`flex h-18 w-full items-center justify-between rounded-[1.75rem] border px-4 py-3 transition-all duration-500 md:px-6 ${
+              className={`flex h-[4.75rem] w-full items-center justify-between rounded-[1.6rem] border px-4 py-2.5 transition-all duration-500 md:h-[4.9rem] md:px-5 ${
                 scrolled
-                  ? 'border-[#d5e1f5] shadow-[0_18px_38px_-28px_rgba(11,31,87,0.22)]'
-                  : 'border-white/10 shadow-none'
+                  ? 'border-[#d5e1f5] shadow-[0_16px_34px_-26px_rgba(11,31,87,0.18)]'
+                  : 'border-white/10 shadow-[0_14px_28px_-26px_rgba(4,13,30,0.45)]'
               }`}
               style={{
                 backgroundColor: scrolled ? HEADER_BACKGROUND : 'rgba(5,13,30,0.18)',
@@ -261,7 +261,7 @@ export function SiteLayout({
               }}
             >
               <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
-                <span className="flex h-25 w-25 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
+                <span className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl bg-transparent md:h-22 md:w-22">
                   <img
                     src={logoMdc}
                     alt="Morrus Digital Connecting logo"
@@ -285,8 +285,8 @@ export function SiteLayout({
               <div className="hidden md:block">
                 {renderHeaderCta(
                   isHeroAtTop
-                    ? 'inline-flex items-center justify-center rounded-full bg-[#facc15] px-5 py-3 text-sm font-semibold text-[#0b1f57] shadow-[0_0_20px_rgba(250,204,21,0.3)] transition-all duration-300 hover:bg-[#fde047] hover:shadow-[0_0_28px_rgba(250,204,21,0.45)]'
-                    : 'inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]',
+                    ? 'inline-flex items-center justify-center rounded-full bg-[#facc15] px-5 py-2.5 text-sm font-semibold text-[#0b1f57] shadow-[0_0_18px_rgba(250,204,21,0.26)] transition-all duration-300 hover:bg-[#fde047] hover:shadow-[0_0_24px_rgba(250,204,21,0.36)]'
+                    : 'inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-2.5 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]',
                 )}
               </div>
 
@@ -299,23 +299,23 @@ export function SiteLayout({
       ) : (
         <header
           ref={headerRef}
-          className={`sticky top-0 z-50 overflow-visible transition-all duration-300 ${
+          className={`sticky top-0 z-50 overflow-visible px-4 pt-3 transition-all duration-300 md:px-6 ${
             scrolled
-              ? 'border-b border-blue-200/70 bg-[#f7fbff] shadow-[0_10px_35px_-28px_rgba(11,31,87,0.3)]'
+              ? 'bg-transparent'
               : 'bg-transparent'
           }`}
         >
-          <div className="mx-auto flex h-18 w-full max-w-6xl items-center justify-between px-6">
+          <div className="mx-auto flex w-full max-w-6xl items-center justify-between">
             <div
-              className={`flex w-full items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 ${
+              className={`flex h-[4.75rem] w-full items-center justify-between rounded-[1.6rem] border px-4 py-2.5 transition-all duration-300 md:h-[4.9rem] md:px-5 ${
                 scrolled
-                  ? 'border-[#d5e1f5] shadow-[0_18px_38px_-28px_rgba(11,31,87,0.2)]'
-                  : 'border-white/70 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.18)]'
+                  ? 'border-[#d5e1f5] shadow-[0_16px_34px_-26px_rgba(11,31,87,0.18)]'
+                  : 'border-white/70 shadow-[0_16px_34px_-28px_rgba(11,31,87,0.14)]'
               }`}
               style={{ backgroundColor: HEADER_BACKGROUND }}
             >
               <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
-                <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
+                <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-transparent md:h-12 md:w-12">
                   <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.12] object-contain" />
                 </span>
               </Link>
@@ -332,7 +332,7 @@ export function SiteLayout({
 
               <div className="hidden md:block">
                 {renderHeaderCta(
-                  'inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]',
+                  'inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-2.5 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]',
                 )}
               </div>
 
@@ -344,7 +344,7 @@ export function SiteLayout({
         </header>
       )}
 
-      <main className={`relative ${isHeroHeader ? '-mt-[5.5rem]' : ''}`}>{children}</main>
+      <main className={`relative ${isHeroHeader ? '-mt-[5.5rem] md:-mt-[5.65rem]' : ''}`}>{children}</main>
 
       <footer
         className="w-full border-t border-[#d5e1f5] text-[#0f214d]"
