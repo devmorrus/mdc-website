@@ -65,11 +65,15 @@ export function SiteLayout({
   const headerRef = useRef<HTMLElement>(null)
   const isHeroHeader = headerVariant === 'hero'
   const isExternalHeaderCta = headerCta.href.startsWith('http')
-  const navItemBaseClass =
-    'rounded-full px-4 py-2 text-sm font-medium text-[#16336f] transition hover:bg-[#dce8ff] hover:text-[#0b1f57]'
+  const isHeroAtTop = isHeroHeader && !scrolled
+
+  // Nav item classes change based on hero-at-top vs scrolled/default
+  const navItemBaseClass = isHeroAtTop
+    ? 'rounded-full px-4 py-2 text-sm font-medium text-white/85 transition duration-200 hover:bg-white/10 hover:text-white'
+    : 'rounded-full px-4 py-2 text-sm font-medium text-[#16336f] transition duration-200 hover:bg-[#dce8ff] hover:text-[#0b1f57]'
   const navItemMobileBaseClass =
     'block px-0 py-4 text-left text-base font-medium text-[#16336f] transition hover:text-[#0b1f57]'
-  const navItemActiveClass = 'bg-[#dce8ff] text-[#0b1f57]'
+  const navItemActiveClass = isHeroAtTop ? 'bg-white/12 text-white' : 'bg-[#dce8ff] text-[#0b1f57]'
   const navItemMobileActiveClass = 'text-[#0b1f57]'
 
   useEffect(() => {
@@ -167,8 +171,12 @@ export function SiteLayout({
   const renderMobileMenuButton = () => (
     <button
       type="button"
-      className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-[#c9d7f0] bg-white/78 text-[#0b1f57] shadow-[0_12px_24px_-18px_rgba(11,31,87,0.22)] transition-all duration-300 hover:scale-[1.03] md:hidden ${
-        isMobileMenuOpen ? 'shadow-[0_18px_30px_-18px_rgba(11,31,87,0.28)]' : ''
+      className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl border transition-all duration-300 hover:scale-[1.03] md:hidden ${
+        isHeroAtTop
+          ? 'border-white/20 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20'
+          : `border-[#c9d7f0] bg-white/78 text-[#0b1f57] shadow-[0_12px_24px_-18px_rgba(11,31,87,0.22)] ${
+              isMobileMenuOpen ? 'shadow-[0_18px_30px_-18px_rgba(11,31,87,0.28)]' : ''
+            }`
       }`}
       onClick={() => setIsMobileMenuOpen((current) => !current)}
       aria-expanded={isMobileMenuOpen}
@@ -241,16 +249,26 @@ export function SiteLayout({
         >
           <div className="mx-auto w-full max-w-7xl">
             <div
-              className={`flex h-18 w-full items-center justify-between rounded-[1.75rem] border px-4 py-3 transition-all duration-300 md:px-6 ${
+              className={`flex h-18 w-full items-center justify-between rounded-[1.75rem] border px-4 py-3 transition-all duration-500 md:px-6 ${
                 scrolled
                   ? 'border-[#d5e1f5] shadow-[0_18px_38px_-28px_rgba(11,31,87,0.22)]'
-                  : 'border-white/65 shadow-[0_18px_38px_-28px_rgba(11,31,87,0.18)]'
+                  : 'border-white/10 shadow-none'
               }`}
-              style={{ backgroundColor: HEADER_BACKGROUND }}
+              style={{
+                backgroundColor: scrolled ? HEADER_BACKGROUND : 'rgba(5,13,30,0.18)',
+                backdropFilter: scrolled ? 'none' : 'blur(12px)',
+                WebkitBackdropFilter: scrolled ? 'none' : 'blur(12px)',
+              }}
             >
               <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">
                 <span className="flex h-25 w-25 items-center justify-center overflow-hidden rounded-2xl bg-transparent">
-                  <img src={logoMdc} alt="Morrus Digital Connecting logo" className="h-full w-full scale-[1.12] object-contain" />
+                  <img
+                    src={logoMdc}
+                    alt="Morrus Digital Connecting logo"
+                    className={`h-full w-full scale-[1.12] object-contain transition-all duration-500 ${
+                      isHeroAtTop ? 'brightness-0 invert' : ''
+                    }`}
+                  />
                 </span>
               </Link>
 
@@ -266,7 +284,9 @@ export function SiteLayout({
 
               <div className="hidden md:block">
                 {renderHeaderCta(
-                  'inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]',
+                  isHeroAtTop
+                    ? 'inline-flex items-center justify-center rounded-full bg-[#facc15] px-5 py-3 text-sm font-semibold text-[#0b1f57] shadow-[0_0_20px_rgba(250,204,21,0.3)] transition-all duration-300 hover:bg-[#fde047] hover:shadow-[0_0_28px_rgba(250,204,21,0.45)]'
+                    : 'inline-flex items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition hover:bg-[#ffd15c]',
                 )}
               </div>
 

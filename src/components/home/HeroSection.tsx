@@ -1,11 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type SVGProps } from 'react'
 import { Link } from 'react-router-dom'
 import { useHomeHeroAnimation } from '../../animations/useHomeHeroAnimation'
-import type { HeroContent, PortfolioItem } from '../../types/home'
+import { useHeroThreeCanvas } from '../../hooks/useHeroThreeCanvas'
+import type { HeroContent } from '../../types/home'
 
 interface HeroSectionProps {
   content: HeroContent
-  projects: PortfolioItem[]
 }
 
 interface HeroActionLinkProps {
@@ -15,11 +15,6 @@ interface HeroActionLinkProps {
 }
 
 const HERO_TYPEWRITER_WORDS = ['Terintegrasi.', 'Skalabel.', 'Profesional.', 'Inovatif.']
-const HERO_BACKGROUND_IMAGE =
-  'https://images.pexels.com/photos/834892/pexels-photo-834892.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=2000'
-const HERO_PROJECT_SLIDE_DURATION_MS = 420
-const HERO_PROJECT_SUMMARY_MAX_CHARS = 74
-const HERO_PROJECT_OUTCOME_MAX_CHARS = 68
 
 function isExternalHref(href: string) {
   return href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')
@@ -60,95 +55,32 @@ function MessageCircleIcon(props: SVGProps<SVGSVGElement>) {
   )
 }
 
-function ChevronLeftIcon(props: SVGProps<SVGSVGElement>) {
+function ArrowDownIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="m15 18-6-6 6-6" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M12 5v14M5 12l7 7 7-7" />
     </svg>
   )
 }
 
-function ChevronRightIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="m9 18 6-6-6-6" />
-    </svg>
-  )
-}
-
-function truncateText(text: string, maxChars: number) {
-  if (text.length <= maxChars) {
-    return text
-  }
-
-  return `${text.slice(0, maxChars).trimEnd()}...`
-}
-
-function HeroProjectSlideContent({ project }: { project: PortfolioItem }) {
-  const truncatedSummary = truncateText(project.summary, HERO_PROJECT_SUMMARY_MAX_CHARS)
-  const truncatedOutcome = truncateText(project.outcome, HERO_PROJECT_OUTCOME_MAX_CHARS)
-
-  return (
-    <>
-      <div className="overflow-hidden rounded-[1.6rem]">
-        <img
-          src={project.imageUrl}
-          alt={project.imageAlt}
-          className="h-[15rem] w-full object-cover md:h-[17rem]"
-        />
-      </div>
-
-      <div className="mt-4">
-        <p className="text-[11px] uppercase tracking-[0.28em] text-blue-100/66">{project.category}</p>
-        <h3 className="mt-2.5 text-xl font-bold leading-snug text-white">{project.name}</h3>
-        <p className="mt-3 text-sm leading-6 text-blue-50/82" title={project.summary}>
-          {truncatedSummary}
-        </p>
-        <p className="mt-2.5 text-sm leading-6 text-blue-100/66" title={project.outcome}>
-          {truncatedOutcome}
-        </p>
-      </div>
-    </>
-  )
-}
-
-export function HeroSection({ content, projects }: HeroSectionProps) {
+export function HeroSection({ content }: HeroSectionProps) {
   const scopeRef = useRef<HTMLDivElement>(null)
-  const measurementSlideRefs = useRef<Array<HTMLDivElement | null>>([])
   const [activeWordIndex, setActiveWordIndex] = useState(0)
   const [typedWord, setTypedWord] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0)
-  const [transitionProjectIndex, setTransitionProjectIndex] = useState<number | null>(null)
-  const [projectSlideDirection, setProjectSlideDirection] = useState<1 | -1>(1)
-  const [projectStageMinHeight, setProjectStageMinHeight] = useState<number | null>(null)
-  const featuredProjects = projects.slice(0, 4)
-  const featuredProjectIds = featuredProjects.map((project) => project.id).join('|')
-  const normalizedActiveProjectIndex =
-    featuredProjects.length > 0 ? activeProjectIndex % featuredProjects.length : 0
-  const normalizedTransitionProjectIndex =
-    transitionProjectIndex !== null && featuredProjects.length > 0
-      ? transitionProjectIndex % featuredProjects.length
-      : null
-  const activeProject = featuredProjects[normalizedActiveProjectIndex] ?? null
-  const transitionProject =
-    normalizedTransitionProjectIndex !== null
-      ? featuredProjects[normalizedTransitionProjectIndex] ?? null
-      : null
-  const visibleProjectIndex = normalizedTransitionProjectIndex ?? normalizedActiveProjectIndex
+  const canvasRef = useHeroThreeCanvas()
+
   const prefersReducedMotion =
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const displayedWord = prefersReducedMotion ? HERO_TYPEWRITER_WORDS[activeWordIndex] : typedWord
-  useHomeHeroAnimation({
-    scope: scopeRef,
-  })
 
+  useHomeHeroAnimation({ scope: scopeRef })
+
+  // Typewriter effect
   useEffect(() => {
     const currentWord = HERO_TYPEWRITER_WORDS[activeWordIndex]
 
-    if (prefersReducedMotion) {
-      return
-    }
+    if (prefersReducedMotion) return
 
     let timeoutId: number
 
@@ -159,215 +91,151 @@ export function HeroSection({ content, projects }: HeroSectionProps) {
     } else if (isDeleting && typedWord === '') {
       timeoutId = window.setTimeout(() => {
         setIsDeleting(false)
-        setActiveWordIndex((currentIndex) => (currentIndex + 1) % HERO_TYPEWRITER_WORDS.length)
+        setActiveWordIndex((idx) => (idx + 1) % HERO_TYPEWRITER_WORDS.length)
       }, 350)
     } else {
       timeoutId = window.setTimeout(() => {
-        setTypedWord((currentValue) =>
-          isDeleting ? currentValue.slice(0, -1) : currentWord.slice(0, currentValue.length + 1),
+        setTypedWord((val) =>
+          isDeleting ? val.slice(0, -1) : currentWord.slice(0, val.length + 1),
         )
       }, isDeleting ? 42 : 78)
     }
 
-    return () => {
-      window.clearTimeout(timeoutId)
-    }
+    return () => window.clearTimeout(timeoutId)
   }, [activeWordIndex, isDeleting, prefersReducedMotion, typedWord])
 
-  useEffect(() => {
-    if (prefersReducedMotion || featuredProjects.length < 2 || transitionProjectIndex !== null) {
-      return
-    }
-
-    const intervalId = window.setInterval(() => {
-      setProjectSlideDirection(1)
-      setTransitionProjectIndex((normalizedActiveProjectIndex + 1) % featuredProjects.length)
-    }, 4800)
-
-    return () => {
-      window.clearInterval(intervalId)
-    }
-  }, [featuredProjects.length, normalizedActiveProjectIndex, prefersReducedMotion, transitionProjectIndex])
-
-  useEffect(() => {
-    if (transitionProjectIndex === null) {
-      return
-    }
-
-    const timeoutId = window.setTimeout(() => {
-      setActiveProjectIndex(transitionProjectIndex)
-      setTransitionProjectIndex(null)
-    }, HERO_PROJECT_SLIDE_DURATION_MS)
-
-    return () => {
-      window.clearTimeout(timeoutId)
-    }
-  }, [transitionProjectIndex])
-
+  // Kick off typewriter after initial animation
   useLayoutEffect(() => {
-    if (featuredProjects.length === 0) {
-      measurementSlideRefs.current = []
-      return
+    if (!prefersReducedMotion && typedWord === '') {
+      const t = window.setTimeout(() => {
+        setTypedWord(HERO_TYPEWRITER_WORDS[0][0])
+      }, 900)
+      return () => window.clearTimeout(t)
     }
-
-    const measureTallestSlide = () => {
-      const slideHeights = measurementSlideRefs.current
-        .filter((node): node is HTMLDivElement => node !== null)
-        .map((node) => node.offsetHeight)
-
-      if (slideHeights.length === 0) {
-        return
-      }
-
-      const tallestSlideHeight = Math.max(...slideHeights)
-      setProjectStageMinHeight((currentHeight) =>
-        currentHeight === tallestSlideHeight ? currentHeight : tallestSlideHeight,
-      )
-    }
-
-    measureTallestSlide()
-
-    if (typeof ResizeObserver === 'undefined') {
-      window.addEventListener('resize', measureTallestSlide)
-
-      return () => {
-        window.removeEventListener('resize', measureTallestSlide)
-      }
-    }
-
-    const resizeObserver = new ResizeObserver(() => {
-      measureTallestSlide()
-    })
-
-    measurementSlideRefs.current.forEach((node) => {
-      if (node) {
-        resizeObserver.observe(node)
-      }
-    })
-
-    return () => {
-      resizeObserver.disconnect()
-    }
-  }, [featuredProjectIds, featuredProjects.length])
-
-  const requestProjectChange = (nextIndex: number, direction: -1 | 1) => {
-    if (featuredProjects.length < 2 || transitionProjectIndex !== null) {
-      return
-    }
-
-    const normalizedNextIndex = ((nextIndex % featuredProjects.length) + featuredProjects.length) % featuredProjects.length
-
-    if (normalizedNextIndex === normalizedActiveProjectIndex) {
-      return
-    }
-
-    if (prefersReducedMotion) {
-      setActiveProjectIndex(normalizedNextIndex)
-      return
-    }
-
-    setProjectSlideDirection(direction)
-    setTransitionProjectIndex(normalizedNextIndex)
-  }
-
-  const changeProject = (direction: -1 | 1) => {
-    if (featuredProjects.length < 2) {
-      return
-    }
-
-    requestProjectChange(normalizedActiveProjectIndex + direction, direction)
-  }
-
-  const resolveProjectDirection = (nextIndex: number): -1 | 1 => {
-    if (nextIndex === normalizedActiveProjectIndex) {
-      return 1
-    }
-
-    if (normalizedActiveProjectIndex === featuredProjects.length - 1 && nextIndex === 0) {
-      return 1
-    }
-
-    if (normalizedActiveProjectIndex === 0 && nextIndex === featuredProjects.length - 1) {
-      return -1
-    }
-
-    return nextIndex > normalizedActiveProjectIndex ? 1 : -1
-  }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div ref={scopeRef} className="relative">
       <section
         id="home"
-        className="hero-section relative -mt-px overflow-hidden px-0 pb-18 pt-28 text-white md:pb-24 md:pt-34 lg:pb-28 lg:pt-38"
+        className="hero-section relative -mt-px overflow-hidden"
       >
+        {/* ── Deep navy background ── */}
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(104deg, rgba(6,18,56,0.96) 0%, rgba(9,35,97,0.9) 42%, rgba(23,62,148,0.72) 100%), url("${HERO_BACKGROUND_IMAGE}")`,
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
+            background:
+              'linear-gradient(160deg, #030b1a 0%, #050f26 35%, #071640 60%, #0a1f54 100%)',
           }}
         />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.14]" style={{ backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '34px 34px' }} />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_26%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.16),transparent_24%)]" />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-10 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(380px,0.9fr)] lg:items-center">
-          <div className="max-w-xl text-center lg:text-left">
+        {/* ── Three.js canvas ── */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 h-full w-full"
+          style={{ opacity: 0.9 }}
+          aria-hidden="true"
+        />
+
+        {/* ── Radial vignette overlay — darkens edges, brightens center focus ── */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 70% 60% at 50% 50%, transparent 20%, rgba(3,11,26,0.38) 65%, rgba(3,11,26,0.82) 100%)',
+          }}
+          aria-hidden="true"
+        />
+
+        {/* ── Subtle gold glow at bottom-right ── */}
+        <div
+          className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[420px] translate-x-1/4 translate-y-1/4"
+          style={{
+            background: 'radial-gradient(circle, rgba(250,204,21,0.10) 0%, transparent 70%)',
+            filter: 'blur(40px)',
+          }}
+          aria-hidden="true"
+        />
+
+        {/* ── Subtle blue glow at top-left ── */}
+        <div
+          className="pointer-events-none absolute left-0 top-0 h-[380px] w-[380px] -translate-x-1/4 -translate-y-1/4"
+          style={{
+            background: 'radial-gradient(circle, rgba(56,189,248,0.09) 0%, transparent 70%)',
+            filter: 'blur(48px)',
+          }}
+          aria-hidden="true"
+        />
+
+        {/* ── Content ── */}
+        <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 pb-24 pt-28 text-white md:pb-28 md:pt-32">
+          <div className="mx-auto w-full max-w-3xl text-center">
+
+            {/* Eyebrow badge */}
             <p
               data-hero-animate
-              className="inline-flex rounded-full border border-white/16 bg-white/6 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.24em] text-blue-100/90"
+              className="hero-eyebrow-badge inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/[0.07] px-5 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-blue-100/80 backdrop-blur-sm"
             >
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_2px_rgba(56,189,248,0.7)]" />
               {content.eyebrow || 'Kami Memiliki Pengalaman & Profesionalitas'}
             </p>
 
+            {/* Heading */}
             <h1
               data-hero-animate
-              className="mt-6 text-2xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-3xl lg:text-[2.85rem]"
+              className="mt-8 text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.4rem]"
             >
               <span className="block">{content.title}</span>
-              <span className="block text-[#facc15]">
-                Lebih{' '}
-                <span className="whitespace-nowrap">
+              <span className="mt-2 block">
+                <span className="text-white/90">Lebih </span>
+                <span className="whitespace-nowrap text-[#facc15]">
                   {displayedWord}
-                  <span className="ml-1 inline-block h-[0.9em] w-1 align-[-0.08em] animate-pulse rounded-full bg-[#facc15]" />
+                  <span className="ml-1 inline-block h-[0.88em] w-[3px] align-[-0.06em] animate-pulse rounded-full bg-[#facc15]" />
                 </span>
               </span>
             </h1>
 
+            {/* Description */}
             <p
               data-hero-animate
-              className="mt-6 max-w-lg text-sm leading-7 text-blue-50/86 sm:text-base"
+              className="mx-auto mt-7 max-w-xl text-base leading-7 text-blue-100/72 sm:text-lg"
             >
               {content.description}
             </p>
 
+            {/* CTA Buttons */}
             <div
               data-hero-animate
-              className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row lg:justify-start"
+              className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
             >
+              {/* Primary CTA — Gold */}
               <HeroActionLink
                 href={content.secondaryCtaHref}
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#facc15] px-6 py-3 text-sm font-bold text-[#243b93] shadow-[0_0_24px_rgba(250,204,21,0.24)] transition-all hover:-translate-y-1 hover:bg-[#fde047] hover:shadow-[0_0_32px_rgba(250,204,21,0.36)]"
+                className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-[#facc15] px-8 py-3.5 text-sm font-bold text-[#0b1f57] shadow-[0_0_32px_rgba(250,204,21,0.28)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#fde047] hover:shadow-[0_0_48px_rgba(250,204,21,0.42)]"
               >
-                <TerminalIcon className="h-4.5 w-4.5" />
-                {content.secondaryCtaLabel}
+                {/* Sheen sweep on hover */}
+                <span className="absolute inset-0 -translate-x-full skew-x-[-18deg] bg-white/20 transition-transform duration-500 group-hover:translate-x-[120%]" />
+                <TerminalIcon className="relative h-4.5 w-4.5" />
+                <span className="relative">{content.secondaryCtaLabel}</span>
               </HeroActionLink>
+
+              {/* Secondary CTA — Glass */}
               <HeroActionLink
                 href={content.primaryCtaHref}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/18 bg-white/8 px-6 py-3 text-sm font-bold text-white backdrop-blur-sm transition-all hover:-translate-y-1 hover:bg-white/14"
+                className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/18 bg-white/[0.07] px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.13]"
               >
                 <MessageCircleIcon className="h-4.5 w-4.5" />
                 {content.primaryCtaLabel}
               </HeroActionLink>
             </div>
 
+            {/* Trust points */}
             {content.trustPoints.length > 0 ? (
-              <ul data-hero-animate className="mt-7 flex flex-wrap justify-center gap-3 lg:justify-start">
+              <ul data-hero-animate className="mt-8 flex flex-wrap justify-center gap-3">
                 {content.trustPoints.map((point) => (
                   <li
                     key={point}
-                    className="rounded-full border border-white/16 bg-white/8 px-4 py-2 text-sm text-blue-50 shadow-sm backdrop-blur-sm"
+                    className="rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-sm text-blue-50/80 backdrop-blur-sm"
                   >
                     {point}
                   </li>
@@ -375,107 +243,30 @@ export function HeroSection({ content, projects }: HeroSectionProps) {
               </ul>
             ) : null}
           </div>
+        </div>
 
-          <div data-hero-animate className="relative mx-auto w-full max-w-[38rem] lg:mx-0 lg:justify-self-end">
-            <div className="relative overflow-hidden rounded-[1.75rem] border border-white/12 bg-[linear-gradient(165deg,rgba(255,255,255,0.12),rgba(255,255,255,0.05))] p-4 shadow-[0_28px_80px_-42px_rgba(3,12,35,0.92)] backdrop-blur-md md:p-5">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-blue-100/64">Featured Project</p>
-                  {/* <h2 className="mt-2 text-base font-semibold text-white/94 md:text-lg">Project pilihan untuk inspirasi digital brand Anda</h2> */}
-                </div>
-
-                {featuredProjects.length > 1 ? (
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/10 text-white/86 transition hover:bg-white/16"
-                      onClick={() => changeProject(-1)}
-                      aria-label="Project sebelumnya"
-                    >
-                      <ChevronLeftIcon className="h-4 w-4" />
-                    </button>
-                    <button
-                      type="button"
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/10 text-white/86 transition hover:bg-white/16"
-                      onClick={() => changeProject(1)}
-                      aria-label="Project berikutnya"
-                    >
-                      <ChevronRightIcon className="h-4 w-4" />
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-
-              {activeProject ? (
-                <>
-                  <div aria-hidden="true" className="pointer-events-none invisible h-0 overflow-hidden">
-                    {featuredProjects.map((project, index) => (
-                      <div
-                        key={`${project.id}-measurement`}
-                        ref={(node) => {
-                          measurementSlideRefs.current[index] = node
-                        }}
-                      >
-                        <HeroProjectSlideContent project={project} />
-                      </div>
-                    ))}
-                  </div>
-
-                  <div
-                    className="mt-5 grid"
-                    style={projectStageMinHeight && featuredProjects.length > 0 ? { minHeight: `${projectStageMinHeight}px` } : undefined}
-                  >
-                    <div
-                      className={`hero-project-slide col-start-1 row-start-1 ${
-                        transitionProject
-                          ? projectSlideDirection === 1
-                            ? 'hero-project-slide--exit-left'
-                            : 'hero-project-slide--exit-right'
-                          : ''
-                      }`}
-                    >
-                      <HeroProjectSlideContent project={activeProject} />
-                    </div>
-
-                    {transitionProject ? (
-                      <div
-                        className={`hero-project-slide col-start-1 row-start-1 ${
-                          projectSlideDirection === 1
-                            ? 'hero-project-slide--enter-right'
-                            : 'hero-project-slide--enter-left'
-                        }`}
-                      >
-                        <HeroProjectSlideContent project={transitionProject} />
-                      </div>
-                    ) : null}
-                  </div>
-                </>
-              ) : (
-                <div className="mt-6 rounded-[1.6rem] border border-dashed border-white/18 px-6 py-12 text-center text-blue-100/76">
-                  Project unggulan akan ditampilkan di area ini.
-                </div>
-              )}
-
-              {featuredProjects.length > 1 ? (
-                <div className="mt-5 flex items-center justify-center gap-2.5">
-                  {featuredProjects.map((project, index) => (
-                    <button
-                      key={project.id}
-                      type="button"
-                      className={`h-2.5 w-2.5 rounded-full transition ${
-                        index === visibleProjectIndex
-                          ? 'bg-[#facc15] shadow-[0_0_16px_rgba(250,204,21,0.5)]'
-                          : 'bg-white/28 hover:bg-white/48'
-                      }`}
-                      onClick={() => requestProjectChange(index, resolveProjectDirection(index))}
-                      aria-label={`Tampilkan project ${project.name}`}
-                    />
-                  ))}
-                </div>
-              ) : null}
+        {/* ── Scroll indicator ── */}
+        <div
+          data-hero-animate
+          className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2"
+          aria-hidden="true"
+        >
+          <div className="hero-scroll-indicator flex flex-col items-center gap-2 text-white/40">
+            <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+            <div className="hero-scroll-bounce">
+              <ArrowDownIcon className="h-4 w-4" />
             </div>
           </div>
         </div>
+
+        {/* ── Bottom fade to page background ── */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-32"
+          style={{
+            background: 'linear-gradient(to bottom, transparent, #f7fbff)',
+          }}
+          aria-hidden="true"
+        />
       </section>
     </div>
   )

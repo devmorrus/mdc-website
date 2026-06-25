@@ -18,11 +18,12 @@ export function useHomeHeroAnimation({ scope }: UseHomeHeroAnimationParams): voi
 
     const context = gsap.context(() => {
       gsap.from(tweenTargets, {
-        y: 18,
+        y: 26,
         opacity: 0,
-        duration: 0.55,
+        duration: 0.72,
         ease: 'power3.out',
-        stagger: 0.08,
+        stagger: 0.11,
+        delay: 0.15,
       })
     }, scope)
 
