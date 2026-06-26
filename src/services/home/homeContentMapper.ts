@@ -26,7 +26,7 @@ export interface HomeViewModel {
   whatsappLink: string
 }
 
-const ARTICLE_READ_MORE_FALLBACK_HREF = '/#'
+const ARTICLE_READ_MORE_FALLBACK_HREF = '/blog'
 
 export function mapHomeContentToViewModel(content: HomeContent): HomeViewModel {
   return {

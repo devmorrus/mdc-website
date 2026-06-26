@@ -15,9 +15,9 @@ export function ContactPage() {
 
   if (isLoading) {
     return (
-      <SiteLayout>
+      <SiteLayout headerVariant="hero">
         <section className="mx-auto w-full max-w-6xl px-6 py-20">
-          <p className="text-blue-100/80">Loading contact content...</p>
+          <p className="text-[#0b1f57]">Loading contact content...</p>
         </section>
       </SiteLayout>
     )
@@ -25,9 +25,9 @@ export function ContactPage() {
 
   if (error || !data) {
     return (
-      <SiteLayout>
+      <SiteLayout headerVariant="hero">
         <section className="mx-auto w-full max-w-6xl px-6 py-20">
-          <p className="text-red-200">Failed to load contact content: {error ?? 'Unknown error'}</p>
+          <p className="text-red-600">Failed to load contact content: {error ?? 'Unknown error'}</p>
         </section>
       </SiteLayout>
     )
@@ -38,6 +38,7 @@ export function ContactPage() {
       navItems={data.navItems}
       headerCta={{ label: data.headerCtaLabel, href: data.headerCtaHref }}
       footer={data.footer}
+      headerVariant="hero"
     >
       <ContactHeroSection content={data.hero} />
       <ContactInquirySection content={data.info} />

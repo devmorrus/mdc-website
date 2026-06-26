@@ -1,135 +1,190 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import type { ContactInfoContent } from '../../types/contact'
+import { useRef, type ReactNode } from 'react'
+import { useGsapReveal } from '../../hooks/useGsapReveal'
 import { createWhatsAppLink } from '../../utils/createWhatsAppLink'
+import type { ContactInfoContent } from '../../types/contact'
+import { SectionHeading } from '../home/SectionHeading'
 import { ContactInquiryFormCard } from './ContactInquiryFormCard'
 
 interface ContactInquirySectionProps {
   content: ContactInfoContent
 }
 
-const INFO_ICONS: Record<string, React.ReactNode> = {
-  Email: (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-    </svg>
-  ),
-  Telepon: (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-    </svg>
-  ),
-  'Jam Operasional': (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ),
-  Lokasi: (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-    </svg>
-  ),
+function getContactIcon(label: string): ReactNode {
+  const baseClass = 'h-5 w-5'
+
+  switch (label.toLowerCase()) {
+    case 'email':
+      return (
+        <svg className={baseClass} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 6.75A2.25 2.25 0 016.25 4.5h11.5A2.25 2.25 0 0120 6.75v10.5A2.25 2.25 0 0117.75 19.5H6.25A2.25 2.25 0 014 17.25V6.75z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5.5 7.5L12 12.75l6.5-5.25" />
+        </svg>
+      )
+    case 'telepon':
+      return (
+        <svg className={baseClass} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 5.25A2.25 2.25 0 015.25 3h2.114c.81 0 1.53.52 1.787 1.288l.764 2.293a2.25 2.25 0 01-.513 2.34l-1.274 1.274a15.067 15.067 0 006.094 6.094l1.274-1.274a2.25 2.25 0 012.34-.513l2.293.764A2.25 2.25 0 0121 18.636v2.114A2.25 2.25 0 0118.75 23a15.75 15.75 0 01-15.75-15.75V5.25z" />
+        </svg>
+      )
+    case 'jam operasional':
+      return (
+        <svg className={baseClass} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+          <circle cx="12" cy="12" r="8.25" />
+        </svg>
+      )
+    case 'lokasi':
+      return (
+        <svg className={baseClass} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 21s6-5.686 6-11.25A6 6 0 106 9.75C6 15.314 12 21 12 21z" />
+          <circle cx="12" cy="9.75" r="2.25" />
+        </svg>
+      )
+    default:
+      return (
+        <svg className={baseClass} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.9}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      )
+  }
 }
 
 export function ContactInquirySection({ content }: ContactInquirySectionProps) {
-  const sectionRef = useRef<HTMLElement>(null)
-  const infoRef = useRef<HTMLDivElement>(null)
-  const formRef = useRef<HTMLDivElement>(null)
+  const infoCardRef = useRef<HTMLDivElement>(null)
+  const itemRefs = useRef<(HTMLElement | null)[]>([])
+  const formWrapRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion || !sectionRef.current) return
+  const sectionRef = useGsapReveal<HTMLElement>({
+    from: { y: 34, opacity: 0 },
+    to: { stagger: 0.08, duration: 0.72 },
+    targets: () => [infoCardRef.current, ...itemRefs.current, formWrapRef.current],
+    threshold: 0.12,
+  })
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-          gsap.fromTo(infoRef.current, { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7, ease: 'power3.out' })
-          gsap.fromTo(formRef.current, { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7, ease: 'power3.out', delay: 0.1 })
-          observer.disconnect()
-        })
-      },
-      { threshold: 0.08 },
-    )
-    observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
-
-  const whatsappLink = createWhatsAppLink(content.whatsappNumber, content.whatsappMessage)
+  const whatsappUrl = createWhatsAppLink(content.whatsappNumber, content.whatsappMessage)
 
   return (
-    <section ref={sectionRef} className="relative mx-auto w-full max-w-6xl px-6 pb-20 pt-14 md:pb-28 md:pt-16">
-      <div className="pointer-events-none absolute left-1/2 top-20 -translate-x-1/2 h-32 w-125 bg-amber-300/4 blur-3xl rounded-full" />
+    <section
+      ref={sectionRef}
+      id="contact-inquiry"
+      className="relative overflow-hidden py-18 md:py-24 lg:py-28"
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,#fffdfa_0%,#f7fbff_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_14%,rgba(246,196,69,0.13),transparent_18%),radial-gradient(circle_at_84%_18%,rgba(24,74,168,0.09),transparent_20%),radial-gradient(circle_at_52%_100%,rgba(255,255,255,0.92),transparent_28%)]" />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(24,74,168,1) 1px, transparent 1px), linear-gradient(90deg, rgba(24,74,168,1) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
+        }}
+      />
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
+        <SectionHeading
+          eyebrow="Kontak & Inquiry"
+          title="Siapkan brief singkat, lalu kami bantu susun langkah terbaik."
+          description="Pilih jalur yang paling nyaman untuk Anda. Form inquiry cocok untuk kebutuhan yang ingin dijelaskan lebih detail, sementara WhatsApp cepat untuk percakapan awal."
+          centered
+        />
 
-        {/* ── Info panel ─────────────────────────────────────────────────────── */}
-        <aside ref={infoRef} className="flex flex-col gap-5">
-          {/* Header card */}
-          <div className="relative overflow-hidden rounded-2xl border border-amber-300/18 bg-linear-to-br from-blue-900/40 via-blue-950/60 to-blue-950/80 p-7">
-            <div className="absolute top-0 right-0 h-24 w-24 bg-linear-to-bl from-amber-300/10 to-transparent rounded-bl-[70px] pointer-events-none" />
-            <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-amber-300/35 to-transparent" />
+        <div className="mt-12 grid gap-6 lg:grid-cols-[0.98fr_1.02fr] lg:items-start lg:gap-8">
+          <div ref={infoCardRef} className="relative overflow-hidden rounded-[2rem] border border-[#d7e3f7] bg-[linear-gradient(180deg,#ffffff_0%,#eef4ff_100%)] p-7 shadow-[0_24px_58px_-42px_rgba(11,31,87,0.24)]">
+            <div className="pointer-events-none absolute -right-10 top-0 h-32 w-32 rounded-full bg-[#f6c445]/14 blur-3xl" />
+            <div className="pointer-events-none absolute left-0 bottom-0 h-40 w-40 rounded-full bg-[#184aa8]/10 blur-3xl" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#f6c445]/55 to-transparent" />
 
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-8 bg-amber-300/60" />
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-300">Kontak Kami</p>
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#d7e3f7] bg-white/75 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#c49019] backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#f6c445]" />
+                {content.title}
+              </div>
+
+              <p className="mt-5 max-w-xl text-base leading-8 text-slate-600 md:text-[1.05rem]">
+                {content.description}
+              </p>
+
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                {content.items.map((item, index) => {
+                  const card = (
+                    <div className="group flex h-full items-start gap-4 rounded-[1.35rem] border border-[#d7e3f7] bg-white/78 px-4 py-4 shadow-[0_14px_32px_-28px_rgba(11,31,87,0.16)] transition-all duration-300 hover:-translate-y-1 hover:border-[#184aa8]/16">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#d7e3f7] bg-[linear-gradient(180deg,#ffffff_0%,#edf4ff_100%)] text-[#184aa8] transition-all duration-300 group-hover:border-[#f6c445]/30 group-hover:text-[#c49019]">
+                        {getContactIcon(item.label)}
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-blue-500/55">
+                          {item.label}
+                        </p>
+                        <p className="mt-1 text-sm font-medium leading-6 text-[#0b1f57]">
+                          {item.value}
+                        </p>
+                      </div>
+                    </div>
+                  )
+
+                  if (item.href) {
+                    return (
+                      <a
+                        key={item.label}
+                        ref={(element) => {
+                          if (element) itemRefs.current[index] = element
+                        }}
+                        href={item.href}
+                        className="block"
+                      >
+                        {card}
+                      </a>
+                    )
+                  }
+
+                  return (
+                    <div
+                      key={item.label}
+                      ref={(element) => {
+                        if (element) itemRefs.current[index] = element
+                      }}
+                    >
+                      {card}
+                    </div>
+                  )
+                })}
+              </div>
+
+              <div className="mt-6 rounded-[1.5rem] border border-[#d7e3f7] bg-[linear-gradient(180deg,rgba(11,31,87,0.96),rgba(24,58,131,0.96))] px-5 py-5 text-white shadow-[0_20px_48px_-32px_rgba(11,31,87,0.3)]">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-blue-100/62">
+                      Jalur tercepat
+                    </p>
+                    <p className="mt-2 text-base leading-7 text-blue-50/84">
+                      Kirim pesan via WhatsApp untuk respon awal yang lebih cepat.
+                    </p>
+                  </div>
+
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex shrink-0 items-center justify-center rounded-full bg-[#f6c445] px-5 py-3 text-sm font-semibold text-[#0b1f57] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#ffd15c]"
+                  >
+                    {content.whatsappButtonLabel}
+                  </a>
+                </div>
+              </div>
             </div>
-
-            <h2 className="text-2xl font-extrabold text-blue-50 mb-3" style={{ fontFamily: "'Sora', sans-serif" }}>
-              {content.title}
-            </h2>
-            <p className="text-sm leading-relaxed text-blue-200/65">{content.description}</p>
           </div>
 
-          {/* Contact info items */}
-          <div className="rounded-2xl border border-blue-200/12 bg-linear-to-br from-blue-900/25 to-blue-950/50 overflow-hidden">
-            {content.items.map((item, i) => (
-              <div key={item.label} className={`group flex items-start gap-4 px-6 py-4 transition-all duration-300 hover:bg-blue-900/25 ${i > 0 ? 'border-t border-blue-200/8' : ''}`}>
-                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-amber-300/25 bg-amber-300/8 text-amber-300 transition-all duration-300 group-hover:border-amber-300/45 group-hover:bg-amber-300/15">
-                  {INFO_ICONS[item.label] ?? (
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                    </svg>
-                  )}
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400/50 mb-1">{item.label}</p>
-                  {item.href ? (
-                    <a href={item.href} className="text-sm font-medium text-blue-100/85 transition-colors duration-200 hover:text-amber-200">
-                      {item.value}
-                    </a>
-                  ) : (
-                    <p className="text-sm text-blue-100/80">{item.value}</p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+          <div ref={formWrapRef} className="relative">
+            <ContactInquiryFormCard
+              title="Form Inquiry Cepat"
+              description="Semakin lengkap detail yang Anda isi, semakin mudah kami menyiapkan arahan yang relevan untuk bisnis Anda."
+            />
 
-          {/* WhatsApp CTA */}
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noreferrer"
-            className="group relative overflow-hidden rounded-2xl border border-amber-300/25 bg-linear-to-r from-amber-300/12 to-amber-300/6 px-6 py-4 transition-all duration-300 hover:border-amber-300/50 hover:from-amber-300/20 hover:to-amber-300/10"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-bold text-amber-200 mb-0.5">{content.whatsappButtonLabel}</p>
-                <p className="text-xs text-blue-300/55">Respon cepat via WhatsApp</p>
-              </div>
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-300 text-blue-950 text-xs font-black shadow-[0_0_20px_rgba(251,191,36,0.35)] transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(251,191,36,0.5)] group-hover:scale-105">
-                WA
-              </div>
+            <div className="mt-4 rounded-[1.35rem] border border-[#d7e3f7] bg-white/72 px-5 py-4 text-sm leading-7 text-slate-600 shadow-[0_14px_34px_-30px_rgba(11,31,87,0.18)] backdrop-blur-sm">
+              Biasanya kami merespon pada jam kerja. Jika Anda mengirim di luar jam kerja, tetap akan kami balas pada hari berikutnya.
             </div>
-            <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-amber-300/8 to-transparent transition-transform duration-700 group-hover:translate-x-full pointer-events-none" />
-          </a>
-        </aside>
-
-        {/* ── Form ─────────────────────────────────────────────────────────── */}
-        <div ref={formRef}>
-          <ContactInquiryFormCard />
+          </div>
         </div>
       </div>
     </section>

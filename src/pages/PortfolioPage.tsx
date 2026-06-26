@@ -16,9 +16,9 @@ export function PortfolioPage() {
 
   if (isLoading) {
     return (
-      <SiteLayout>
+      <SiteLayout headerVariant="hero">
         <section className="mx-auto w-full max-w-6xl px-6 py-20">
-          <p className="text-blue-100/80">Loading portfolio content...</p>
+          <p className="text-[#0b1f57]">Loading portfolio content...</p>
         </section>
       </SiteLayout>
     )
@@ -26,9 +26,9 @@ export function PortfolioPage() {
 
   if (error || !data) {
     return (
-      <SiteLayout>
+      <SiteLayout headerVariant="hero">
         <section className="mx-auto w-full max-w-6xl px-6 py-20">
-          <p className="text-red-200">Failed to load portfolio content: {error ?? 'Unknown error'}</p>
+          <p className="text-red-600">Failed to load portfolio content: {error ?? 'Unknown error'}</p>
         </section>
       </SiteLayout>
     )
@@ -39,6 +39,7 @@ export function PortfolioPage() {
       navItems={data.navItems}
       headerCta={{ label: data.headerCtaLabel, href: data.headerCtaHref }}
       footer={data.footer}
+      headerVariant="hero"
     >
       <PortfolioHeroSection content={data.hero} />
       <PortfolioGridSection items={data.projects} />
