@@ -1,5 +1,7 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
+import { useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { useHomeHeroAnimation } from '../../animations/useHomeHeroAnimation'
+import { useHeroThreeCanvas } from '../../hooks/useHeroThreeCanvas'
 import type { ContactHeroContent } from '../../types/contact'
 import { ContactHeroCanvasOpt } from '../../three/OptimizedCanvases'
 
@@ -7,66 +9,149 @@ interface ContactHeroSectionProps {
   content: ContactHeroContent
 }
 
-export function ContactHeroSection({ content }: ContactHeroSectionProps) {
-  const badgeRef = useRef<HTMLParagraphElement>(null)
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const descRef = useRef<HTMLParagraphElement>(null)
+const CONTACT_PILLS = ['Email cepat', 'WhatsApp', 'Brief awal', 'Follow-up']
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion) return
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-    tl.fromTo(badgeRef.current, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 })
-      .fromTo(titleRef.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65 }, '-=0.3')
-      .fromTo(descRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, '-=0.35')
-  }, [])
+export function ContactHeroSection({ content }: ContactHeroSectionProps) {
+  const scopeRef = useRef<HTMLDivElement>(null)
+  const backgroundCanvasRef = useHeroThreeCanvas()
+
+  useHomeHeroAnimation({ scope: scopeRef })
 
   return (
-    <section className="relative isolate overflow-hidden border-b border-blue-900/30 min-h-[70vh] flex items-center">
-      <div className="pointer-events-none absolute -left-40 -top-20 h-100 w-100 rounded-full bg-sky-500/14 blur-[120px]" />
-      <div className="pointer-events-none absolute -right-32 bottom-10 h-85 w-85 rounded-full bg-amber-300/14 blur-[100px]" />
-      <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(148,163,184,1) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,1) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+    <div ref={scopeRef} className="relative">
+      <section className="hero-section relative -mt-px overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(160deg, #030b1a 0%, #050f26 35%, #071640 60%, #0a1f54 100%)',
+          }}
+        />
 
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-[55%] opacity-75">
-        <ContactHeroCanvasOpt />
-      </div>
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-[28%] bg-linear-to-l from-[#021331] via-[#021331]/50 to-transparent" />
+        <canvas
+          ref={backgroundCanvasRef}
+          className="absolute inset-0 h-full w-full"
+          style={{ opacity: 0.88 }}
+          aria-hidden="true"
+        />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-24 md:py-32">
-        <div className="max-w-2xl space-y-7">
-          <p ref={badgeRef} className="inline-flex items-center gap-2 rounded-full border border-amber-300/45 bg-amber-200/8 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-amber-200 backdrop-blur-sm">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-300 animate-pulse" />
-            {content.eyebrow}
-          </p>
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 68% 58% at 50% 50%, transparent 18%, rgba(3,11,26,0.34) 64%, rgba(3,11,26,0.82) 100%)',
+          }}
+          aria-hidden="true"
+        />
 
-          <h1 ref={titleRef} className="text-4xl font-extrabold leading-[1.08] tracking-tight text-blue-50 md:text-5xl xl:text-6xl" style={{ fontFamily: "'Sora', sans-serif" }}>
-            {content.title.split(' ').map((word, i) => {
-              const accent = ['Diskusikan', 'Digital', 'Bisnis'].includes(word)
-              return (
-                <span key={i}>
-                  <span className={accent ? 'bg-linear-to-r from-amber-300 to-yellow-200 bg-clip-text text-transparent' : ''}>{word}</span>{' '}
+        <div
+          className="pointer-events-none absolute bottom-0 right-0 h-[400px] w-[400px] translate-x-1/4 translate-y-1/4"
+          style={{
+            background: 'radial-gradient(circle, rgba(246,196,69,0.10) 0%, transparent 70%)',
+            filter: 'blur(44px)',
+          }}
+          aria-hidden="true"
+        />
+
+        <div
+          className="pointer-events-none absolute left-0 top-0 h-[360px] w-[360px] -translate-x-1/4 -translate-y-1/4"
+          style={{
+            background: 'radial-gradient(circle, rgba(56,189,248,0.09) 0%, transparent 70%)',
+            filter: 'blur(48px)',
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 mx-auto flex min-h-[92vh] w-full max-w-7xl items-center px-6 pb-24 pt-28 text-white md:pb-28 md:pt-32">
+          <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
+            <div className="order-1 flex w-full flex-col items-center text-center lg:order-1 lg:col-span-7 lg:items-start lg:text-left">
+              <p
+                data-hero-animate
+                className="inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/[0.07] px-5 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-blue-100/80 backdrop-blur-sm"
+              >
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_2px_rgba(56,189,248,0.7)]" />
+                {content.eyebrow}
+              </p>
+
+              <h1
+                data-hero-animate
+                className="mt-8 text-3xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.35rem] lg:leading-[1.08]"
+                style={{ fontFamily: "'Sora', sans-serif" }}
+              >
+                <span className="block">
+                  <span className="bg-gradient-to-r from-[#facc15] via-[#fde68a] to-[#f6c445] bg-clip-text text-transparent">
+                    Mari Diskusikan
+                  </span>
                 </span>
-              )
-            })}
-          </h1>
+                <span className="mt-2 block text-white/94">
+                  Kebutuhan digital bisnis Anda.
+                </span>
+              </h1>
 
-          <p ref={descRef} className="max-w-lg text-base leading-relaxed text-blue-200/70 md:text-lg">{content.description}</p>
+              <p
+                data-hero-animate
+                className="mt-7 max-w-2xl text-base leading-7 text-blue-100/72 sm:text-lg"
+              >
+                Hubungi tim Morrus Digital Connecting untuk konsultasi website company profile,
+                aplikasi custom, dashboard, dan dukungan teknis yang lebih terarah.
+              </p>
 
-          {/* Contact method quick links */}
-          <div className="flex flex-wrap gap-3 pt-2">
-            <a href="mailto:hello@morrusdigital.com" className="group inline-flex items-center gap-2 rounded-xl border border-blue-200/20 bg-blue-900/25 px-4 py-2 text-sm text-blue-300/70 backdrop-blur-sm transition-all duration-300 hover:border-amber-300/40 hover:text-amber-200">
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
-              Email
-            </a>
-            <a href="https://wa.me/6281234567890" target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 rounded-xl border border-blue-200/20 bg-blue-900/25 px-4 py-2 text-sm text-blue-300/70 backdrop-blur-sm transition-all duration-300 hover:border-emerald-400/40 hover:text-emerald-300">
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
-              WhatsApp
-            </a>
+              <div
+                data-hero-animate
+                className="mt-10 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row lg:justify-start"
+              >
+                <Link
+                  to="/contact"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-[#facc15] px-8 py-3.5 text-sm font-bold text-[#0b1f57] shadow-[0_0_32px_rgba(250,204,21,0.28)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#fde047] hover:shadow-[0_0_48px_rgba(250,204,21,0.42)] sm:w-auto"
+                >
+                  Kirim Inquiry
+                </Link>
+                <a
+                  href="https://wa.me/6281234567890"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-white/18 bg-white/[0.07] px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.13] sm:w-auto"
+                >
+                  WhatsApp Sekarang
+                </a>
+              </div>
+
+              <div data-hero-animate className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+                {CONTACT_PILLS.map((pill) => (
+                  <span
+                    key={pill}
+                    className="rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-sm text-blue-50/80 backdrop-blur-sm"
+                  >
+                    {pill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="order-2 relative flex h-[340px] w-full items-center justify-center select-none sm:h-[400px] lg:col-span-5 lg:h-[480px]">
+              <div
+                className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/0 via-cyan-500/8 to-yellow-400/0 blur-3xl"
+                aria-hidden="true"
+              />
+              <ContactHeroCanvasOpt />
+
+              <div className="absolute right-2 top-6 rounded-2xl border border-blue-200/12 bg-[#0b1f57]/82 px-5 py-4 shadow-[0_20px_50px_-24px_rgba(11,31,87,0.65)] backdrop-blur-md">
+                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-blue-300/65">Respons</p>
+                <p className="mt-1 text-3xl font-extrabold text-[#facc15]" style={{ fontFamily: "'Sora', sans-serif" }}>
+                  Cepat
+                </p>
+              </div>
+
+              <div className="absolute -bottom-2 left-2 rounded-2xl border border-blue-200/12 bg-[#0b1f57]/82 px-5 py-4 shadow-[0_20px_50px_-24px_rgba(11,31,87,0.65)] backdrop-blur-md">
+                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-blue-300/65">Fokus</p>
+                <p className="mt-1 text-3xl font-extrabold text-[#facc15]" style={{ fontFamily: "'Sora', sans-serif" }}>
+                  Solusi
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="pointer-events-none absolute bottom-0 inset-x-0 h-24 bg-linear-to-t from-[#021331] to-transparent" />
-    </section>
+      </section>
+    </div>
   )
 }
