@@ -177,8 +177,8 @@ export function ServicesSection({ items }: ServicesSectionProps) {
           </div>
           <SectionHeading
             eyebrow="Layanan Utama"
-            title="Layanan digital yang disusun untuk memperkuat profil, operasional, dan pertumbuhan bisnis."
-            description="Solusi menyeluruh dari perancangan identitas digital hingga sistem kustom untuk mendukung alur kerja unik perusahaan Anda."
+            title="Pilih layanan yang paling sesuai dengan kebutuhan bisnis Anda."
+            description="Kami menyediakan tiga jalur pengerjaan: website company profile, sistem custom, dan dashboard internal — masing-masing dirancang untuk kebutuhan yang berbeda."
             centered
             tone="dark"
           />

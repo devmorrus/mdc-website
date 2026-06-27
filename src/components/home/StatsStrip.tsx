@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { StatItem } from '../../types/home'
-import { SectionHeading } from './SectionHeading'
 
 interface StatsStripProps {
   stats: StatItem[]
@@ -24,35 +23,37 @@ function parseStatValue(value: string) {
   }
 }
 
-function PlaceholderStatIcon({ index }: { index: number }) {
-  const variants = [
-    <svg key="projects" viewBox="0 0 24 24" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <rect x="4" y="5" width="16" height="14" rx="3" />
-      <path d="M8 3v4M16 3v4M7 11h10M7 15h6" strokeLinecap="round" />
-    </svg>,
-    <svg key="partners" viewBox="0 0 24 24" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <circle cx="9" cy="9" r="3" />
-      <circle cx="16.5" cy="10.5" r="2.5" />
-      <path d="M4.5 18c.8-2.4 2.8-4 5.5-4s4.7 1.6 5.5 4M14 17.5c.5-1.5 1.8-2.5 3.6-2.5 1.3 0 2.4.5 3 1.5" strokeLinecap="round" />
-    </svg>,
-    <svg key="retention" viewBox="0 0 24 24" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <path d="M6 12.5l4 4 8-9" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="12" cy="12" r="9" />
-    </svg>,
-    <svg key="kickoff" viewBox="0 0 24 24" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <circle cx="12" cy="12" r="8" />
-      <path d="M12 8v4l2.5 2.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>,
-  ]
-
-  return variants[index % variants.length]
-}
+const STAT_ICONS = [
+  // Proyek Selesai – briefcase / layers
+  <svg key="projects" viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.7">
+    <rect x="3" y="7" width="18" height="13" rx="2.5" />
+    <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" strokeLinecap="round" />
+    <path d="M12 12v.01M8 12h.01M16 12h.01" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>,
+  // Klien Aktif – users
+  <svg key="clients" viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.7">
+    <circle cx="9" cy="8" r="3" />
+    <circle cx="16.5" cy="9.5" r="2.5" />
+    <path d="M3.5 19c.9-2.6 3-4.5 5.5-4.5S13.6 16.4 14.5 19" strokeLinecap="round" />
+    <path d="M15 16.5c.6-1.8 2-3 3.8-3 1.4 0 2.6.6 3.2 1.7" strokeLinecap="round" />
+  </svg>,
+  // Klien Kembali – refresh / repeat
+  <svg key="retention" viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.7">
+    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74" strokeLinecap="round" />
+    <polyline points="3 3 3 9 9 9" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M12 8v4l2.5 2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>,
+  // Kickoff – rocket / lightning
+  <svg key="kickoff" viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.7">
+    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>,
+]
 
 function CountUpValue({ value }: { value: string }) {
   const [{ end, prefix, suffix }] = useState(() => parseStatValue(value))
   const [count, setCount] = useState(0)
   const [started, setStarted] = useState(false)
-  const countRef = useRef<HTMLParagraphElement>(null)
+  const countRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     if (!countRef.current || started) return
@@ -77,7 +78,7 @@ function CountUpValue({ value }: { value: string }) {
 
     let frameId = 0
     let startTime = 0
-    const duration = 1400
+    const duration = 1600
 
     const animate = (time: number) => {
       if (!startTime) startTime = time
@@ -96,16 +97,9 @@ function CountUpValue({ value }: { value: string }) {
   }, [end, started])
 
   return (
-    <p
-      ref={countRef}
-      className="text-[35px] font-bold leading-none text-[#0b1f57]"
-      style={{ fontFamily: "'Sora', sans-serif" }}
-      aria-label={value}
-    >
-      {prefix}
-      {count}
-      {suffix}
-    </p>
+    <span ref={countRef} aria-label={value}>
+      {prefix}{count}{suffix}
+    </span>
   )
 }
 
@@ -113,53 +107,98 @@ export function StatsStrip({ stats }: StatsStripProps) {
   const cardsRef = useRef<HTMLElement[]>([])
   const sectionRef = useGsapReveal<HTMLElement>({
     targets: () => cardsRef.current,
-    from: { y: 32, opacity: 0 },
-    to: { stagger: 0.08, duration: 0.7 },
+    from: { y: 28, opacity: 0 },
+    to: { stagger: 0.1, duration: 0.75 },
   })
 
   return (
-    <section ref={sectionRef} className="stats-section relative overflow-hidden py-18 md:py-22">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,#f3f8ff_0%,#edf4ff_44%,#f7faff_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_14%,rgba(24,74,168,0.12),transparent_20%),radial-gradient(circle_at_18%_84%,rgba(110,168,255,0.12),transparent_24%),radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.9),transparent_30%)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#184aa8]/22 to-transparent" />
+    <section ref={sectionRef} id="rekam-jejak" className="relative overflow-hidden py-20 md:py-28">
+      {/* Dark gradient background */}
+      <div className="absolute inset-0 bg-[linear-gradient(160deg,#0b1c4a_0%,#0d2460_42%,#071540_100%)]" />
 
-      <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
-        <SectionHeading
-          eyebrow="REKAM JEJAK KAMI"
-          title="Hasil yang bisa Anda lihat."
-          description="Bukan sekadar desain menarik. Kami fokus pada hasil yang rapi, cepat, dan berdampak untuk bisnis."
-          centered
-        />
+      {/* Radial glows */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(99,143,255,0.18),transparent_40%),radial-gradient(ellipse_at_80%_30%,rgba(246,196,69,0.12),transparent_38%),radial-gradient(ellipse_at_55%_80%,rgba(56,189,248,0.10),transparent_36%)]" />
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      {/* Subtle grid texture */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
+          backgroundSize: '52px 52px',
+        }}
+      />
+
+      {/* Top border glow */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#638fff]/40 to-transparent" />
+      {/* Bottom border glow */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
+        {/* Header */}
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.34em] text-[#f6c445]">REKAM JEJAK KAMI</p>
+          <h2
+            className="mt-4 text-3xl font-bold leading-tight text-white md:text-4xl"
+            style={{ fontFamily: "'Sora', sans-serif" }}
+          >
+            Angka yang kami bisa pertanggungjawabkan.
+          </h2>
+          <p className="mt-4 text-base leading-7 text-blue-200/70">
+            Bukan sekadar klaim. Setiap angka di bawah ini mencerminkan proyek nyata, klien yang mempercayakan bisnis mereka kepada kami.
+          </p>
+        </div>
+
+        {/* Stats grid */}
+        <div className="mt-14 grid gap-px sm:grid-cols-2 xl:grid-cols-4 rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_32px_80px_-40px_rgba(0,0,0,0.6)]">
           {stats.map((item, index) => (
             <article
               key={item.label}
-              ref={(element) => {
-                if (element) {
-                  cardsRef.current[index] = element
-                }
-              }}
-              className="group relative overflow-hidden rounded-[1.85rem] border border-[#d7e3f7] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(242,247,255,0.98))] px-6 py-8 text-center shadow-[0_22px_48px_-40px_rgba(11,31,87,0.26)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#184aa8]/20 hover:shadow-[0_28px_56px_-36px_rgba(11,31,87,0.3)] md:px-7"
+              ref={(el) => { if (el) cardsRef.current[index] = el }}
+              className="group relative flex flex-col items-center justify-center px-8 py-10 text-center bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.09]"
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(24,74,168,0.08),transparent_52%),linear-gradient(180deg,rgba(255,255,255,0.22),transparent_65%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <div className="flex flex-col items-center justify-center">
-                <span className="flex h-18 w-18 items-center justify-center rounded-[1.35rem] border border-[#d8e4f8] bg-[linear-gradient(180deg,#ffffff_0%,#eef4ff_100%)] text-[#184aa8] shadow-[0_18px_28px_-24px_rgba(24,74,168,0.45)] transition-all duration-300 group-hover:scale-[1.03] group-hover:text-[#0f2f78]">
-                  <PlaceholderStatIcon index={index} />
-                </span>
-                <div className="relative z-10 mt-5">
-                  <CountUpValue value={item.value} />
-                  <p className="mt-3 text-[0.95rem] font-semibold uppercase tracking-[0.18em] text-blue-500 md:text-[1rem]">
-                    {item.label}
-                  </p>
-                  <p className="mt-4 text-sm leading-7 text-slate-600">
-                    {item.description}
-                  </p>
-                </div>
+              {/* Divider lines between cells */}
+              {index > 0 && (
+                <div className="pointer-events-none absolute left-0 inset-y-6 w-px bg-gradient-to-b from-transparent via-white/12 to-transparent hidden xl:block" />
+              )}
+              {index > 0 && index < 2 && (
+                <div className="pointer-events-none absolute top-0 inset-x-6 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent xl:hidden" />
+              )}
+
+              {/* Icon circle */}
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/12 bg-white/8 text-[#93b8ff] transition-all duration-300 group-hover:scale-105 group-hover:border-[#638fff]/40 group-hover:text-white group-hover:bg-[#638fff]/20">
+                {STAT_ICONS[index % STAT_ICONS.length]}
               </div>
+
+              {/* Number */}
+              <p
+                className="mt-5 text-[2.6rem] font-bold leading-none text-white"
+                style={{ fontFamily: "'Sora', sans-serif" }}
+                aria-label={item.value}
+              >
+                <CountUpValue value={item.value} />
+              </p>
+
+              {/* Accent line under number */}
+              <div className="mt-3 h-0.5 w-10 rounded-full bg-gradient-to-r from-[#638fff] to-[#f6c445] opacity-70" />
+
+              {/* Label */}
+              <p className="mt-3 text-[0.78rem] font-bold uppercase tracking-[0.2em] text-[#93b8ff]">
+                {item.label}
+              </p>
+
+              {/* Description */}
+              <p className="mt-3 text-sm leading-6 text-blue-200/55 max-w-[200px]">
+                {item.description}
+              </p>
             </article>
           ))}
         </div>
+
+        {/* Bottom trust line */}
+        <p className="mt-10 text-center text-xs text-blue-200/35 tracking-wide">
+          Data diperbarui per Juni 2026 · Berdasarkan proyek aktual yang dikerjakan tim Morrus
+        </p>
       </div>
     </section>
   )
