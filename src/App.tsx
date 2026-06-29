@@ -19,6 +19,9 @@ const ServicesPage = lazy(() =>
 const PortfolioPage = lazy(() =>
   import('./pages/PortfolioPage').then((m) => ({ default: m.PortfolioPage })),
 )
+const PortfolioDetailPage = lazy(() =>
+  import('./pages/PortfolioDetailPage').then((m) => ({ default: m.PortfolioDetailPage })),
+)
 const ContactPage = lazy(() =>
   import('./pages/ContactPage').then((m) => ({ default: m.ContactPage })),
 )
@@ -47,6 +50,7 @@ export default function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/portfolio/:slug" element={<PortfolioDetailPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
