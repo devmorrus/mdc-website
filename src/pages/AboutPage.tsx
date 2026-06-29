@@ -11,7 +11,7 @@ export function AboutPage() {
   const { data, isLoading, error } = useAboutContent()
 
   usePageMetadata({
-    title: 'Morrus Digital Connecting | About',
+    title: 'Morrus Digital Connecting | Tentang',
     description:
       'Kenali profil perusahaan Morrus Digital Connecting, visi misi, nilai perusahaan, dan legalitas untuk membangun kepercayaan kerja sama.',
   })

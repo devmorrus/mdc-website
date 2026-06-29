@@ -1,8 +1,6 @@
 import { useRef } from 'react'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { VisionMissionContent } from '../../types/about'
-import { VisionCanvasOpt } from '../../three/OptimizedCanvases'
-import { SectionHeading } from '../home/SectionHeading'
 
 interface VisionMissionSectionProps {
   content: VisionMissionContent
@@ -20,81 +18,76 @@ export function VisionMissionSection({ content }: VisionMissionSectionProps) {
   })
 
   return (
-    <section
-      ref={sectionRef}
-      id="vision-mission"
-      className="relative overflow-hidden py-18 md:py-24 lg:py-28"
-    >
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,#f3f8ff_0%,#edf4ff_48%,#f7faff_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_14%,rgba(24,74,168,0.12),transparent_20%),radial-gradient(circle_at_18%_84%,rgba(110,168,255,0.12),transparent_24%),radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.9),transparent_30%)]" />
+    <section ref={sectionRef} id="vision-mission" className="relative overflow-hidden bg-white py-20 lg:py-32 border-t border-slate-100">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+        }}
+      />
 
-      <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
-        <SectionHeading
-          eyebrow="Visi & Misi"
-          title="Arah yang Jelas, Eksekusi yang Terukur"
-          description="Kami menjaga visi perusahaan tetap tajam dan misi tetap operasional, supaya setiap langkah pengembangan tetap punya arah bisnis yang jelas."
-          centered={false}
-        />
+      <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto mb-16 max-w-3xl text-center lg:mb-24">
+          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-[#184aa8]">Arah Strategis</p>
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-[#0f172a] sm:text-4xl">
+            Visi yang Jelas, Eksekusi yang Terukur
+          </h2>
+          <p className="mt-4 text-lg text-slate-600">
+            Kami menjaga visi perusahaan tetap tajam dan misi tetap operasional, supaya setiap langkah pengembangan digital tetap memiliki arah bisnis yang jelas.
+          </p>
+        </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-8 lg:grid-cols-2">
           <div
             ref={visionRef}
-            className="relative overflow-hidden rounded-[2rem] border border-[#d7e3f7] bg-[linear-gradient(180deg,#ffffff_0%,#eef4ff_100%)] shadow-[0_26px_60px_-42px_rgba(11,31,87,0.24)]"
+            className="relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-10 text-white shadow-2xl lg:p-14"
           >
-            <div className="absolute inset-0 opacity-28">
-              <VisionCanvasOpt />
-            </div>
-            <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.82),rgba(239,245,255,0.92))]" />
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#f6c445]/50 to-transparent" />
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl" />
+            <div className="absolute bottom-0 left-0 -mb-10 -ml-10 h-40 w-40 rounded-full bg-amber-500/20 blur-2xl" />
 
-            <div className="relative z-10 p-8 md:p-10">
-              <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#f6c445]/30 bg-[#fff2bf] text-[#c49019]">
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#c49019]">Visi</p>
+            <div className="relative z-10">
+              <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                <svg className="h-5 w-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <span className="text-xs font-bold uppercase tracking-widest text-white">Visi Kami</span>
               </div>
 
-              <p className="max-w-xl text-2xl font-bold leading-snug text-[#0b1f57] md:text-[2.15rem]" style={{ fontFamily: "'Sora', sans-serif" }}>
+              <h3 className="font-heading text-3xl font-semibold leading-snug text-white md:text-4xl">
                 {content.vision}
-              </p>
+              </h3>
+            </div>
 
-              <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-[#d7e3f7] bg-white/75 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-blue-500/70 backdrop-blur-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#f6c445]" />
-                Partner digital untuk pertumbuhan serius
-              </div>
+            <div className="relative z-10 mt-10 border-t border-white/10 pt-8">
+              <p className="text-sm text-slate-400">Berkomitmen pada pertumbuhan jangka panjang dan inovasi berkelanjutan.</p>
             </div>
           </div>
 
           <div
             ref={missionRef}
-            className="relative overflow-hidden rounded-[2rem] border border-[#d7e3f7] bg-[linear-gradient(180deg,#ffffff_0%,#eef4ff_100%)] shadow-[0_26px_60px_-42px_rgba(11,31,87,0.24)]"
+            className="relative overflow-hidden rounded-[2.5rem] border border-slate-200 bg-slate-50 p-10 lg:p-14"
           >
             <div className="absolute top-0 right-0 h-28 w-28 rounded-bl-[80px] bg-[linear-gradient(225deg,rgba(246,196,69,0.12),transparent)]" />
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#184aa8]/30 to-transparent" />
 
-            <div className="relative z-10 p-8 md:p-10">
-              <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#184aa8]/20 bg-[#e8f1ff] text-[#184aa8]">
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+            <div className="relative z-10">
+              <div className="mb-8 inline-flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-[#184aa8]">
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                   </svg>
                 </div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#184aa8]">Misi</p>
+                <span className="text-sm font-bold uppercase tracking-widest text-[#0f172a]">Misi Perusahaan</span>
               </div>
 
-              <ul className="space-y-4">
-                {content.missions.map((mission, i) => (
-                  <li key={i} className="group flex items-start gap-4 rounded-[1.35rem] border border-[#d7e3f7] bg-white/72 px-4 py-4 shadow-[0_14px_32px_-28px_rgba(11,31,87,0.18)] transition-all duration-300 hover:-translate-y-1 hover:border-[#184aa8]/18">
-                    <div className="shrink-0 mt-0.5 flex h-8 w-8 items-center justify-center rounded-xl border border-[#f6c445]/25 bg-[#fff2bf] text-xs font-bold text-[#c49019] transition-all duration-300 group-hover:bg-[#ffe89e]">
-                      {String(i + 1).padStart(2, '0')}
-                    </div>
-                    <p className="pt-1 text-sm leading-7 text-slate-600 md:text-base">
-                      {mission}
-                    </p>
+              <ul className="space-y-6">
+                {content.missions.map((mission, index) => (
+                  <li key={index} className="group flex items-start gap-5">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-sm font-bold text-[#184aa8] shadow-sm transition-colors group-hover:bg-[#184aa8] group-hover:text-white">
+                      {index + 1}
+                    </span>
+                    <p className="pt-1 text-slate-700 leading-relaxed">{mission}</p>
                   </li>
                 ))}
               </ul>

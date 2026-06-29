@@ -26,22 +26,22 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     {
       label: 'Proyek Selesai',
       value: '120+',
-      description: 'Website company profile, landing page, platform bisnis, dan dashboard internal yang sudah live.',
+      description: 'Website dan sistem digital yang telah selesai dikerjakan.',
     },
     {
       label: 'Klien Aktif',
       value: '30+',
-      description: 'Perusahaan yang masih berjalan bersama kami untuk pengembangan dan pemeliharaan digital.',
+      description: 'Bisnis yang masih mempercayakan kebutuhan digitalnya kepada kami.',
     },
     {
       label: 'Klien Kembali',
       value: '94%',
-      description: 'Dari setiap 10 klien, 9 di antaranya kembali untuk proyek atau fitur berikutnya.',
+      description: 'Persentase klien yang kembali untuk kebutuhan berikutnya.',
     },
     {
       label: 'Kickoff Pertama',
       value: '5 Hari',
-      description: 'Rata-rata waktu dari konsultasi awal hingga proses pengerjaan resmi dimulai.',
+      description: 'Rata-rata waktu dari konsultasi awal hingga project dimulai.',
     },
   ],
   about: {
@@ -92,15 +92,12 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       originalPrice: '12 Jt',
       priceSuffix: 'per project',
       isFeatured: true,
-      description:
-        'Cocok untuk bisnis yang ingin tampil rapi dan profesional di internet — siap dipakai untuk presentasi, penawaran, maupun dicari lewat Google.',
+      description: 'Tampil profesional di hadapan klien & Google.',
       features: [
-        { label: 'Halaman lengkap: Beranda, Tentang, Layanan, Kontak', included: true },
-        { label: 'Konten dan copywriting terstruktur', included: true },
-        { label: 'Tombol CTA dan form kontak aktif', included: true },
-        { label: 'Tampilan rapi di HP dan komputer', included: true },
-        { label: 'Integrasi sistem atau API eksternal', included: false },
-        { label: 'Dashboard admin dengan hak akses', included: false },
+        { label: 'Halaman: Beranda, Tentang, Layanan, Kontak', included: true },
+        { label: 'Konten & copywriting terstruktur', included: true },
+        { label: 'Tombol CTA & Form kontak terintegrasi', included: true },
+        { label: 'Optimasi Mobile & Desktop sempurna', included: true },
       ],
       ctaLabel: 'Mulai Konsultasi Gratis',
       whatsappMessage:
@@ -115,15 +112,12 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       price: 'Mulai 15 Jt',
       originalPrice: '21 Jt',
       priceSuffix: 'per project',
-      description:
-        'Untuk bisnis yang punya alur kerja khusus dan butuh sistem yang menyesuaikan proses operasional — bukan template biasa.',
+      description: 'Sistem untuk alur kerja operasional khusus.',
       features: [
-        { label: 'Fitur dan alur disesuaikan kebutuhan bisnis', included: true },
-        { label: 'Desain UI modern yang responsif', included: true },
-        { label: 'Kode bersih dan siap dikembangkan lagi', included: true },
-        { label: 'Koneksi ke API atau sistem yang sudah ada', included: true },
-        { label: 'Dashboard monitoring tim internal', included: false },
-        { label: 'Laporan dan export data otomatis', included: false },
+        { label: 'Fitur disesuaikan kebutuhan bisnis', included: true },
+        { label: 'Desain UI modern & responsif', included: true },
+        { label: 'Koneksi API sistem pihak ketiga', included: true },
+        { label: 'Source code bersih & terukur', included: true },
       ],
       ctaLabel: 'Diskusikan Kebutuhan Anda',
       whatsappMessage:
@@ -138,15 +132,12 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       price: 'Mulai 12 Jt',
       originalPrice: '18 Jt',
       priceSuffix: 'per modul',
-      description:
-        'Untuk perusahaan yang ingin memantau performa tim, data penjualan, atau operasional harian lewat satu tampilan yang mudah dibaca.',
+      description: 'Pantau performa tim dari satu tempat.',
       features: [
-        { label: 'Tampilan KPI dan data bisnis real-time', included: true },
-        { label: 'Login multi-role (admin, manajer, staf)', included: true },
-        { label: 'Ringkasan data yang mudah dibaca', included: true },
-        { label: 'Filter, cetak, dan ekspor laporan', included: true },
-        { label: 'Halaman profil perusahaan publik', included: false },
-        { label: 'Pemeliharaan bulanan rutin', included: false },
+        { label: 'Tampilan KPI & pemantauan real-time', included: true },
+        { label: 'Login multi-role (Admin, Manajer, Staf)', included: true },
+        { label: 'Visualisasi data interaktif', included: true },
+        { label: 'Filter, cetak & ekspor laporan otomatis', included: true },
       ],
       ctaLabel: 'Lihat Detail Layanan',
       whatsappMessage:

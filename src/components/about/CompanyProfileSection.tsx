@@ -1,131 +1,157 @@
-import { useRef, type ReactNode } from 'react'
+import { useRef } from 'react'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { CompanyProfileContent } from '../../types/about'
-import { SectionHeading } from '../home/SectionHeading'
 
 interface CompanyProfileSectionProps {
   content: CompanyProfileContent
 }
 
-const HIGHLIGHT_WORDS = ['website', 'aplikasi', 'aset bisnis', 'kepercayaan', 'pertumbuhan', 'solusi', 'digital', 'profesional']
-
-function highlightText(text: string): ReactNode {
-  const parts = text.split(/(\bwebsite\b|\baset bisnis\b|\bkepercayaan\b|\bpertumbuhan\b)/gi)
-
-  return parts.map((part, i) => {
-    const isHighlight = HIGHLIGHT_WORDS.some((word) => word.toLowerCase() === part.toLowerCase())
-
-    return isHighlight ? (
-      <span key={i} className="font-semibold text-[#c49019]">
-        {part}
-      </span>
-    ) : (
-      <span key={i}>{part}</span>
-    )
-  })
-}
-
 export function CompanyProfileSection({ content }: CompanyProfileSectionProps) {
-  const contentRef = useRef<HTMLDivElement>(null)
-  const sideRef = useRef<HTMLDivElement>(null)
-
   const sectionRef = useGsapReveal<HTMLElement>({
-    from: { y: 24, opacity: 0 },
-    to: { duration: 0.72 },
-    targets: () => [contentRef.current, sideRef.current],
-    threshold: 0.14,
+    from: { y: 28, opacity: 0 },
+    to: { duration: 0.75 },
+    threshold: 0.12,
   })
+
+  const introRef = useRef<HTMLDivElement>(null)
+  const identityRef = useRef<HTMLDivElement>(null)
+  const quoteRef = useRef<HTMLDivElement>(null)
+  const statsRef = useRef<HTMLDivElement>(null)
 
   return (
-    <section
-      ref={sectionRef}
-      id="company-profile"
-      className="relative overflow-hidden py-18 md:py-24 lg:py-28"
-    >
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,#fffdfa_0%,#fffefb_42%,#f8fbff_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_18%,rgba(246,196,69,0.14),transparent_18%),radial-gradient(circle_at_86%_82%,rgba(24,74,168,0.08),transparent_24%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.88),transparent_30%)]" />
+    <section ref={sectionRef} id="company-profile" className="relative overflow-hidden bg-slate-50 py-24 lg:py-32">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+        }}
+      />
+      <div className="pointer-events-none absolute -top-40 -right-40 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
 
-      <div className="mx-auto relative z-10 w-full max-w-6xl px-6">
-        <SectionHeading
-          eyebrow={content.title}
-          title="Fondasi yang Membuat Bisnis Lebih Meyakinkan"
-          description="Kami membangun company profile dengan struktur informasi yang rapi, desain yang modern, dan pesan yang mudah dipahami calon klien."
-          centered={false}
-        />
-
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_320px] lg:gap-16">
-          <div ref={contentRef} className="space-y-5">
-            {content.paragraphs.map((paragraph, i) => (
-              <div
-                key={i}
-                className="relative rounded-[1.6rem] border border-[#d7e3f7] bg-white/78 px-6 py-5 shadow-[0_18px_44px_-34px_rgba(11,31,87,0.22)] backdrop-blur-sm"
-              >
-                <div
-                  className={`absolute left-0 top-0 h-full w-1 rounded-l-[1.6rem] ${
-                    i === 0
-                      ? 'bg-gradient-to-b from-[#f6c445]/85 via-[#f6c445]/30 to-transparent'
-                      : 'bg-gradient-to-b from-[#184aa8]/45 via-[#184aa8]/20 to-transparent'
-                  }`}
-                />
-                <p className="pl-2 text-base leading-8 text-slate-600 md:text-[1.05rem]">
-                  {i === 0 ? highlightText(paragraph) : paragraph}
-                </p>
-              </div>
-            ))}
-
-            <blockquote className="relative overflow-hidden rounded-[1.75rem] border border-[#d7e3f7] bg-[linear-gradient(180deg,#ffffff_0%,#eef4ff_100%)] px-7 py-6 shadow-[0_22px_52px_-36px_rgba(11,31,87,0.24)]">
-              <div className="absolute right-5 top-4 text-7xl font-black leading-none text-[#184aa8]/8" style={{ fontFamily: 'Georgia, serif' }}>
-                "
-              </div>
-              <p className="max-w-3xl text-base italic leading-8 text-slate-600 md:text-lg">
-                Kami percaya bahwa website bukan hanya tampilan, tetapi{' '}
-                <span className="not-italic font-semibold text-[#c49019]">aset bisnis</span> yang membangun kepercayaan dan mendorong pertumbuhan.
-              </p>
-            </blockquote>
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
+        <div className="mb-16 lg:mb-20">
+          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 shadow-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#f6c445] opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#f6c445]" />
+            </span>
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-700">Profil Perusahaan</span>
           </div>
 
-          <div ref={sideRef} className="flex flex-col gap-4">
-            <div className="rounded-[1.75rem] border border-[#d7e3f7] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(242,247,255,0.98))] p-6 shadow-[0_22px_48px_-38px_rgba(11,31,87,0.24)]">
-              <p className="mb-5 text-xs font-bold uppercase tracking-[0.28em] text-[#c49019]">
-                Identitas
-              </p>
-              <div className="space-y-4">
-                {[
-                  { label: 'Nama', value: 'Morrus Digital Connecting' },
-                  { label: 'Bidang', value: 'Digital Agency / Web Dev' },
-                  { label: 'Domisili', value: 'Gresik, Jawa Timur' },
-                  { label: 'Fokus', value: 'Website & Aplikasi' },
-                ].map((item) => (
-                  <div key={item.label} className="space-y-0.5">
-                    <span className="text-[10px] uppercase tracking-[0.18em] text-blue-500/55">
-                      {item.label}
-                    </span>
-                    <div className="text-sm font-medium text-[#0b1f57]">{item.value}</div>
-                  </div>
-                ))}
+          <h2
+            className="mt-6 max-w-4xl text-4xl font-extrabold leading-[1.12] tracking-tight text-[#0f172a] sm:text-5xl lg:text-7xl"
+            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+          >
+            Fondasi yang Membuat Bisnis Lebih Meyakinkan
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600">
+            Kami membangun company profile dengan struktur informasi yang rapi, desain yang modern, dan pesan yang mudah dipahami calon klien untuk memaksimalkan konversi bisnis Anda.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+          <div
+            ref={introRef}
+            className="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition-colors duration-300 hover:border-[#184aa8]/30 lg:col-span-7 sm:p-10"
+          >
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-slate-100 blur-2xl" />
+            <div className="absolute left-0 top-0 h-full w-1.5 rounded-l-[2rem] bg-gradient-to-b from-[#184aa8] to-cyan-400" />
+
+            <div className="relative z-10">
+              <h3 className="mb-4 text-2xl font-bold text-[#0f172a]">{content.title}</h3>
+              <div className="space-y-5 text-lg leading-relaxed text-slate-600">
+                <p>
+                  {content.paragraphs[0] ?? ''}
+                </p>
+                <p>
+                  {content.paragraphs[1] ?? ''}
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-4 text-sm font-medium text-slate-500">
+                <div className="inline-flex items-center gap-2 rounded-lg border border-slate-100 bg-slate-50 px-3 py-1.5">
+                  <svg className="h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  Modern Tech Stack
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-lg border border-slate-100 bg-slate-50 px-3 py-1.5">
+                  <svg className="h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  Scalable Architecture
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            ref={identityRef}
+            className="group relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-[#0f172a] to-slate-900 p-8 shadow-xl lg:col-span-5 sm:p-10"
+          >
+            <div className="absolute top-0 right-0 -mr-10 -mt-10 h-48 w-48 rounded-full bg-blue-500/10 blur-2xl" />
+
+            <div className="mb-8 flex items-center justify-between border-b border-white/10 pb-4">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400">Identitas Resmi</h3>
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#f6c445]">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5m-4 0h4" />
+                </svg>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="relative z-10 grid grid-cols-2 gap-x-4 gap-y-6">
               {[
-                { value: '120+', label: 'Projects' },
-                { value: '94%', label: 'Retensi' },
-                { value: '3+', label: 'Tahun' },
-                { value: '95+', label: 'Skor' },
-              ].map((stat) => (
-                <article
-                  key={stat.label}
-                  className="rounded-[1.35rem] border border-[#d7e3f7] bg-[linear-gradient(180deg,#ffffff_0%,#eef4ff_100%)] px-4 py-5 text-center shadow-[0_18px_40px_-34px_rgba(11,31,87,0.22)] transition-all duration-300 hover:-translate-y-1 hover:border-[#184aa8]/18"
-                >
-                  <p className="text-[1.65rem] font-extrabold leading-none text-[#f6c445]" style={{ fontFamily: "'Sora', sans-serif" }}>
-                    {stat.value}
-                  </p>
-                  <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-blue-500/60">
-                    {stat.label}
-                  </p>
-                </article>
+                { label: 'Nama Perusahaan', value: 'CV Morrus Digital Connecting' },
+                { label: 'Bidang Industri', value: 'Teknologi' },
+                { label: 'Domisili Kantor', value: 'Surabaya, Jawa Timur' },
+                { label: 'Fokus Layanan', value: 'Web & App Dev' },
+              ].map((item) => (
+                <div key={item.label}>
+                  <p className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-400">{item.label}</p>
+                  <p className="text-sm font-medium text-white">{item.value}</p>
+                </div>
               ))}
             </div>
+          </div>
+
+          <div
+            ref={quoteRef}
+            className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#0f172a] to-slate-800 p-8 text-white shadow-xl lg:col-span-7 sm:p-10"
+          >
+            <div className="absolute -right-4 -top-8 select-none font-serif text-[12rem] leading-none text-white/5">"</div>
+            <div className="relative z-10">
+              <svg className="mb-6 h-10 w-10 text-[#f6c445] opacity-90" fill="currentColor" viewBox="0 0 32 32">
+                <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+              </svg>
+              <p className="text-xl font-light italic leading-relaxed text-slate-300 md:text-2xl">
+                Kami percaya bahwa website bukan hanya sekadar tampilan visual, tetapi{' '}
+                <span className="rounded bg-white/10 px-1.5 py-0.5 font-medium not-italic text-white">aset bisnis strategis</span> yang membangun kepercayaan dan secara aktif mendorong pertumbuhan.
+              </p>
+            </div>
+          </div>
+
+          <div ref={statsRef} className="grid grid-cols-2 gap-4 lg:col-span-5">
+            {[
+              { value: '120+', label: 'Total Proyek', accent: 'text-[#f6c445]' },
+              { value: '94%', label: 'Retensi Klien', accent: 'text-[#184aa8]' },
+              { value: '3+', label: 'Tahun Exp', accent: 'text-emerald-500' },
+              { value: '95+', label: 'Skor Kinerja', accent: 'text-purple-500' },
+            ].map((stat) => (
+              <article
+                key={stat.label}
+                className="group flex flex-col items-center justify-center rounded-[2rem] border border-slate-200 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              >
+                <p
+                  className={`mb-2 text-4xl font-extrabold text-[#0f172a] transition-colors ${stat.accent}`}
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
+                  {stat.value}
+                </p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{stat.label}</p>
+              </article>
+            ))}
           </div>
         </div>
       </div>
