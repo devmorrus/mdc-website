@@ -1,4 +1,5 @@
 import { useRef, type MouseEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { PortfolioProjectItem, PortfolioThumbnailTone } from '../../types/portfolio'
 import { SectionHeading } from '../home/SectionHeading'
@@ -131,9 +132,16 @@ export function PortfolioGridSection({ items }: PortfolioGridSectionProps) {
 
                   <div className="mt-6 flex items-center gap-3 rounded-[1.35rem] border border-[#d7e3f7] bg-white/78 px-4 py-3">
                     <div className="h-2.5 w-2.5 rounded-full bg-[#f6c445]" />
-                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
-                      Project showcase
-                    </p>
+                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">Project showcase</p>
+                    <Link
+                      to={`/portfolio/${item.slug}`}
+                      className="ml-auto inline-flex items-center gap-2 rounded-full bg-[#0f2f78] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[#184aa8]"
+                    >
+                      Lihat Detail
+                      <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.4}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </Link>
                   </div>
                 </div>
 

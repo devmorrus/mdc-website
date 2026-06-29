@@ -1,3 +1,13 @@
+import heroImage from '../assets/hero.png'
+import datImage from '../assets/dat.png'
+import iphoneGresikImage from '../assets/iphone_gresik.png'
+import logoDefertImage from '../assets/logo-defert.png'
+import logoFtcImage from '../assets/logo-ftc.png'
+import logoHeroPreviewImage from '../assets/logo-hero-removebg-preview.png'
+import logoJaladewaImage from '../assets/logo-jaladewa.png'
+import logoMcbImage from '../assets/logo-mcb.png'
+import logoMdcImage from '../assets/logo-mdc.png'
+import logoMdcPreviewImage from '../assets/logo-mdc-removebg-preview.png'
 import type { PortfolioContent } from '../types/portfolio'
 
 export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
@@ -38,66 +48,163 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
   projects: [
     {
       id: 'jaladewa-champion',
+      slug: 'jaladewa-champion',
       name: 'Jaladewa Champion',
+      client: 'Jaladewa Group',
+      year: '2026',
+      category: 'Company Profile',
       industry: 'Community Platform',
       serviceType: 'Website Company Profile',
       summary: 'Platform profil komunitas dengan struktur informasi yang kuat untuk memperkuat kredibilitas organisasi.',
+      challenge:
+        'Komunikasi value brand dan layanan utama belum cukup tegas untuk dipakai saat presentasi dan pitching.',
+      objective:
+        'Membuat company profile yang lebih meyakinkan, lebih mudah dibaca, dan siap dipakai untuk kebutuhan komunikasi bisnis.',
+      solution:
+        'Kami merapikan hierarchy konten, menonjolkan layanan utama, dan menata alur CTA agar lebih fokus pada konversi.',
+      outcome:
+        'Posisi brand menjadi lebih kuat dan alur informasi lebih mudah dipahami oleh audiens baru.',
+      deliverables: ['Information architecture', 'Hero section refinement', 'CTA flow', 'Responsive layout'],
+      technologies: ['React', 'TypeScript', 'Tailwind CSS'],
       thumbnailLabel: 'JC',
       thumbnailTone: 'sky',
+      gallery: [
+        {
+          src: logoJaladewaImage,
+          alt: 'Logo Jaladewa Champion',
+          caption: 'Brand identity utama',
+        },
+        {
+          src: logoHeroPreviewImage,
+          alt: 'Visual identitas proyek Jaladewa Champion',
+          caption: 'Visual direction',
+        },
+        {
+          src: heroImage,
+          alt: 'Presentasi visual untuk Jaladewa Champion',
+          caption: 'Homepage showcase',
+        },
+      ],
     },
     {
       id: 'jaladewa-absensi',
+      slug: 'jaladewa-absensi',
       name: 'JalaDewa Absensi',
+      client: 'JalaDewa Group',
+      year: '2026',
+      category: 'Internal Platform',
       industry: 'Human Resources',
       serviceType: 'Web App Custom',
       summary: 'Aplikasi absensi internal berbasis web dengan alur data ringkas dan tampilan dashboard informatif.',
+      challenge:
+        'Sistem absensi internal membutuhkan tampilan yang lebih ringkas dan mudah dipantau oleh tim operasional.',
+      objective:
+        'Menyajikan data kehadiran dan ringkasan operasional dalam dashboard yang mudah dibaca.',
+      solution:
+        'Kami membangun alur informasi sederhana, menonjolkan statistik utama, dan mempermudah navigasi antar menu.',
+      outcome:
+        'Pemantauan kehadiran menjadi lebih cepat dan koordinasi tim lebih efisien.',
+      deliverables: ['Dashboard summary', 'Attendance flow', 'Role-based access', 'Mobile-first layout'],
+      technologies: ['React', 'TypeScript', 'Tailwind CSS'],
       thumbnailLabel: 'JA',
       thumbnailTone: 'blue',
+      gallery: [
+        {
+          src: iphoneGresikImage,
+          alt: 'Tampilan aplikasi internal iPhone Gresik',
+          caption: 'Operational dashboard',
+        },
+        {
+          src: logoMcbImage,
+          alt: 'Brand asset JalaDewa Absensi',
+          caption: 'Interface identity',
+        },
+        {
+          src: logoMdcPreviewImage,
+          alt: 'Visual pendukung JalaDewa Absensi',
+          caption: 'System preview',
+        },
+      ],
     },
     {
       id: 'focus-trading-contractor',
+      slug: 'focus-trading-contractor',
       name: 'Focus Trading Contractor',
+      client: 'Focus Trading Contractor',
+      year: '2026',
+      category: 'Corporate Website',
       industry: 'Construction & Trading',
       serviceType: 'Website Company Profile',
       summary: 'Website korporat untuk menampilkan layanan, kapabilitas tim, dan proyek unggulan dengan nuansa profesional.',
+      challenge:
+        'Perusahaan membutuhkan tampilan korporat yang formal dan terpercaya untuk mempresentasikan layanan dan kapabilitas tim.',
+      objective:
+        'Membuat website company profile yang kuat secara visual dan informatif untuk kebutuhan presentasi bisnis.',
+      solution:
+        'Kami menyusun section layanan, profil, dan portofolio proyek dengan visual yang lebih tegas dan profesional.',
+      outcome:
+        'Brand tampil lebih kredibel saat diperkenalkan ke calon partner bisnis.',
+      deliverables: ['Corporate structure', 'Services presentation', 'Project showcase', 'Responsive UI'],
+      technologies: ['React', 'TypeScript', 'Tailwind CSS'],
       thumbnailLabel: 'FT',
       thumbnailTone: 'amber',
-    },
-    {
-      id: 'aplikasi-internal-iphone-gresik',
-      name: 'Aplikasi Internal iPhone Gresik',
-      industry: 'Retail Operations',
-      serviceType: 'Internal System',
-      summary: 'Solusi aplikasi internal untuk membantu monitoring operasional dan koordinasi tim secara lebih efisien.',
-      thumbnailLabel: 'IG',
-      thumbnailTone: 'sky',
+      gallery: [
+        {
+          src: logoFtcImage,
+          alt: 'Logo Focus Trading Contractor',
+          caption: 'Corporate identity',
+        },
+        {
+          src: logoDefertImage,
+          alt: 'Visual brand pendukung Focus Trading Contractor',
+          caption: 'Brand exploration',
+        },
+        {
+          src: heroImage,
+          alt: 'Tampilan presentasi project Focus Trading Contractor',
+          caption: 'Homepage showcase',
+        },
+      ],
     },
     {
       id: 'dat-indonesia',
+      slug: 'dat-indonesia',
       name: 'DAT Indonesia',
+      client: 'DAT Indonesia',
+      year: '2026',
+      category: 'Business Landing Page',
       industry: 'Corporate Services',
-      serviceType: 'Website Company Profile',
-      summary: 'Company profile modern dengan fokus penyampaian value bisnis dan optimalisasi jalur kontak calon klien.',
+      serviceType: 'Business Landing Page',
+      summary: 'Landing page korporat untuk menampilkan layanan utama dan mempermudah jalur kontak.',
+      challenge:
+        'Brand membutuhkan halaman yang lebih ringkas untuk menjelaskan value utama dan mempermudah prospek menghubungi tim.',
+      objective:
+        'Membuat landing page yang mampu menyampaikan value bisnis dengan cepat sekaligus meningkatkan jalur kontak.',
+      solution:
+        'Kami merancang struktur konten yang lebih padat, menonjolkan layanan utama, dan mengarahkan pengguna ke aksi yang jelas.',
+      outcome:
+        'Calon pelanggan lebih cepat menemukan layanan dan menghubungi tim.',
+      deliverables: ['Landing page structure', 'Lead CTA', 'Service highlight', 'Responsive design'],
+      technologies: ['React', 'TypeScript', 'Tailwind CSS'],
       thumbnailLabel: 'DI',
       thumbnailTone: 'blue',
-    },
-    {
-      id: 'x3organizer',
-      name: 'X3Organizer',
-      industry: 'Event Management',
-      serviceType: 'Website / Platform Custom',
-      summary: 'Website organizer yang menonjolkan layanan, portfolio event, dan alur komunikasi klien yang cepat.',
-      thumbnailLabel: 'X3',
-      thumbnailTone: 'amber',
-    },
-    {
-      id: 'sankta-bali',
-      name: 'Sankta Bali',
-      industry: 'Hospitality & Lifestyle',
-      serviceType: 'Brand Website',
-      summary: 'Website brand dengan visual clean dan storytelling produk untuk meningkatkan engagement audiens.',
-      thumbnailLabel: 'SB',
-      thumbnailTone: 'sky',
+      gallery: [
+        {
+          src: datImage,
+          alt: 'Logo DAT Indonesia',
+          caption: 'Brand identity',
+        },
+        {
+          src: logoMdcImage,
+          alt: 'Visual pendukung DAT Indonesia',
+          caption: 'Design system',
+        },
+        {
+          src: heroImage,
+          alt: 'Visual pendukung halaman DAT Indonesia',
+          caption: 'Landing page showcase',
+        },
+      ],
     },
   ],
   closingCta: {
@@ -107,4 +214,8 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
     buttonLabel: 'Mulai Konsultasi Project',
     buttonHref: '/contact',
   },
+}
+
+export function getPortfolioProjectBySlug(slug: string) {
+  return PORTFOLIO_STATIC_CONTENT.projects.find((project) => project.slug === slug) ?? null
 }

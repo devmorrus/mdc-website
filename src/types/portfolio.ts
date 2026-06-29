@@ -8,12 +8,29 @@ export interface PortfolioHeroContent {
 
 export type PortfolioThumbnailTone = 'sky' | 'amber' | 'blue'
 
+export interface PortfolioGalleryImage {
+  src: string
+  alt: string
+  caption: string
+}
+
 export interface PortfolioProjectItem {
   id: string
+  slug: string
   name: string
+  client: string
+  year: string
+  category: string
   industry: string
   serviceType: string
   summary: string
+  challenge: string
+  objective: string
+  solution: string
+  outcome: string
+  deliverables: string[]
+  technologies: string[]
+  gallery: PortfolioGalleryImage[]
   thumbnailLabel: string
   thumbnailTone: PortfolioThumbnailTone
 }
