@@ -26,14 +26,6 @@ const TONE_STYLES: Record<PortfolioThumbnailTone, { thumb: string; badge: string
   },
 }
 
-const SERVICE_TYPE_COLORS: Record<string, string> = {
-  'Website Company Profile': 'text-amber-700 bg-amber-50 border-amber-200',
-  'Web App Custom': 'text-sky-700 bg-sky-50 border-sky-200',
-  'Internal System': 'text-violet-700 bg-violet-50 border-violet-200',
-  'Brand Website': 'text-emerald-700 bg-emerald-50 border-emerald-200',
-  'Website / Platform Custom': 'text-orange-700 bg-orange-50 border-orange-200',
-}
-
 export function PortfolioGridSection({ items }: PortfolioGridSectionProps) {
   const cardsRef = useRef<HTMLElement[]>([])
   const sectionRef = useGsapReveal<HTMLElement>({
@@ -77,7 +69,6 @@ export function PortfolioGridSection({ items }: PortfolioGridSectionProps) {
         <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {items.map((item, index) => {
             const toneStyle = TONE_STYLES[item.thumbnailTone]
-            const serviceStyle = SERVICE_TYPE_COLORS[item.serviceType] ?? 'text-blue-700 bg-blue-50 border-blue-200'
 
             return (
               <article
@@ -107,8 +98,8 @@ export function PortfolioGridSection({ items }: PortfolioGridSectionProps) {
                     </span>
                   </div>
 
-                  <div className={`absolute top-4 left-4 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] ${serviceStyle}`}>
-                    {item.serviceType}
+                  <div className={`absolute top-4 left-4 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] ${toneStyle.badge}`}>
+                    {item.category}
                   </div>
 
                   <div className="absolute right-4 top-4 rounded-full border border-white/16 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">

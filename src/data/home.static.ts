@@ -1,12 +1,16 @@
+import datGalleryOne from '../assets/porto-dat/porto-dat-1.png'
+import ftcGalleryTwo from '../assets/porto-ftc/porto-ftc-2.png'
+import jdcCompanyOne from '../assets/porto-jdc-company/porto-jdc-company-1.png'
+import jdcManagementOne from '../assets/porto-jdc-management/porto-jdc-management-1.png'
 import type { HomeContent } from '../types/home'
 
 export const HOME_STATIC_CONTENT: HomeContent = {
   navItems: [
-    { id: 'about', label: 'Tentang', href: '/about' },
-    { id: 'services', label: 'Layanan', href: '/services' },
-    { id: 'portfolio', label: 'Portofolio', href: '/portfolio' },
-    { id: 'blog', label: 'Blog', href: '/blog' },
-    { id: 'contact', label: 'Kontak', href: '/contact' },
+    { id: 'about', label: 'Tentang', href: '/#about' },
+    { id: 'services', label: 'Layanan', href: '/#services' },
+    { id: 'portfolio', label: 'Portofolio', href: '/#portfolio' },
+    { id: 'blog', label: 'Blog', href: '/#blog' },
+    { id: 'contact', label: 'Kontak', href: '/#contact' },
   ],
   headerCtaLabel: 'Konsultasi Sekarang',
   headerCtaHref:
@@ -231,45 +235,41 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       id: 'jaladewa-champion',
       name: 'Jaladewa Champion',
       category: 'Company Profile',
-      summary: 'Website profil perusahaan dengan struktur layanan dan CTA yang lebih tegas.',
-      outcome: 'Memperjelas positioning brand dan alur informasi untuk calon klien.',
-      href: '/#',
-      imageUrl:
-        'https://images.pexels.com/photos/17988760/pexels-photo-17988760.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
-      imageAlt: 'Gedung kantor modern sebagai placeholder project company profile.',
+      summary: 'Company profile website dengan informasi kelas, instruktur, galeri, dan pendaftaran online.',
+      outcome: 'Mempermudah calon wali murid mengenal program dan mendaftar secara online.',
+      href: '/#portfolio',
+      imageUrl: jdcCompanyOne,
+      imageAlt: 'Halaman utama website Jaladewa Champion.',
     },
     {
-      id: 'jaladewa-absensi',
-      name: 'JalaDewa Absensi',
+      id: 'jaladewa-management-system',
+      name: 'Jaladewa Management System',
       category: 'Internal Platform',
-      summary: 'Sistem absensi berbasis web dengan tampilan dashboard yang ringkas dan mudah dipantau.',
-      outcome: 'Membantu tim memonitor kehadiran dan ringkasan data operasional lebih cepat.',
-      href: '/#',
-      imageUrl:
-        'https://images.pexels.com/photos/7947843/pexels-photo-7947843.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
-      imageAlt: 'Laptop dengan tampilan dashboard analytics sebagai placeholder internal platform.',
-    },
-    {
-      id: 'focus-trading',
-      name: 'Focus Trading Contractor',
-      category: 'Corporate Website',
-      summary: 'Website perusahaan kontraktor yang dirancang lebih formal, kuat secara visual, dan informatif.',
-      outcome: 'Meningkatkan kesan profesional saat brand diperkenalkan ke calon partner bisnis.',
-      href: '/#',
-      imageUrl:
-        'https://images.pexels.com/photos/16253977/pexels-photo-16253977.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
-      imageAlt: 'Struktur bangunan baja sebagai placeholder project website kontraktor.',
+      summary: 'Dashboard operasional untuk jadwal latihan, absensi coach, invoice, dan budgeting plan.',
+      outcome: 'Membuat pengelolaan operasional kelas lebih rapi dan terpusat.',
+      href: '/#portfolio',
+      imageUrl: jdcManagementOne,
+      imageAlt: 'Dashboard operasional Jaladewa Management System.',
     },
     {
       id: 'dat-indonesia',
       name: 'DAT Indonesia',
-      category: 'Business Landing Page',
-      summary: 'Landing page korporat untuk menampilkan layanan utama dan mempermudah jalur kontak.',
-      outcome: 'Mempercepat calon pelanggan menemukan layanan dan menghubungi tim.',
-      href: '/#',
-      imageUrl:
-        'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
-      imageAlt: 'Tim bisnis sedang rapat sebagai placeholder business landing page.',
+      category: 'E-Commerce',
+      summary: 'Website e-commerce dengan katalog produk, ongkir otomatis, payment gateway, dan admin transaksi.',
+      outcome: 'Membantu proses penjualan online dari katalog hingga pengelolaan transaksi.',
+      href: '/#portfolio',
+      imageUrl: datGalleryOne,
+      imageAlt: 'Halaman utama e-commerce DAT Indonesia.',
+    },
+    {
+      id: 'focus-trading-contractor',
+      name: 'CV. Focus Trading Contractor',
+      category: 'Corporate Website',
+      summary: 'Company profile website dengan portfolio project, request quotation, dan content management.',
+      outcome: 'Membantu perusahaan menampilkan layanan dan menerima inquiry project lebih terstruktur.',
+      href: '/#portfolio',
+      imageUrl: ftcGalleryTwo,
+      imageAlt: 'Hero section website CV. Focus Trading Contractor.',
     },
   ],
   testimonials: [
@@ -374,11 +374,11 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     companyName: 'Morrus Digital Connecting',
     shortDescription: 'Partner digital untuk website company profile, aplikasi web, dan sistem bisnis yang modern.',
     quickLinks: [
-      { label: 'Tentang', href: '/about' },
-      { label: 'Layanan', href: '/services' },
-      { label: 'Portofolio', href: '/portfolio' },
-      { label: 'Blog', href: '/blog' },
-      { label: 'Kontak', href: '/contact' },
+      { label: 'Tentang', href: '/#about' },
+      { label: 'Layanan', href: '/#services' },
+      { label: 'Portofolio', href: '/#portfolio' },
+      { label: 'Blog', href: '/#blog' },
+      { label: 'Kontak', href: '/#contact' },
     ],
     address: 'Jl. Klakahrejo No.6-7, Kandangan, Benowo, Surabaya, Jawa Timur, 60198 - Indonesia',
     addressHref: 'https://maps.app.goo.gl/9A12Kf1KXUjDPBmR8',

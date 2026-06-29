@@ -22,7 +22,7 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
         <SectionHeading
           eyebrow="Portofolio dan Proyek"
           title="Bukti nyata bagaimana kami menerjemahkan kebutuhan bisnis menjadi solusi digital."
-          description="Jelajahi hasil karya kami. Dari tahap analisis hingga eksekusi akhir, lihat bagaimana kami merancang platform digital yang memperkuat kredibilitas brand dan mendukung pertumbuhan operasional klien."
+          description="Jelajahi hasil karya kami. Dari company profile, sistem operasional, hingga e-commerce, setiap project kami rancang untuk menjawab kebutuhan bisnis secara lebih terstruktur."
           centered
         />
 
@@ -72,7 +72,7 @@ export function PortfolioPreviewSection({ items }: PortfolioPreviewSectionProps)
                     to={item.href}
                     className="inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8]"
                   >
-                    Lihat Produk
+                    Lihat Detail
                   </Link>
                 </div>
               </div>
