@@ -1,20 +1,35 @@
 import { useRef, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { LazyCanvas } from '../common/LazyCanvas'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { ServiceItem } from '../../types/home'
-import { SectionHeading } from './SectionHeading'
-import { ServicesShowcaseCanvas } from './ServicesShowcaseCanvas'
 
 interface ServicesSectionProps {
   items: ServiceItem[]
+}
+
+type CardTone = {
+  wrapper: string
+  badge: string
+  divider: string
+  icon: 'amber' | 'cyan' | 'purple'
+  cta: string
+  article: string
+  eyebrow: string | null
 }
 
 function isExternalHref(href: string) {
   return href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')
 }
 
-function ServicesActionLink({ href, className, children }: { href: string; className: string; children: ReactNode }) {
+function ServicesActionLink({
+  href,
+  className,
+  children,
+}: {
+  href: string
+  className: string
+  children: ReactNode
+}) {
   if (isExternalHref(href)) {
     return (
       <a href={href} target="_blank" rel="noreferrer" className={className}>
@@ -30,180 +45,208 @@ function ServicesActionLink({ href, className, children }: { href: string; class
   )
 }
 
-function getCardShellClass(item: ServiceItem, index: number) {
+function getDisplayPriority(item: ServiceItem, index: number) {
   if (item.isFeatured) {
-    return 'lg:order-2 lg:-translate-y-8'
+    return 1
   }
 
-  if (index === 1) {
-    return 'lg:order-1 lg:translate-y-10 lg:-rotate-[1.2deg]'
+  if (item.tag === 'Custom Development') {
+    return 0
   }
 
-  return 'lg:order-3 lg:translate-y-12 lg:rotate-[1.2deg]'
+  if (item.tag === 'Business Tools') {
+    return 2
+  }
+
+  return index + 3
 }
 
-function ServiceCard({ item }: { item: ServiceItem }) {
-  return (
-    <article
-      className={`group relative flex h-full flex-col overflow-hidden rounded-[2.35rem] border backdrop-blur-md transition duration-500 hover:-translate-y-3 hover:shadow-[0_40px_100px_-42px_rgba(8,18,44,0.9)] ${
-        item.isFeatured
-          ? 'border-[#f6c445]/42 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(244,248,255,0.98))] shadow-[0_38px_100px_-48px_rgba(8,18,44,0.9)]'
-          : 'border-white/18 bg-[linear-gradient(180deg,rgba(248,251,255,0.96),rgba(240,246,255,0.94))] shadow-[0_34px_90px_-50px_rgba(8,18,44,0.78)]'
-      }`}
-    >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_70%)] opacity-0 transition duration-500 group-hover:opacity-100" />
-      <div
-        className={`pointer-events-none absolute inset-x-10 -top-10 h-24 rounded-full blur-3xl ${
-          item.isFeatured ? 'bg-[#f6c445]/22' : 'bg-[#7aa8ff]/18'
-        }`}
-      />
-      <div className="pointer-events-none absolute inset-x-6 bottom-6 h-16 rounded-full bg-[radial-gradient(circle,rgba(15,30,66,0.08),transparent_72%)] blur-2xl" />
+function getCardTone(item: ServiceItem): CardTone {
+  if (item.isFeatured) {
+    return {
+      wrapper: 'bg-gradient-to-b from-amber-400 to-orange-500 shadow-[0_0_30px_-10px_rgba(245,158,11,0.4)] hover:shadow-[0_0_50px_-10px_rgba(245,158,11,0.6)]',
+      badge: 'border-amber-200 bg-amber-50 text-amber-600',
+      divider: 'from-amber-200 to-transparent',
+      icon: 'amber',
+      cta: 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 shadow-[0_4px_15px_rgba(245,158,11,0.4)] hover:scale-[1.02] hover:shadow-[0_8px_25px_rgba(245,158,11,0.5)]',
+      article: 'bg-white shadow-2xl shadow-amber-900/20',
+      eyebrow: 'Paling Diminati',
+    }
+  }
 
-      <div
-        className={`relative z-10 flex min-h-[225px] flex-col items-center justify-center px-7 py-9 text-center text-white ${
-          item.isFeatured
-            ? 'bg-[linear-gradient(145deg,#6b7bd4_0%,#4d62ba_48%,#344c96_100%)]'
-            : 'bg-[linear-gradient(145deg,#45639e_0%,#31497f_55%,#20386f_100%)]'
-        }`}
-      >
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
-        <div
-          className={`pointer-events-none absolute inset-x-8 bottom-0 h-1.5 bg-gradient-to-r from-transparent ${
-            item.isFeatured ? 'via-[#f6c445]' : 'via-white/28'
-          } to-transparent opacity-90`}
-        />
-        <span
-          className={`rounded-full px-4 py-1.5 text-[0.72rem] font-bold uppercase tracking-[0.18em] ${
-            item.isFeatured ? 'bg-white/18 text-white' : 'bg-white/10 text-white/90'
-          }`}
-        >
-          {item.tag}
-        </span>
-        <p className="mt-6 text-[2.2rem] font-bold leading-none text-white">{item.tier}</p>
-        <h3 className={`mt-4 max-w-[14rem] text-[1.65rem] font-bold leading-tight ${item.isFeatured ? 'text-white' : 'text-[#eef3ff]'}`}>
-          {item.title}
-        </h3>
-        <div className="mt-6 h-px w-16 bg-gradient-to-r from-transparent via-white/45 to-transparent" />
+  if (item.tag === 'Custom Development') {
+    return {
+      wrapper: 'bg-gradient-to-b from-white/20 to-white/5 hover:from-cyan-400 hover:to-cyan-400/20 hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.3)]',
+      badge: 'border-cyan-100 bg-cyan-50 text-cyan-600',
+      divider: 'from-cyan-200 to-transparent',
+      icon: 'cyan',
+      cta: 'bg-slate-900 text-white hover:bg-cyan-500 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]',
+      article: 'bg-white shadow-xl shadow-black/10',
+      eyebrow: null,
+    }
+  }
+
+  return {
+    wrapper: 'bg-gradient-to-b from-white/20 to-white/5 hover:from-purple-400 hover:to-purple-400/20 hover:shadow-[0_0_40px_-10px_rgba(168,85,247,0.3)]',
+    badge: 'border-purple-100 bg-purple-50 text-purple-600',
+    divider: 'from-purple-200 to-transparent',
+    icon: 'purple',
+    cta: 'bg-slate-900 text-white hover:bg-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]',
+    article: 'bg-white shadow-xl shadow-black/10',
+    eyebrow: null,
+  }
+}
+
+function getCardBadgeLabel(item: ServiceItem) {
+  if (item.id === 'company-profile') {
+    return 'Website Profil'
+  }
+
+  return item.tag
+}
+
+function CheckIcon({ tone }: { tone: 'amber' | 'cyan' | 'purple' }) {
+  if (tone === 'amber') {
+    return (
+      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-600">
+        <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
       </div>
+    )
+  }
 
-      <div className="relative z-10 flex flex-1 flex-col px-6 pb-7 pt-7 text-left text-[#243147]">
-        <ul className="flex flex-1 flex-col gap-2.5">
+  const colorClass = tone === 'cyan' ? 'text-cyan-500' : 'text-purple-500'
+
+  return (
+    <svg className={`mt-0.5 h-5 w-5 shrink-0 ${colorClass}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+    </svg>
+  )
+}
+
+function ServiceCard({
+  item,
+  index,
+  registerRef,
+}: {
+  item: ServiceItem
+  index: number
+  registerRef: (index: number, element: HTMLDivElement | null) => void
+}) {
+  const tone = getCardTone(item)
+
+  return (
+    <div
+      className={`group relative rounded-3xl p-px transition-all duration-500 hover:-translate-y-2 ${tone.wrapper}`}
+      ref={(element) => {
+        registerRef(index, element)
+      }}
+    >
+      {tone.eyebrow ? (
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 px-4 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-slate-900 shadow-[0_4px_15px_rgba(245,158,11,0.5)]">
+          {tone.eyebrow}
+        </div>
+      ) : null}
+
+      <article className={`relative flex h-full flex-col rounded-[calc(1.5rem-1px)] p-8 ${tone.article}`}>
+        <div className="mb-6 pt-2">
+          <span className={`inline-block rounded-lg border px-3 py-1 text-xs font-semibold ${tone.badge}`}>
+            {getCardBadgeLabel(item)}
+          </span>
+          <h3 className="mt-4 text-3xl font-bold text-slate-900">{item.tier}</h3>
+          <p className="mt-2 text-sm font-medium text-slate-500">{item.title}</p>
+        </div>
+
+        <div className={`mb-8 h-px w-full bg-gradient-to-r ${tone.divider}`} />
+
+        <ul className="mb-8 flex flex-1 flex-col gap-4">
           {item.features.map((feature) => (
-            <li
-              key={feature.label}
-              className={`flex items-start gap-3 rounded-[1.15rem] border px-3 py-3.5 text-sm leading-6 transition duration-300 ${
-                feature.included
-                  ? 'border-[#e3eefc] bg-white/82 text-slate-600'
-                  : 'border-[#edf2fb] bg-white/62 text-slate-400'
-              }`}
-              >
-                <span
-                  className={`mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${
-                    feature.included ? 'bg-emerald-50 text-emerald-500' : 'bg-rose-50 text-rose-500'
-                  }`}
-                >
-                  {feature.included ? (
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.4}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  ) : (
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.4}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
-                    </svg>
-                  )}
-                </span>
-                <span className="flex-1">{feature.label}</span>
-              </li>
+            <li key={feature.label} className="flex items-start gap-3">
+              <CheckIcon tone={tone.icon} />
+              <span className={`text-sm ${item.isFeatured ? 'font-medium text-slate-700' : 'text-slate-600'}`}>{feature.label}</span>
+            </li>
           ))}
         </ul>
 
-        <ServicesActionLink
-          href={item.href}
-          className={`mt-9 inline-flex w-full items-center justify-center rounded-full px-5 py-3.5 text-sm font-semibold text-white shadow-[0_18px_32px_-18px_rgba(247,164,12,0.78)] transition-all duration-300 hover:-translate-y-0.5 ${
-            item.isFeatured ? 'bg-[#f7a40c] hover:bg-[#ffb220]' : 'bg-[#f3a01a] hover:bg-[#ffae2f]'
-          }`}
-        >
-          {item.ctaLabel}
-        </ServicesActionLink>
-
-        <p className="mt-5 px-1 text-sm leading-7 text-slate-500">{item.description}</p>
-      </div>
-    </article>
+        <div className="mt-auto">
+          <ServicesActionLink
+            href={item.href}
+            className={`group/btn relative flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-semibold transition-all ${tone.cta}`}
+          >
+            {item.ctaLabel}
+            <svg
+              className="h-4 w-4 transition-transform group-hover/btn:translate-x-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={item.isFeatured ? 2.5 : 2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </ServicesActionLink>
+          <p className="mt-4 text-center text-xs text-slate-500">{item.description}</p>
+        </div>
+      </article>
+    </div>
   )
 }
 
 export function ServicesSection({ items }: ServicesSectionProps) {
-  const cardsRef = useRef<HTMLDivElement[]>([])
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+
   const sectionRef = useGsapReveal<HTMLElement>({
-    targets: () => cardsRef.current,
+    targets: () => cardRefs.current,
     from: { y: 36, opacity: 0 },
-    to: { stagger: 0.1, duration: 0.8 },
+    to: { stagger: 0.12, duration: 0.8 },
   })
 
+  const cards = [...items]
+    .map((item, index) => ({ item, index }))
+    .sort((a, b) => getDisplayPriority(a.item, a.index) - getDisplayPriority(b.item, b.index))
+    .map(({ item }, index) => ({ item, index }))
+
+  const registerCardRef = (index: number, element: HTMLDivElement | null) => {
+    cardRefs.current[index] = element
+  }
+
   return (
-    <section ref={sectionRef} id="services" className="relative overflow-hidden py-24 md:py-32">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,#0b1f57_0%,#15377b_38%,#0e2a62_76%,#08183f_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(246,196,69,0.18),transparent_16%),radial-gradient(circle_at_82%_18%,rgba(56,189,248,0.16),transparent_18%),radial-gradient(circle_at_50%_55%,rgba(83,138,255,0.1),transparent_28%),radial-gradient(circle_at_50%_100%,rgba(9,23,57,0.68),transparent_28%)]" />
+    <section ref={sectionRef} id="services" className="relative overflow-hidden py-24 md:py-32 bg-[linear-gradient(180deg,#0b1f57_0%,#15377b_38%,#0e2a62_76%,#08183f_100%)]">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-[10%] left-[10%] h-[500px] w-[500px] rounded-full bg-cyan-600/10 blur-[120px] mix-blend-screen animate-blob" />
+        <div className="absolute top-[20%] right-[10%] h-[400px] w-[400px] rounded-full bg-amber-600/10 blur-[120px] mix-blend-screen animate-blob" style={{ animationDelay: '2s' }} />
+        <div className="absolute bottom-[-10%] left-[40%] h-[600px] w-[600px] rounded-full bg-purple-600/10 blur-[120px] mix-blend-screen animate-blob" style={{ animationDelay: '4s' }} />
+      </div>
+
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
+            'linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+          maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
         }}
       />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#eef4ff] to-transparent" />
 
-      <LazyCanvas
-        className="absolute inset-0"
-        rootMargin="260px"
-        placeholder={<div className="h-full w-full bg-transparent" />}
-      >
-        {(mountRef) => <ServicesShowcaseCanvas mountRef={mountRef} />}
-      </LazyCanvas>
-
-      <div className="mx-auto relative z-10 w-full max-w-[1480px] px-6">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-7 flex flex-wrap items-center justify-center gap-3">
-            {items.map((item) => (
-              <span
-                key={item.id}
-                className="rounded-full border border-white/14 bg-white/8 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-blue-50/88 backdrop-blur-sm"
-              >
-                {item.tag}
-              </span>
-            ))}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md">
+            <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+            <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">Layanan Kami</span>
           </div>
-          <SectionHeading
-            eyebrow="Layanan Utama"
-            title="Pilih layanan yang paling sesuai dengan kebutuhan bisnis Anda."
-            description="Kami menyediakan tiga jalur pengerjaan: website company profile, sistem custom, dan dashboard internal — masing-masing dirancang untuk kebutuhan yang berbeda."
-            centered
-            tone="dark"
-          />
+          <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl">
+            Solusi digital yang dirancang untuk <span className="bg-gradient-to-r from-amber-400 to-amber-300 bg-clip-text text-transparent">pertumbuhan bisnis</span> Anda.
+          </h2>
+          <p className="mt-6 text-lg leading-relaxed text-slate-400">
+            Pilih jalur pengerjaan yang paling sesuai. Mulai dari kehadiran online dasar hingga sistem operasional khusus yang kompleks.
+          </p>
         </div>
 
-        <div className="relative mx-auto mt-16 max-w-[1240px] lg:mt-20">
-          <div className="pointer-events-none absolute inset-x-6 top-10 bottom-8 hidden rounded-[3rem] border border-white/10 bg-white/[0.045] shadow-[0_40px_120px_-70px_rgba(7,16,45,0.95)] backdrop-blur-[6px] lg:block" />
-          <div className="pointer-events-none absolute left-1/2 top-[9rem] hidden h-[26rem] w-[26rem] -translate-x-1/2 rounded-full bg-[#f6c445]/12 blur-3xl lg:block" />
-          <div className="pointer-events-none absolute left-1/2 top-[13rem] hidden h-[22rem] w-[32rem] -translate-x-1/2 rounded-full bg-[#3dbff8]/10 blur-3xl lg:block" />
-
-          <div className="grid gap-6 lg:grid-cols-3 lg:items-start">
-            {items.map((item, index) => (
-              <div
-                key={item.id}
-                className={`relative transition duration-500 ${getCardShellClass(item, index)}`}
-                ref={(element) => {
-                  if (element) {
-                    cardsRef.current[index] = element
-                  }
-                }}
-              >
-                <ServiceCard item={item} />
-              </div>
-            ))}
-          </div>
+        <div className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 items-stretch">
+          {cards.map(({ item, index }) => (
+            <ServiceCard key={item.id} item={item} index={index} registerRef={registerCardRef} />
+          ))}
         </div>
       </div>
     </section>

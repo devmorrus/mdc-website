@@ -137,15 +137,15 @@ export function StatsStrip({ stats }: StatsStripProps) {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.34em] text-[#f6c445]">REKAM JEJAK KAMI</p>
+          <p className="text-xs font-bold uppercase tracking-[0.34em] text-[#f6c445]">PENCAPAIAN KAMI</p>
           <h2
             className="mt-4 text-3xl font-bold leading-tight text-white md:text-4xl"
             style={{ fontFamily: "'Sora', sans-serif" }}
           >
-            Angka yang kami bisa pertanggungjawabkan.
+            Pengalaman kami dalam pengembangan website dan solusi digital.
           </h2>
           <p className="mt-4 text-base leading-7 text-blue-200/70">
-            Bukan sekadar klaim. Setiap angka di bawah ini mencerminkan proyek nyata, klien yang mempercayakan bisnis mereka kepada kami.
+            Kami telah membantu berbagai bisnis dalam pengembangan website company profile, landing page, dashboard, dan sistem digital untuk mendukung kredibilitas serta operasional perusahaan.
           </p>
         </div>
 
@@ -196,9 +196,6 @@ export function StatsStrip({ stats }: StatsStripProps) {
         </div>
 
         {/* Bottom trust line */}
-        <p className="mt-10 text-center text-xs text-blue-200/35 tracking-wide">
-          Data diperbarui per Juni 2026 · Berdasarkan proyek aktual yang dikerjakan tim Morrus
-        </p>
       </div>
     </section>
   )
