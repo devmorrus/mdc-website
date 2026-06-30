@@ -6,11 +6,11 @@ import type { HomeContent } from '../types/home'
 
 export const HOME_STATIC_CONTENT: HomeContent = {
   navItems: [
-    { id: 'about', label: 'Tentang', href: '/#about' },
-    { id: 'services', label: 'Layanan', href: '/#services' },
-    { id: 'portfolio', label: 'Portofolio', href: '/#portfolio' },
-    { id: 'blog', label: 'Blog', href: '/#blog' },
-    { id: 'contact', label: 'Kontak', href: '/#contact' },
+    { id: 'about', label: 'Tentang', href: '/about' },
+    { id: 'services', label: 'Layanan', href: '/services' },
+    { id: 'portfolio', label: 'Portofolio', href: '/portfolio' },
+    { id: 'blog', label: 'Blog', href: '/blog' },
+    { id: 'contact', label: 'Kontak', href: '/contact' },
   ],
   headerCtaLabel: 'Konsultasi Sekarang',
   headerCtaHref:
@@ -237,7 +237,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Company Profile',
       summary: 'Company profile website dengan informasi kelas, instruktur, galeri, dan pendaftaran online.',
       outcome: 'Mempermudah calon wali murid mengenal program dan mendaftar secara online.',
-      href: '/#portfolio',
+      href: '/portfolio/jaladewa-champion',
       imageUrl: jdcCompanyOne,
       imageAlt: 'Halaman utama website Jaladewa Champion.',
     },
@@ -247,7 +247,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Internal Platform',
       summary: 'Dashboard operasional untuk jadwal latihan, absensi coach, invoice, dan budgeting plan.',
       outcome: 'Membuat pengelolaan operasional kelas lebih rapi dan terpusat.',
-      href: '/#portfolio',
+      href: '/portfolio/jaladewa-management-system',
       imageUrl: jdcManagementOne,
       imageAlt: 'Dashboard operasional Jaladewa Management System.',
     },
@@ -257,7 +257,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'E-Commerce',
       summary: 'Website e-commerce dengan katalog produk, ongkir otomatis, payment gateway, dan admin transaksi.',
       outcome: 'Membantu proses penjualan online dari katalog hingga pengelolaan transaksi.',
-      href: '/#portfolio',
+      href: '/portfolio/dat-indonesia',
       imageUrl: datGalleryOne,
       imageAlt: 'Halaman utama e-commerce DAT Indonesia.',
     },
@@ -267,7 +267,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       category: 'Corporate Website',
       summary: 'Company profile website dengan portfolio project, request quotation, dan content management.',
       outcome: 'Membantu perusahaan menampilkan layanan dan menerima inquiry project lebih terstruktur.',
-      href: '/#portfolio',
+      href: '/portfolio/focus-trading-contractor',
       imageUrl: ftcGalleryTwo,
       imageAlt: 'Hero section website CV. Focus Trading Contractor.',
     },
@@ -321,42 +321,187 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   articles: [
     {
       id: '1',
+      slug: 'elemen-homepage-company-profile',
       category: 'Company Profile',
       title: '5 elemen penting homepage company profile yang membuat brand lebih meyakinkan',
       summary:
         'Ringkasan struktur konten yang membantu website perusahaan terasa lebih jelas, rapi, dan siap digunakan untuk presentasi bisnis.',
       publishedAt: '02 Juni 2026',
       author: 'Tim Morrus',
-      href: '/#',
+      href: '/blog/elemen-homepage-company-profile',
       imageUrl:
         'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Tim bisnis berdiskusi di ruang meeting sebagai cover artikel company profile.',
+      content: {
+        introduction:
+          'Homepage company profile sering menjadi halaman pertama yang dilihat calon klien saat mencari tahu kredibilitas perusahaan. Karena itu, struktur homepage tidak cukup hanya terlihat modern, tetapi juga harus mampu menjawab pertanyaan dasar pengunjung dengan cepat dan meyakinkan.',
+        sections: [
+          {
+            heading: '1. Headline yang langsung menjelaskan value bisnis',
+            paragraphs: [
+              'Headline adalah area pertama yang menangkap perhatian pengunjung. Jika headline terlalu umum atau terlalu fokus pada gaya bahasa, calon klien bisa gagal memahami apa yang sebenarnya perusahaan Anda tawarkan.',
+              'Headline yang baik menjelaskan layanan utama, manfaat yang ditawarkan, dan siapa target utamanya. Dengan begitu, pengunjung langsung merasa bahwa website ini relevan dengan kebutuhan mereka.',
+            ],
+            bullets: [
+              'Gunakan kalimat yang jelas, bukan slogan yang terlalu abstrak.',
+              'Tunjukkan manfaat utama yang dirasakan calon klien.',
+              'Pastikan headline tetap terbaca dengan nyaman di mobile.',
+            ],
+          },
+          {
+            heading: '2. Section tentang perusahaan yang ringkas dan kredibel',
+            paragraphs: [
+              'Banyak homepage terlalu cepat menjual layanan tanpa memberi konteks siapa perusahaan di baliknya. Padahal, calon klien biasanya perlu memahami latar belakang, fokus layanan, dan pendekatan kerja sebelum melanjutkan ke tahap inquiry.',
+              'Section tentang perusahaan tidak perlu panjang, tetapi harus cukup untuk membangun rasa percaya. Fokuskan pada positioning, pengalaman, dan alasan mengapa bisnis Anda layak dipertimbangkan.',
+            ],
+          },
+          {
+            heading: '3. Penjelasan layanan dengan struktur yang mudah dipindai',
+            paragraphs: [
+              'Layanan yang ditampilkan di homepage sebaiknya disusun dalam format yang cepat dipahami, misalnya kartu atau blok konten yang punya judul, deskripsi singkat, dan CTA yang jelas.',
+              'Tujuannya bukan menampilkan semua detail sekaligus, tetapi memberi gambaran yang cukup agar pengunjung tahu jalur mana yang paling sesuai dengan kebutuhan mereka.',
+            ],
+          },
+          {
+            heading: '4. Bukti sosial dan hasil kerja yang relevan',
+            paragraphs: [
+              'Portofolio, testimoni, dan statistik pencapaian membantu memperkuat persepsi profesional. Elemen ini menunjukkan bahwa perusahaan Anda bukan hanya punya klaim, tetapi juga pengalaman nyata.',
+              'Pilih bukti sosial yang paling dekat dengan target market Anda agar terasa lebih relevan dan tidak sekadar menjadi pelengkap visual.',
+            ],
+          },
+          {
+            heading: '5. CTA yang muncul di titik yang tepat',
+            paragraphs: [
+              'CTA tidak boleh hanya muncul sekali di hero section. Dalam homepage yang efektif, CTA ditempatkan pada momen ketika pengunjung sudah cukup memahami value dan siap mengambil langkah berikutnya.',
+              'CTA yang baik juga spesifik. Daripada memakai tombol generik, gunakan arahan yang menjelaskan aksi berikutnya seperti konsultasi, lihat layanan, atau minta penawaran.',
+            ],
+            bullets: [
+              'Ulangi CTA setelah section layanan dan bukti sosial.',
+              'Gunakan copy yang terasa natural untuk konteks bisnis Anda.',
+              'Pastikan CTA mudah diklik dan terlihat jelas di semua ukuran layar.',
+            ],
+          },
+        ],
+        closing:
+          'Homepage company profile yang meyakinkan bukan dibangun dari tampilan yang ramai, tetapi dari informasi yang tersusun dengan jelas, kredibel, dan mudah mengarahkan calon klien ke langkah berikutnya. Ketika struktur ini kuat, homepage dapat bekerja lebih efektif sebagai alat presentasi digital perusahaan.',
+      },
     },
     {
       id: '2',
+      slug: 'struktur-informasi-lebih-penting-dari-visual',
       category: 'Web Strategy',
       title: 'Kenapa struktur informasi lebih penting daripada sekadar tampilan visual',
       summary:
         'Desain yang baik perlu ditopang hierarchy konten yang tepat agar pengunjung cepat memahami value perusahaan.',
       publishedAt: '28 Mei 2026',
       author: 'Morrus Insight',
-      href: '/#',
+      href: '/blog/struktur-informasi-lebih-penting-dari-visual',
       imageUrl:
         'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Sticky notes dan alur strategi sebagai cover artikel web strategy.',
+      content: {
+        introduction:
+          'Banyak bisnis fokus pada tampilan visual saat membuat website, padahal masalah terbesar sering justru ada pada cara informasi disusun. Website yang cantik belum tentu efektif jika pengunjung bingung memahami isi, alur, dan prioritas pesan yang ingin disampaikan.',
+        sections: [
+          {
+            heading: 'Visual menarik belum tentu membuat pengunjung paham',
+            paragraphs: [
+              'Desain visual memang penting untuk memberi kesan profesional, tetapi visual hanya membantu penyajian. Yang menentukan apakah pengunjung benar-benar mengerti adalah urutan informasi yang mereka baca dari awal sampai akhir.',
+              'Jika struktur informasi tidak jelas, pengunjung harus bekerja lebih keras untuk mencari tahu layanan, manfaat, atau langkah berikutnya. Dalam banyak kasus, hal itu membuat mereka keluar sebelum melakukan kontak.',
+            ],
+          },
+          {
+            heading: 'Struktur informasi membantu membentuk alur berpikir pengunjung',
+            paragraphs: [
+              'Website yang efektif membawa pengunjung melalui alur sederhana: siapa Anda, apa yang Anda tawarkan, kenapa itu relevan, dan apa langkah berikutnya.',
+              'Alur ini membuat konten terasa lebih ringan untuk dipahami karena setiap section menjawab pertanyaan yang memang muncul secara alami di kepala calon klien.',
+            ],
+            bullets: [
+              'Mulai dari value utama di hero section.',
+              'Lanjutkan dengan konteks perusahaan dan layanan.',
+              'Tutup dengan bukti sosial dan CTA yang jelas.',
+            ],
+          },
+          {
+            heading: 'Hierarchy konten membuat halaman lebih mudah dipindai',
+            paragraphs: [
+              'Pengunjung website jarang membaca dari atas ke bawah secara detail. Mereka biasanya memindai judul, subjudul, CTA, dan blok konten penting terlebih dahulu.',
+              'Karena itu, heading, spacing, panjang paragraf, dan pengelompokan konten harus disusun untuk memudahkan scanning. Inilah alasan kenapa struktur informasi sangat berpengaruh terhadap efektivitas halaman.',
+            ],
+          },
+          {
+            heading: 'Struktur yang rapi juga mendukung SEO dan konversi',
+            paragraphs: [
+              'Informasi yang jelas memudahkan mesin pencari memahami topik halaman, sekaligus membantu pengunjung menemukan jawaban atas kebutuhannya dengan lebih cepat.',
+              'Ketika SEO dan pengalaman baca sama-sama kuat, halaman memiliki peluang lebih besar untuk mendatangkan traffic yang relevan dan mengubahnya menjadi inquiry.',
+            ],
+          },
+        ],
+        closing:
+          'Desain visual tetap penting, tetapi ia bekerja paling baik ketika didukung oleh struktur informasi yang kuat. Website yang menang bukan sekadar yang terlihat menarik, melainkan yang mampu menjelaskan value bisnis dengan cepat, jelas, dan mudah diikuti pengunjung.',
+      },
     },
     {
       id: '3',
+      slug: 'cara-menyusun-cta-website',
       category: 'Digital Branding',
       title: 'Cara menyusun CTA website agar calon klien lebih mudah menghubungi bisnis Anda',
       summary:
         'CTA yang terarah dapat membantu homepage bekerja lebih efektif sebagai titik awal komunikasi dengan prospek.',
       publishedAt: '21 Mei 2026',
       author: 'Admin Editorial',
-      href: '/#',
+      href: '/blog/cara-menyusun-cta-website',
       imageUrl:
         'https://images.pexels.com/photos/3182765/pexels-photo-3182765.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
       imageAlt: 'Laptop dan diskusi tim pemasaran sebagai cover artikel digital branding.',
+      content: {
+        introduction:
+          'CTA atau call-to-action adalah jembatan antara perhatian pengunjung dan aksi nyata yang Anda harapkan. Masalahnya, banyak website menempatkan CTA secara asal atau menggunakan copy yang terlalu umum, sehingga pengunjung tidak terdorong untuk melanjutkan komunikasi.',
+        sections: [
+          {
+            heading: 'Mulai dari tujuan utama halaman',
+            paragraphs: [
+              'Sebelum menulis CTA, tentukan dulu tujuan halaman tersebut. Apakah Anda ingin pengunjung menghubungi tim, meminta proposal, menjadwalkan konsultasi, atau membaca layanan lebih lanjut.',
+              'CTA yang efektif selalu lahir dari tujuan yang jelas. Jika satu halaman mencoba mendorong terlalu banyak aksi sekaligus, pengunjung akan lebih mudah bingung.',
+            ],
+          },
+          {
+            heading: 'Gunakan copy CTA yang spesifik dan relevan',
+            paragraphs: [
+              'Tombol seperti "Klik di sini" atau "Read more" terlalu netral untuk konteks bisnis. Copy yang lebih spesifik akan memberi gambaran tindakan apa yang akan terjadi setelah tombol ditekan.',
+              'Contohnya, untuk layanan konsultasi, tombol seperti "Jadwalkan Konsultasi" atau "Diskusikan Kebutuhan Anda" biasanya terasa lebih natural dan meyakinkan.',
+            ],
+            bullets: [
+              'Hindari CTA yang terlalu umum.',
+              'Samakan nada CTA dengan konteks section tempat ia muncul.',
+              'Pastikan pengunjung tahu manfaat dari klik yang dilakukan.',
+            ],
+          },
+          {
+            heading: 'Letakkan CTA pada momen ketika pengunjung sudah cukup yakin',
+            paragraphs: [
+              'CTA paling kuat biasanya muncul setelah pengunjung menerima informasi penting, seperti penjelasan layanan, hasil kerja, atau bukti sosial.',
+              'Dengan penempatan yang tepat, CTA terasa seperti langkah lanjutan yang logis, bukan dorongan yang terlalu dini.',
+            ],
+          },
+          {
+            heading: 'Gunakan variasi CTA primer dan sekunder',
+            paragraphs: [
+              'Tidak semua pengunjung siap langsung menghubungi bisnis Anda. Sebagian masih ingin melihat layanan, portofolio, atau profil perusahaan terlebih dahulu.',
+              'Karena itu, kombinasi CTA primer dan sekunder membantu mengakomodasi tahap kesiapan yang berbeda tanpa kehilangan arah utama halaman.',
+            ],
+          },
+          {
+            heading: 'Pastikan CTA tetap kuat di mobile',
+            paragraphs: [
+              'Banyak traffic datang dari perangkat mobile, jadi CTA perlu tetap mudah ditemukan, cukup besar untuk disentuh, dan memiliki jarak yang nyaman dari elemen lain.',
+              'CTA yang baik di desktop tetapi sulit dijangkau di mobile akan menurunkan potensi konversi secara signifikan.',
+            ],
+          },
+        ],
+        closing:
+          'CTA yang baik bukan sekadar tombol yang menonjol, tetapi bagian dari alur komunikasi yang membantu pengunjung merasa yakin untuk mengambil langkah berikutnya. Ketika copy, posisi, dan konteks CTA selaras, website Anda akan lebih efektif dalam mendorong inquiry yang relevan.',
+      },
     },
   ],
   contactCta: {
@@ -374,11 +519,11 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     companyName: 'Morrus Digital Connecting',
     shortDescription: 'Partner digital untuk website company profile, aplikasi web, dan sistem bisnis yang modern.',
     quickLinks: [
-      { label: 'Tentang', href: '/#about' },
-      { label: 'Layanan', href: '/#services' },
-      { label: 'Portofolio', href: '/#portfolio' },
-      { label: 'Blog', href: '/#blog' },
-      { label: 'Kontak', href: '/#contact' },
+      { label: 'Tentang', href: '/about' },
+      { label: 'Layanan', href: '/services' },
+      { label: 'Portofolio', href: '/portfolio' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Kontak', href: '/contact' },
     ],
     address: 'Jl. Klakahrejo No.6-7, Kandangan, Benowo, Surabaya, Jawa Timur, 60198 - Indonesia',
     addressHref: 'https://maps.app.goo.gl/9A12Kf1KXUjDPBmR8',
