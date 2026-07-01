@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { BlogDetailArticleSection } from '../components/blog/BlogDetailArticleSection'
 import { PageStateSection } from '../components/common/PageStateSection'
@@ -10,6 +11,17 @@ export function BlogDetailPage() {
   const { data, isLoading, error } = useHomeContent()
 
   const article = data?.articles.find((item) => item.slug === slug) ?? null
+
+  const recommendedArticles = useMemo(() => {
+    if (!data?.articles || !article) {
+      return []
+    }
+    // Filter out active article
+    const remaining = data.articles.filter((item) => item.id !== article.id)
+    // Stable random shuffle within the page load
+    const shuffled = [...remaining].sort(() => 0.5 - Math.random())
+    return shuffled
+  }, [data?.articles, article])
 
   usePageMetadata({
     title: article
@@ -78,7 +90,7 @@ export function BlogDetailPage() {
       headerVariant="hero"
       heroHeaderTone="solid"
     >
-      <BlogDetailArticleSection article={article} />
+      <BlogDetailArticleSection article={article} recommendedArticles={recommendedArticles} />
     </SiteLayout>
   )
 }
