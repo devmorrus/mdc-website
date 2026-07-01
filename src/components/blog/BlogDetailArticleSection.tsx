@@ -66,7 +66,7 @@ export function BlogDetailArticleSection({ article }: BlogDetailArticleSectionPr
           </div>
         </div>
 
-        <article className="mx-auto mt-14 max-w-3xl">
+        <article className="mx-auto mt-14 w-full max-w-5xl">
           <div className="rounded-[2rem] border border-[#d7e3f7] bg-white px-6 py-8 shadow-[0_22px_50px_-38px_rgba(11,31,87,0.18)] md:px-10 md:py-10">
             <p className="text-lg leading-9 text-slate-700">
               {article.content.introduction}

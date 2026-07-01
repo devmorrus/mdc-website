@@ -26,7 +26,7 @@ export function BlogDetailPage() {
 
   if (isLoading) {
     return (
-      <SiteLayout headerVariant="hero">
+      <SiteLayout headerVariant="hero" heroHeaderTone="solid">
         <PageStateSection tone="info" text="Loading blog detail..." />
       </SiteLayout>
     )
@@ -34,7 +34,7 @@ export function BlogDetailPage() {
 
   if (error || !data) {
     return (
-      <SiteLayout headerVariant="hero">
+      <SiteLayout headerVariant="hero" heroHeaderTone="solid">
         <PageStateSection tone="error" text={`Failed to load blog content: ${error ?? 'Unknown error'}`} />
       </SiteLayout>
     )
@@ -47,6 +47,7 @@ export function BlogDetailPage() {
         headerCta={{ label: data.headerCtaLabel, href: data.headerCtaHref }}
         footer={data.footer}
         headerVariant="hero"
+        heroHeaderTone="solid"
       >
         <section className="mx-auto w-full max-w-6xl px-6 py-20">
           <div className="rounded-[2rem] border border-[#d7e3f7] bg-white p-8 shadow-[0_18px_44px_-36px_rgba(11,31,87,0.22)]">
@@ -75,6 +76,7 @@ export function BlogDetailPage() {
       headerCta={{ label: data.headerCtaLabel, href: data.headerCtaHref }}
       footer={data.footer}
       headerVariant="hero"
+      heroHeaderTone="solid"
     >
       <BlogDetailArticleSection article={article} />
     </SiteLayout>
