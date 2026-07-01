@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import tentangPerusahaan1 from '../../assets/tentang-perusahaan/tentang-perusahaan-1.jpg'
-import tentangPerusahaan2 from '../../assets/tentang-perusahaan/tentang-perusahaan-2.jpg'
+import tentangPerusahaan from '../../assets/tentang-perusahaan/1.webp'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { AboutSnippetContent } from '../../types/home'
 import { SectionHeading } from './SectionHeading'
@@ -12,13 +11,8 @@ interface AboutSectionProps {
 const ABOUT_SECTION_IMAGES = [
   {
     id: 'tentang-perusahaan-1',
-    imageUrl: tentangPerusahaan1,
-    imageAlt: 'Suasana tim perusahaan saat berdiskusi bersama.',
-  },
-  {
-    id: 'tentang-perusahaan-2',
-    imageUrl: tentangPerusahaan2,
-    imageAlt: 'Aktivitas kolaborasi tim perusahaan di area kerja.',
+    imageUrl: tentangPerusahaan,
+    imageAlt: 'Partner digital untuk bisnis yang ingin naik kelas.',
   },
 ]
 
