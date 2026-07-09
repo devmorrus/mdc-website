@@ -45,7 +45,7 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
     eyebrow: 'Halaman Portfolio',
     title: 'Project Pilihan yang Menunjukkan Cara Kami Membangun Solusi Digital',
     description:
-      'Dari website company profile, sistem operasional internal, hingga e-commerce, setiap project kami susun dengan pendekatan yang fokus pada kebutuhan bisnis dan hasil yang terukur.',
+      'Jelajahi hasil karya kami. Dari company profile, sistem operasional, hingga e-commerce, setiap project kami rancang untuk menjawab kebutuhan bisnis secara lebih terstruktur.',
   },
   projects: [
     {
@@ -58,7 +58,7 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
       industry: 'Pendidikan & Olahraga',
       serviceType: 'Company Profile Website + Online Registration',
       summary:
-        'Website company profile untuk memperkenalkan program kelas sekaligus mempermudah proses pendaftaran calon siswa secara online.',
+        'Company profile website dengan informasi kelas, instruktur, galeri, dan pendaftaran online.',
       challenge:
         'Jaladewa Champion membutuhkan website yang dapat menjelaskan program, instruktur, dan aktivitas kelas dengan lebih meyakinkan, sekaligus membuka jalur pendaftaran yang lebih praktis bagi calon wali murid.',
       objective:
@@ -66,7 +66,7 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
       solution:
         'Kami menyusun struktur halaman yang menonjolkan informasi kelas, profil instruktur, galeri kegiatan, dan form pendaftaran agar calon wali murid bisa memahami program lalu langsung mengambil tindakan.',
       outcome:
-        'Website ini membantu calon wali murid mengenal program Jaladewa Champion dengan lebih cepat dan melakukan pendaftaran secara online dengan alur yang lebih sederhana.',
+        'Mempermudah calon wali murid mengenal program dan mendaftar secara online.',
       deliverables: [
         'Informasi kelas',
         'Halaman instruktur',
@@ -99,7 +99,7 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
       industry: 'Pendidikan & Operasional',
       serviceType: 'Attendance & Operational Management System',
       summary:
-        'Sistem manajemen operasional untuk mengelola jadwal latihan, absensi coach, invoice, dan budgeting dalam satu dashboard terpusat.',
+        'Dashboard operasional untuk jadwal latihan, absensi coach, invoice, dan budgeting plan.',
       challenge:
         'Tim Jaladewa memerlukan sistem yang bisa menyatukan data operasional harian agar jadwal, absensi, pembayaran, dan pengajuan kebutuhan tidak lagi tersebar di banyak alur manual.',
       objective:
@@ -107,7 +107,7 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
       solution:
         'Kami merancang modul dashboard, jadwal latihan, absensi coach, invoice, dan budgeting plan dengan alur yang terhubung agar operasional kelas dapat dipantau dari satu tempat.',
       outcome:
-        'Sistem ini membantu pengelolaan jadwal, absensi, pembayaran, dan operasional kelas menjadi lebih rapi, cepat dipantau, dan terpusat.',
+        'Membuat pengelolaan operasional kelas lebih rapi dan terpusat.',
       deliverables: [
         'Dashboard operasional',
         'Jadwal latihan',
@@ -161,7 +161,7 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
       industry: 'Retail Elektronik',
       serviceType: 'E-Commerce Website + Admin Dashboard',
       summary:
-        'Platform e-commerce untuk menampilkan katalog produk, memproses checkout, dan membantu tim mengelola transaksi dari dashboard admin.',
+        'Website e-commerce dengan katalog produk, ongkir otomatis, payment gateway, dan admin transaksi.',
       challenge:
         'DAT Indonesia membutuhkan website penjualan yang tidak hanya menampilkan produk, tetapi juga mampu mendukung alur checkout, pembayaran, dan pengelolaan transaksi dengan lebih efisien.',
       objective:
@@ -169,7 +169,7 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
       solution:
         'Kami menyiapkan struktur katalog produk, ongkir otomatis, payment gateway, dan dashboard administrasi agar proses pembelian dan pengelolaan transaksi berjalan lebih terintegrasi.',
       outcome:
-        'Website ini membantu proses penjualan online dari katalog produk, checkout, pembayaran, hingga pengelolaan transaksi dalam satu alur yang lebih rapi.',
+        'Membantu proses penjualan online dari katalog hingga pengelolaan transaksi.',
       deliverables: [
         'Katalog produk',
         'Ongkir otomatis',
@@ -210,7 +210,7 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
       solution:
         'Kami merancang halaman profil perusahaan, portfolio project, request quotation, dan content management agar informasi layanan serta inquiry project dapat tersusun rapi.',
       outcome:
-        'Website ini membantu perusahaan menampilkan layanan, mengelola portfolio, dan menerima inquiry project secara lebih terstruktur.',
+        'Membantu perusahaan menampilkan layanan dan menerima inquiry project lebih terstruktur.',
       deliverables: [
         'Profil perusahaan',
         'Portfolio project',

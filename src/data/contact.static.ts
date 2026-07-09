@@ -39,10 +39,10 @@ export const CONTACT_STATIC_CONTENT: ContactContent = {
     title: 'Informasi Kontak Utama',
     description: 'Kami siap merespon inquiry Anda secara profesional pada jam kerja.',
     items: [
-      { label: 'Email', value: 'hello@morrusdigital.com', href: 'mailto:hello@morrusdigital.com' },
-      { label: 'Telepon', value: '+62 812 3456 7890', href: 'tel:+6281234567890' },
+      { label: 'Email', value: 'morrusdigitalconnecting@gmail.com', href: 'mailto:morrusdigitalconnecting@gmail.com' },
+      { label: 'Telepon', value: '+62 812 2999 9752', href: 'tel:+6281229999752' },
       { label: 'Jam Operasional', value: 'Senin - Jumat, 09.00 - 18.00 WIB' },
-      { label: 'Lokasi', value: 'Gresik, Jawa Timur, Indonesia' },
+      { label: 'Lokasi', value: 'Jl. Klakahrejo No.6-7, Kandangan, Benowo, Surabaya, Jawa Timur, 60198 - Indonesia' },
     ],
     whatsappNumber: '6281229999752',
     whatsappMessage: 'Halo Morrus Digital Connecting, saya ingin konsultasi kebutuhan website dan layanan digital.',
