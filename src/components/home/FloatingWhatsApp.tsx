@@ -117,7 +117,7 @@ export function FloatingWhatsApp() {
             <WhatsAppIcon />
           </span>
           <div>
-            <p className="text-base font-bold text-[#0b1f57]">Mulai Chat WhatsApp</p>
+            <p className="text-base font-bold text-[#0b1f57]">Widget WhatsApp</p>
             <p className="mt-1 text-sm leading-6 text-slate-500">
               Isi data singkat di bawah ini, lalu kami buatkan template pesan otomatis.
             </p>
@@ -183,7 +183,8 @@ export function FloatingWhatsApp() {
         type="button"
         aria-expanded={isOpen}
         aria-controls="whatsapp-popup"
-        aria-label="Buka formulir WhatsApp"
+        aria-label="Widget WhatsApp"
+        title="Widget WhatsApp"
         onClick={() => setIsOpen((current) => !current)}
         className="pointer-events-auto inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#25d366] p-0 text-white shadow-[0_20px_55px_-18px_rgba(37,211,102,0.7)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#20bd5a]"
       >

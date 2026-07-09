@@ -22,7 +22,7 @@ export const PORTFOLIO_STATIC_CONTENT: PortfolioContent = {
   ],
   headerCtaLabel: 'Konsultasi Sekarang',
   headerCtaHref:
-    'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
+    'https://wa.me/6281229999752?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
   footer: {
     companyName: 'Morrus Digital Connecting',
     shortDescription: 'Partner digital untuk website, aplikasi, dan sistem bisnis yang modern serta scalable.',

@@ -8,7 +8,7 @@ interface ContactInquiryFormCardProps {
 }
 
 export function ContactInquiryFormCard({
-  title = 'Form Inquiry',
+  title = 'Konsultasikan Kebutuhan Anda',
   description = 'Lengkapi data berikut agar kami bisa menyiapkan rekomendasi terbaik.',
   className = '',
 }: ContactInquiryFormCardProps) {
@@ -112,7 +112,7 @@ export function ContactInquiryFormCard({
               disabled={isSubmitting}
               className="group relative w-full overflow-hidden rounded-xl bg-[#0f2f78] px-7 py-3 text-sm font-bold text-white shadow-[0_0_25px_rgba(24,74,168,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#184aa8] hover:shadow-[0_0_40px_rgba(24,74,168,0.28)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
-              <span className="relative z-10">{isSubmitting ? 'Mengirim...' : 'Kirim'}</span>
+              <span className="relative z-10">{isSubmitting ? 'Membuka WhatsApp...' : 'Kirim ke WhatsApp'}</span>
               <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/16 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
             </button>
 

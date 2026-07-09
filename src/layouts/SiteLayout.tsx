@@ -5,7 +5,7 @@ import type { FooterContent, NavigationItem } from '../types/home'
 import logoMdc from '../assets/logo-mdc-removebg-preview.png'
 
 const WHATSAPP_CONSULTATION_URL =
-  'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.'
+  'https://wa.me/6281229999752?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.'
 
 interface SiteLayoutProps {
   children: ReactNode

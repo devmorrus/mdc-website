@@ -14,7 +14,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   ],
   headerCtaLabel: 'Konsultasi Sekarang',
   headerCtaHref:
-    'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
+    'https://wa.me/6281229999752?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
   hero: {
     eyebrow: 'Website untuk Bisnis yang Ingin Naik Kelas',
     title: 'Website Profesional yang Lebih Meyakinkan.',
@@ -366,7 +366,7 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       'Ceritakan tantangan bisnis Anda, lalu tim kami akan merekomendasikan strategi dan pengembangan platform yang selaras dengan tujuan pertumbuhan perusahaan Anda.',
     primaryCtaLabel: 'Hubungi Tim Kami',
     primaryCtaHref: '/contact',
-    secondaryCtaLabel: 'Chat via WhatsApp',
+    secondaryCtaLabel: 'Widget WhatsApp',
     secondaryCtaHref: '#whatsapp',
     bulletPoints: ['Diskusi kebutuhan awal', 'Estimasi dan scope jelas', 'Desain responsif modern'],
   },
@@ -388,6 +388,6 @@ export const HOME_STATIC_CONTENT: HomeContent = {
     mapEmbedUrl:
       'https://www.google.com/maps?q=Jl.%20Klakahrejo%20No.6-7%2C%20Kandangan%2C%20Benowo%2C%20Surabaya%2C%20Jawa%20Timur%2060198&z=15&output=embed',
   },
-  whatsappNumber: '6281234567890',
+  whatsappNumber: '6281229999752',
   whatsappMessage: 'Halo Morrus Digital Connecting, saya ingin konsultasi pembuatan website company profile.',
 }

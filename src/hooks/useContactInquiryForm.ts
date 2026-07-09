@@ -1,6 +1,5 @@
-import { useMemo, useState } from 'react'
-
-import { createContactInquiryService } from '../services/contact/contactContentService'
+import { useState } from 'react'
+import { createWhatsAppLink } from '../utils/createWhatsAppLink'
 import type {
   ContactInquiryFieldErrors,
   ContactInquiryFormData,
@@ -20,6 +19,7 @@ interface UseContactInquiryFormResult extends ContactInquiryFormState {
 }
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const WHATSAPP_TARGET_NUMBER = '6281229999752'
 
 const INITIAL_VALUES: ContactInquiryFormData = {
   name: '',
@@ -30,8 +30,6 @@ const INITIAL_VALUES: ContactInquiryFormData = {
 }
 
 export function useContactInquiryForm(): UseContactInquiryFormResult {
-  const service = useMemo(() => createContactInquiryService(), [])
-
   const [values, setValues] = useState<ContactInquiryFormData>(INITIAL_VALUES)
   const [errors, setErrors] = useState<ContactInquiryFieldErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -88,18 +86,35 @@ export function useContactInquiryForm(): UseContactInquiryFormResult {
     setIsSubmitting(true)
 
     try {
-      const result = await service.submitContactInquiry(values)
-      setErrors(result.fieldErrors ?? {})
-      setSubmitResult(result)
+      const whatsappMessage = [
+        'Halo Morrus Digital Connecting,',
+        '',
+        'Saya ingin mengajukan inquiry melalui form website.',
+        '',
+        `Nama: ${values.name}`,
+        `Perusahaan: ${values.companyName}`,
+        `WhatsApp: ${values.whatsappNumber}`,
+        `Email: ${values.email}`,
+        `Kebutuhan / Pesan: ${values.message}`,
+      ].join('\n')
 
-      if (result.status === 'success') {
-        setValues(INITIAL_VALUES)
-        setErrors({})
+      const whatsappUrl = createWhatsAppLink(WHATSAPP_TARGET_NUMBER, whatsappMessage)
+      const popup = window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
+
+      if (!popup) {
+        window.location.assign(whatsappUrl)
       }
+
+      setSubmitResult({
+        status: 'success',
+        message: 'Form sudah diarahkan ke WhatsApp.',
+      })
+      setValues(INITIAL_VALUES)
+      setErrors({})
     } catch {
       setSubmitResult({
         status: 'failed',
-        message: 'Terjadi kendala saat mengirim inquiry. Silakan coba beberapa saat lagi.',
+        message: 'Terjadi kendala saat membuka WhatsApp. Silakan coba beberapa saat lagi.',
       })
     } finally {
       setIsSubmitting(false)

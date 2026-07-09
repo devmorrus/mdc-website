@@ -10,7 +10,7 @@ export function ContactPage() {
   usePageMetadata({
     title: 'Morrus Digital Connecting | Contact',
     description:
-      'Hubungi Morrus Digital Connecting melalui form inquiry atau WhatsApp untuk konsultasi kebutuhan website dan layanan digital bisnis Anda.',
+      'Hubungi Morrus Digital Connecting melalui Konsultasikan Kebutuhan Anda atau WhatsApp untuk konsultasi kebutuhan website dan layanan digital bisnis Anda.',
   })
 
   if (isLoading) {

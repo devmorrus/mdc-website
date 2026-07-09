@@ -84,7 +84,7 @@ export function ContactInquirySection({ content }: ContactInquirySectionProps) {
         <SectionHeading
           eyebrow="Kontak & Inquiry"
           title="Siapkan brief singkat, lalu kami bantu susun langkah terbaik."
-          description="Pilih jalur yang paling nyaman untuk Anda. Form inquiry cocok untuk kebutuhan yang ingin dijelaskan lebih detail, sementara WhatsApp cepat untuk percakapan awal."
+          description="Pilih jalur yang paling nyaman untuk Anda. Konsultasikan Kebutuhan Anda cocok untuk kebutuhan yang ingin dijelaskan lebih detail, sementara WhatsApp cepat untuk percakapan awal."
           centered
         />
 
@@ -177,7 +177,7 @@ export function ContactInquirySection({ content }: ContactInquirySectionProps) {
 
           <div ref={formWrapRef} className="relative">
             <ContactInquiryFormCard
-              title="Form Inquiry Cepat"
+              title="Konsultasikan Kebutuhan Anda Dengan Cepat"
               description="Semakin lengkap detail yang Anda isi, semakin mudah kami menyiapkan arahan yang relevan untuk bisnis Anda."
             />
 

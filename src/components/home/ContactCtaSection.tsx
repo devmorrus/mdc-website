@@ -74,7 +74,7 @@ export function ContactCtaSection({ content, primaryCtaHref }: ContactCtaSection
             </div>
 
             <ContactInquiryFormCard
-              title="Form Inquiry"
+              title="Konsultasikan Kebutuhan Anda"
               description="Isi kebutuhan singkat Anda di sini, lalu tim kami akan menindaklanjuti dengan rekomendasi yang sesuai."
               className="min-w-0"
             />

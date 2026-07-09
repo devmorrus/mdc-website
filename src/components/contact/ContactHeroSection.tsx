@@ -104,15 +104,15 @@ export function ContactHeroSection({ content }: ContactHeroSectionProps) {
                   to="/contact"
                   className="inline-flex w-full items-center justify-center rounded-full bg-[#facc15] px-8 py-3.5 text-sm font-bold text-[#0b1f57] shadow-[0_0_32px_rgba(250,204,21,0.28)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#fde047] hover:shadow-[0_0_48px_rgba(250,204,21,0.42)] sm:w-auto"
                 >
-                  Kirim Inquiry
+                  Diskusikan Kebutuhan Anda
                 </Link>
                 <a
-                  href="https://wa.me/6281234567890"
+                  href="https://wa.me/6281229999752"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex w-full items-center justify-center rounded-full border border-white/18 bg-white/[0.07] px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.13] sm:w-auto"
                 >
-                  WhatsApp Sekarang
+                  Widget WhatsApp
                 </a>
               </div>
 

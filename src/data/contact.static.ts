@@ -10,7 +10,7 @@ export const CONTACT_STATIC_CONTENT: ContactContent = {
   ],
   headerCtaLabel: 'Konsultasi Sekarang',
   headerCtaHref:
-    'https://wa.me/6281234567890?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
+    'https://wa.me/6281229999752?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
   footer: {
     companyName: 'Morrus Digital Connecting',
     shortDescription: 'Partner digital untuk website, aplikasi, dan sistem bisnis yang modern serta scalable.',
@@ -44,8 +44,8 @@ export const CONTACT_STATIC_CONTENT: ContactContent = {
       { label: 'Jam Operasional', value: 'Senin - Jumat, 09.00 - 18.00 WIB' },
       { label: 'Lokasi', value: 'Gresik, Jawa Timur, Indonesia' },
     ],
-    whatsappNumber: '6281234567890',
+    whatsappNumber: '6281229999752',
     whatsappMessage: 'Halo Morrus Digital Connecting, saya ingin konsultasi kebutuhan website dan layanan digital.',
-    whatsappButtonLabel: 'Hubungi via WhatsApp',
+    whatsappButtonLabel: 'Hubungi Tim Kami',
   },
 }

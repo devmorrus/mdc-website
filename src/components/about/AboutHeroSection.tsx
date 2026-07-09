@@ -110,7 +110,7 @@ export function AboutHeroSection({ content }: AboutHeroSectionProps) {
                   to="/contact"
                   className="inline-flex w-full items-center justify-center rounded-full border border-white/18 bg-white/[0.07] px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.13] sm:w-auto"
                 >
-                  Hubungi Kami
+                  Hubungi Tim Kami
                 </Link>
               </div>
 
