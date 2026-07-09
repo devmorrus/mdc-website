@@ -5,6 +5,9 @@ import logoIphone from '../../assets/iphone_gresik.png'
 import logoFtc from '../../assets/logo-ftc.png'
 import logoJaladewa from '../../assets/logo-jaladewa.png'
 import logoMcb from '../../assets/logo-mcb.png'
+import logoFgc from '../../assets/logo fgc fix png (1).png'
+import logoSankta from '../../assets/Sankta-Icon.jpg'
+import logoX3o from '../../assets/X3O Samping-Hitam (1).png'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { PartnerItem } from '../../types/home'
 import { SectionHeading } from './SectionHeading'
@@ -43,6 +46,21 @@ const partnerLogos: Record<string, { src: string; frameClassName: string; imageC
     src: logoIphone,
     frameClassName: 'w-[12.5rem] sm:w-[14rem] md:w-[15.5rem] lg:w-[16.5rem]',
     imageClassName: 'max-h-[3.5rem] sm:max-h-[3.9rem] md:max-h-[4.3rem]',
+  },
+  '7': {
+    src: logoFgc,
+    frameClassName: 'w-[15rem] sm:w-[17rem] md:w-[18.5rem] lg:w-[19.5rem]',
+    imageClassName: 'max-h-[3.8rem] sm:max-h-[4.3rem] md:max-h-[4.8rem]',
+  },
+  '8': {
+    src: logoSankta,
+    frameClassName: 'w-[5.5rem] sm:w-[6.5rem] md:w-[7.5rem] lg:w-[8.5rem]',
+    imageClassName: 'max-h-[4.5rem] sm:max-h-[5rem] md:max-h-[5.5rem]',
+  },
+  '9': {
+    src: logoX3o,
+    frameClassName: 'w-[14.5rem] sm:w-[16rem] md:w-[17.5rem] lg:w-[18.5rem]',
+    imageClassName: 'max-h-[4rem] sm:max-h-[4.5rem] md:max-h-[5rem]',
   },
 }
 

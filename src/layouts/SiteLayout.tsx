@@ -16,14 +16,15 @@ interface SiteLayoutProps {
   }
   footer?: FooterContent
   headerVariant?: 'default' | 'hero'
+  heroHeaderTone?: 'auto' | 'solid'
 }
 
 const DEFAULT_NAV_ITEMS: NavigationItem[] = [
-  { id: 'about', label: 'Tentang', href: '/#about' },
-  { id: 'services', label: 'Layanan', href: '/#services' },
-  { id: 'portfolio', label: 'Portofolio', href: '/#portfolio' },
-  { id: 'blog', label: 'Blog', href: '/#blog' },
-  { id: 'contact', label: 'Kontak', href: '/#contact' },
+  { id: 'about', label: 'Tentang', href: '/about' },
+  { id: 'services', label: 'Layanan', href: '/services' },
+  { id: 'portfolio', label: 'Portofolio', href: '/portfolio' },
+  { id: 'blog', label: 'Blog', href: '/blog' },
+  { id: 'contact', label: 'Kontak', href: '/contact' },
 ]
 
 const DEFAULT_HEADER_CTA = {
@@ -35,11 +36,11 @@ const DEFAULT_FOOTER: FooterContent = {
   companyName: 'Morrus Digital Connecting',
   shortDescription: 'Partner digital untuk website modern, aplikasi web, dan sistem bisnis yang siap berkembang.',
   quickLinks: [
-    { label: 'Tentang', href: '/#about' },
-    { label: 'Layanan', href: '/#services' },
-    { label: 'Portofolio', href: '/#portfolio' },
-    { label: 'Blog', href: '/#blog' },
-    { label: 'Kontak', href: '/#contact' },
+    { label: 'Tentang', href: '/about' },
+    { label: 'Layanan', href: '/services' },
+    { label: 'Portofolio', href: '/portfolio' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Kontak', href: '/contact' },
   ],
   address: 'Jl. Klakahrejo No.6-7, Kandangan, Benowo, Surabaya, Jawa Timur, 60198 - Indonesia',
   addressHref: 'https://maps.app.goo.gl/9A12Kf1KXUjDPBmR8',
@@ -59,13 +60,15 @@ export function SiteLayout({
   headerCta = DEFAULT_HEADER_CTA,
   footer = DEFAULT_FOOTER,
   headerVariant = 'default',
+  heroHeaderTone = 'auto',
 }: SiteLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
   const isHeroHeader = headerVariant === 'hero'
   const isExternalHeaderCta = headerCta.href.startsWith('http')
-  const isHeroAtTop = isHeroHeader && !scrolled
+  const isSolidHeroHeader = isHeroHeader && heroHeaderTone === 'solid'
+  const isHeroAtTop = isHeroHeader && !scrolled && !isSolidHeroHeader
 
   // Nav item classes change based on hero-at-top vs scrolled/default
   const navItemBaseClass = isHeroAtTop
@@ -250,14 +253,14 @@ export function SiteLayout({
           <div className="mx-auto w-full max-w-7xl">
             <div
               className={`flex h-[4.75rem] w-full items-center justify-between rounded-[1.6rem] border px-4 py-2.5 transition-all duration-500 md:h-[4.9rem] md:px-5 ${
-                scrolled
+                scrolled || isSolidHeroHeader
                   ? 'border-[#d5e1f5] shadow-[0_16px_34px_-26px_rgba(11,31,87,0.18)]'
                   : 'border-white/10 shadow-[0_14px_28px_-26px_rgba(4,13,30,0.45)]'
               }`}
               style={{
-                backgroundColor: scrolled ? HEADER_BACKGROUND : 'rgba(5,13,30,0.18)',
-                backdropFilter: scrolled ? 'none' : 'blur(12px)',
-                WebkitBackdropFilter: scrolled ? 'none' : 'blur(12px)',
+                backgroundColor: scrolled || isSolidHeroHeader ? HEADER_BACKGROUND : 'rgba(5,13,30,0.18)',
+                backdropFilter: scrolled || isSolidHeroHeader ? 'none' : 'blur(12px)',
+                WebkitBackdropFilter: scrolled || isSolidHeroHeader ? 'none' : 'blur(12px)',
               }}
             >
               <Link to="/" aria-label="Morrus Digital Connecting" className="flex items-center">

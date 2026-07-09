@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import tentangPerusahaan from '../../assets/tentang-perusahaan/1.webp'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { AboutSnippetContent } from '../../types/home'
 import { SectionHeading } from './SectionHeading'
@@ -7,11 +8,13 @@ interface AboutSectionProps {
   content: AboutSnippetContent
 }
 
-const FALLBACK_FEATURED_IMAGE = {
-  imageUrl:
-    'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1400',
-  imageAlt: 'Tim bisnis berdiskusi di ruang meeting modern.',
-}
+const ABOUT_SECTION_IMAGES = [
+  {
+    id: 'tentang-perusahaan-1',
+    imageUrl: tentangPerusahaan,
+    imageAlt: 'Partner digital untuk bisnis yang ingin naik kelas.',
+  },
+]
 
 function AboutGallerySlider({ slides }: { slides: { imageUrl: string; imageAlt: string; id: string }[] }) {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -84,14 +87,7 @@ export function AboutSection({ content }: AboutSectionProps) {
     from: { y: 30, opacity: 0 },
     to: { duration: 0.72 },
   })
-  const gallerySlides =
-    content.teamMembers.length > 0
-      ? content.teamMembers.map((member) => ({
-          id: member.id,
-          imageUrl: member.imageUrl,
-          imageAlt: member.name || FALLBACK_FEATURED_IMAGE.imageAlt,
-        }))
-      : [{ id: 'fallback', ...FALLBACK_FEATURED_IMAGE }]
+  const gallerySlides = ABOUT_SECTION_IMAGES
 
   return (
     <section ref={sectionRef} id="about" className="relative overflow-hidden py-20 md:py-24 lg:py-28">

@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { ArticleItem } from '../../types/home'
 import { SectionHeading } from './SectionHeading'
@@ -78,7 +79,9 @@ export function ArticlesSection({ items }: ArticlesSectionProps) {
                       className="text-xl font-bold leading-snug text-[#0b1f57]"
                       style={{ fontFamily: "'Sora', sans-serif" }}
                     >
-                      {item.title}
+                      <Link to={item.href} className="transition hover:text-[#184aa8]">
+                        {item.title}
+                      </Link>
                     </h3>
 
                     <div className="group/summary relative mt-4 min-h-[5.25rem]">
@@ -102,6 +105,17 @@ export function ArticlesSection({ items }: ArticlesSectionProps) {
                     <div className="flex items-center justify-between gap-4 text-xs font-medium text-slate-500">
                       <span>{item.publishedAt}</span>
                       <span>{item.author}</span>
+                    </div>
+                    <div className="mt-4">
+                      <Link
+                        to={item.href}
+                        className="inline-flex items-center gap-2 rounded-full bg-[#0f2f78] px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[#184aa8]"
+                      >
+                        Baca Artikel
+                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </Link>
                     </div>
                   </div>
                 </div>

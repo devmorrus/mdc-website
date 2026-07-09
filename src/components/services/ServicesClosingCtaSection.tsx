@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import type { ServicesClosingCtaContent } from '../../types/services'
+import { useGsapReveal } from '../../hooks/useGsapReveal'
 import { CtaCanvasOpt } from '../../three/OptimizedCanvases'
 
 interface ServicesClosingCtaSectionProps {
@@ -9,25 +9,13 @@ interface ServicesClosingCtaSectionProps {
 }
 
 export function ServicesClosingCtaSection({ content }: ServicesClosingCtaSectionProps) {
-  const sectionRef = useRef<HTMLElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion || !sectionRef.current) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-          gsap.fromTo(innerRef.current, { y: 30, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' })
-          observer.disconnect()
-        })
-      },
-      { threshold: 0.1 },
-    )
-    observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const sectionRef = useGsapReveal<HTMLElement>({
+    targets: () => [innerRef.current],
+    includeRoot: false,
+    from: { y: 24, autoAlpha: 0, scale: 0.985 },
+    to: { duration: 0.88, ease: 'power2.out' },
+  })
 
   return (
     <section ref={sectionRef} className="relative mx-auto w-full max-w-6xl px-6 pb-24 pt-4 md:pb-32">

@@ -1,34 +1,45 @@
+import { useMemo } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { PortfolioClosingCtaSection } from '../components/portfolio/PortfolioClosingCtaSection'
-import { PortfolioDetailSection } from '../components/portfolio/PortfolioDetailSection'
+import { BlogDetailArticleSection } from '../components/blog/BlogDetailArticleSection'
 import { PageStateSection } from '../components/common/PageStateSection'
+import { useHomeContent } from '../hooks/useHomeContent'
 import { usePageMetadata } from '../hooks/usePageMetadata'
-import { usePortfolioContent } from '../hooks/usePortfolioContent'
 import { SiteLayout } from '../layouts/SiteLayout'
 
-export function PortfolioDetailPage() {
+export function BlogDetailPage() {
   const { slug } = useParams()
-  const { data, isLoading, error } = usePortfolioContent()
+  const { data, isLoading, error } = useHomeContent()
 
-  const project = data?.projects.find((item) => item.slug === slug) ?? null
+  const article = data?.articles.find((item) => item.slug === slug) ?? null
+
+  const recommendedArticles = useMemo(() => {
+    if (!data?.articles || !article) {
+      return []
+    }
+    // Filter out active article
+    const remaining = data.articles.filter((item) => item.id !== article.id)
+    // Stable random shuffle within the page load
+    const shuffled = [...remaining].sort(() => 0.5 - Math.random())
+    return shuffled
+  }, [data?.articles, article])
 
   usePageMetadata({
-    title: project
-      ? `Morrus Digital Connecting | Portfolio - ${project.name}`
-      : 'Morrus Digital Connecting | Portfolio Detail',
-    description: project
-      ? project.summary
-      : 'Detail portfolio project Morrus Digital Connecting.',
+    title: article
+      ? `Morrus Digital Connecting | Blog - ${article.title}`
+      : 'Morrus Digital Connecting | Blog Detail',
+    description: article
+      ? article.summary
+      : 'Detail artikel blog Morrus Digital Connecting.',
   })
 
   if (!slug) {
-    return <Navigate to="/portfolio" replace />
+    return <Navigate to="/blog" replace />
   }
 
   if (isLoading) {
     return (
       <SiteLayout headerVariant="hero" heroHeaderTone="solid">
-        <PageStateSection tone="info" text="Loading portfolio detail..." />
+        <PageStateSection tone="info" text="Loading blog detail..." />
       </SiteLayout>
     )
   }
@@ -36,12 +47,12 @@ export function PortfolioDetailPage() {
   if (error || !data) {
     return (
       <SiteLayout headerVariant="hero" heroHeaderTone="solid">
-        <PageStateSection tone="error" text={`Failed to load portfolio content: ${error ?? 'Unknown error'}`} />
+        <PageStateSection tone="error" text={`Failed to load blog content: ${error ?? 'Unknown error'}`} />
       </SiteLayout>
     )
   }
 
-  if (!project) {
+  if (!article) {
     return (
       <SiteLayout
         navItems={data.navItems}
@@ -52,18 +63,18 @@ export function PortfolioDetailPage() {
       >
         <section className="mx-auto w-full max-w-6xl px-6 py-20">
           <div className="rounded-[2rem] border border-[#d7e3f7] bg-white p-8 shadow-[0_18px_44px_-36px_rgba(11,31,87,0.22)]">
-            <p className="text-sm font-bold uppercase tracking-[0.28em] text-[#c49019]">Portfolio Detail</p>
+            <p className="text-sm font-bold uppercase tracking-[0.28em] text-[#c49019]">Blog Detail</p>
             <h1 className="mt-4 text-3xl font-bold text-[#0f172a]" style={{ fontFamily: "'Sora', sans-serif" }}>
-              Project tidak ditemukan
+              Artikel tidak ditemukan
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600">
-              Project yang Anda buka tidak tersedia. Silakan kembali ke halaman portfolio untuk memilih project lain.
+              Artikel yang Anda buka tidak tersedia. Silakan kembali ke halaman blog untuk memilih artikel lain.
             </p>
             <Link
-              to="/portfolio"
+              to="/blog"
               className="mt-6 inline-flex items-center justify-center rounded-full bg-[#0f2f78] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#184aa8]"
             >
-              Kembali ke Portfolio
+              Kembali ke Blog
             </Link>
           </div>
         </section>
@@ -79,8 +90,7 @@ export function PortfolioDetailPage() {
       headerVariant="hero"
       heroHeaderTone="solid"
     >
-      <PortfolioDetailSection project={project} />
-      <PortfolioClosingCtaSection content={data.closingCta} />
+      <BlogDetailArticleSection article={article} recommendedArticles={recommendedArticles} />
     </SiteLayout>
   )
 }
