@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
 import type { ContactCtaContent } from '../../types/home'
 import { ContactInquiryFormCard } from '../contact/ContactInquiryFormCard'
-import konsepImplementasiPdf from '../../assets/Konsep_Implementasi_Fitur_Lanjutan_Klinik.pdf'
+import konsepImplementasiPdf from '../../assets/compro_morrus.pdf'
 
 interface ContactCtaSectionProps {
   content: ContactCtaContent
@@ -65,7 +65,7 @@ export function ContactCtaSection({ content, primaryCtaHref }: ContactCtaSection
                 )}
                 <a
                   href={konsepImplementasiPdf}
-                  download="Konsep_Implementasi_Fitur_Lanjutan_Klinik.pdf"
+                  download="Compro_Morrus.pdf"
                   className="inline-flex w-full items-center justify-center rounded-full border border-white/18 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/16 sm:w-auto"
                 >
                   Download PDF
