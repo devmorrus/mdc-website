@@ -62,7 +62,7 @@ export function PortfolioGridSection({ items }: PortfolioGridSectionProps) {
         <SectionHeading
           eyebrow="Portofolio dan Proyek"
           title="Bukti nyata bagaimana kami menerjemahkan kebutuhan bisnis menjadi solusi digital."
-          description="Jelajahi hasil karya kami. Dari company profile sampai sistem internal, setiap project dibangun untuk kredibilitas, efisiensi, dan pertumbuhan."
+          description="Jelajahi hasil karya kami. Dari company profile, sistem operasional, hingga e-commerce, setiap project kami rancang untuk menjawab kebutuhan bisnis secara lebih terstruktur."
           centered
         />
 

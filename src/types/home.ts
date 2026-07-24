@@ -98,6 +98,7 @@ export interface PartnerItem {
 
 export interface ArticleItem {
   id: string
+  slug: string
   category: string
   title: string
   summary: string
@@ -106,6 +107,15 @@ export interface ArticleItem {
   href: string
   imageUrl: string
   imageAlt: string
+  content: {
+    introduction: string
+    sections: {
+      heading: string
+      paragraphs: string[]
+      bullets?: string[]
+    }[]
+    closing: string
+  }
 }
 
 export interface ContactCtaContent {

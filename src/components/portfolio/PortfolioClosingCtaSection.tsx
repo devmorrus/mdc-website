@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { Link } from 'react-router-dom'
 import type { PortfolioClosingCtaContent } from '../../types/portfolio'
-import { CtaCanvasOpt } from '../../three/OptimizedCanvases'
 
 interface PortfolioClosingCtaSectionProps {
   content: PortfolioClosingCtaContent
@@ -10,73 +9,93 @@ interface PortfolioClosingCtaSectionProps {
 
 export function PortfolioClosingCtaSection({ content }: PortfolioClosingCtaSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
-  const innerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (!sectionRef.current) return
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion || !sectionRef.current) return
+    if (prefersReducedMotion) {
+      gsap.set(sectionRef.current, { autoAlpha: 1, y: 0 })
+      return
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return
-          gsap.fromTo(innerRef.current, { y: 30, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' })
+
+          gsap.fromTo(
+            entry.target,
+            { y: 30, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.8, ease: 'power3.out' },
+          )
+
           observer.disconnect()
         })
       },
-      { threshold: 0.1 },
+      { threshold: 0.12 },
     )
+
     observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
 
   return (
     <section ref={sectionRef} className="relative mx-auto w-full max-w-6xl px-6 pb-24 pt-4 md:pb-32">
-      <div ref={innerRef} className="relative overflow-hidden rounded-3xl border border-amber-300/20 bg-linear-to-br from-blue-900/60 via-blue-950/75 to-[#021331] shadow-[0_40px_100px_-30px_rgba(251,191,36,0.18)]">
-        <div className="absolute inset-0 opacity-40"><CtaCanvasOpt /></div>
-        <div className="absolute inset-0 bg-linear-to-br from-blue-950/40 via-transparent to-blue-950/55" />
-        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-amber-300/50 to-transparent" />
-        <div className="absolute top-0 right-0 h-36 w-36 bg-linear-to-bl from-amber-300/10 to-transparent rounded-bl-[100px] pointer-events-none" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.022]" style={{ backgroundImage: 'linear-gradient(rgba(251,191,36,1) 1px, transparent 1px), linear-gradient(90deg, rgba(251,191,36,1) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      <div className="relative overflow-hidden rounded-[2rem] border border-[rgba(246,196,69,0.18)] bg-[linear-gradient(160deg,#0b1c4a_0%,#10295e_45%,#081a45_100%)] px-8 py-10 text-white shadow-[0_30px_90px_-40px_rgba(11,31,87,0.65)] md:px-10 md:py-12">
+        <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(246,196,69,0.28),transparent_70%)] blur-2xl" />
+        <div className="pointer-events-none absolute -left-8 bottom-0 h-36 w-36 rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.18),transparent_72%)] blur-2xl" />
 
-        <div className="relative z-10 grid gap-8 px-8 py-14 md:grid-cols-[1fr_auto] md:items-center md:px-12 md:py-16">
-          <div>
-            <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-300/35 bg-amber-300/8 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-amber-200">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-300 animate-pulse" />
+        <div className="relative z-10">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-[0.74rem] font-bold uppercase tracking-[0.28em] text-[#f6c445]">
+              <span className="h-[7px] w-[7px] rounded-full bg-[#f6c445] shadow-[0_0_0_4px_rgba(246,196,69,0.18)]" />
               Next Project
             </span>
-
-            <h2 className="mt-4 text-3xl font-extrabold leading-tight text-blue-50 md:text-4xl" style={{ fontFamily: "'Sora', sans-serif" }}>
-              <span className="bg-linear-to-r from-amber-300 to-yellow-200 bg-clip-text text-transparent">
-                {content.title.split(' ').slice(0, 4).join(' ')}
-              </span>
-              <br />
-              {content.title.split(' ').slice(4).join(' ')}
-            </h2>
-
-            <p className="mt-4 max-w-lg text-sm leading-relaxed text-blue-200/65 md:text-base">{content.description}</p>
-
-            {/* Horizontal trust pills */}
-            <div className="mt-6 flex flex-wrap gap-2">
-              {['Konsultasi Gratis', 'Dari Konsep ke Produksi', 'Scalable Architecture'].map((b) => (
-                <span key={b} className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/18 bg-blue-900/28 px-3 py-1 text-xs text-blue-300/60">
-                  <svg className="h-3 w-3 text-amber-300" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
-                  </svg>
-                  {b}
-                </span>
-              ))}
-            </div>
           </div>
 
-          {/* CTA button */}
-          <div className="shrink-0">
-            <Link
-              to={content.buttonHref}
-              className="group relative block overflow-hidden rounded-2xl bg-amber-300 px-8 py-4 text-base font-bold text-blue-950 shadow-[0_0_40px_rgba(251,191,36,0.35)] transition-all duration-300 hover:bg-amber-200 hover:shadow-[0_0_60px_rgba(251,191,36,0.5)] hover:scale-[1.03] text-center whitespace-nowrap"
-            >
-              <span className="relative z-10">{content.buttonLabel}</span>
-              <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
-            </Link>
+          <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-[34rem]">
+              <h2
+                className="text-[clamp(1.9rem,3.4vw+0.5rem,2.8rem)] font-bold leading-[1.08] text-white"
+                style={{ fontFamily: "'Sora', sans-serif" }}
+              >
+                Ingin Project Anda Menjadi <span className="text-[#f6c445]">Portfolio Berikutnya?</span>
+              </h2>
+              <p className="mt-4 text-base leading-8 text-[#c7d4f5]">
+                {content.description}
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                {['Strategi yang terukur', 'Tampilan lebih meyakinkan', 'Implementasi rapi dan scalable'].map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-sm font-medium text-blue-50/84"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                to={content.buttonHref}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f6c445] px-7 py-4 text-[0.92rem] font-bold text-[#081a45] shadow-[0_16px_30px_-16px_rgba(246,196,69,0.7)] transition hover:-translate-y-0.5 hover:bg-[#ffd866]"
+              >
+                {content.buttonLabel}
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </Link>
+
+              <Link
+                to="/portfolio"
+                className="inline-flex items-center justify-center rounded-full border border-white/16 bg-white/[0.06] px-7 py-4 text-[0.92rem] font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/[0.12]"
+              >
+                Lihat Portfolio Lain
+              </Link>
+            </div>
           </div>
         </div>
       </div>

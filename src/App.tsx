@@ -28,6 +28,9 @@ const ContactPage = lazy(() =>
 const BlogPage = lazy(() =>
   import('./pages/BlogPage').then((m) => ({ default: m.BlogPage })),
 )
+const BlogDetailPage = lazy(() =>
+  import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage })),
+)
 
 // Loading fallback – minimal, tidak ada spinner mencolok
 function PageFallback() {
@@ -52,6 +55,7 @@ export default function App() {
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/portfolio/:slug" element={<PortfolioDetailPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

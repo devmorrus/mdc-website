@@ -1,9 +1,10 @@
 import { PortfolioClosingCtaSection } from '../components/portfolio/PortfolioClosingCtaSection'
-import { PortfolioGridSection } from '../components/portfolio/PortfolioGridSection'
 import { PortfolioHeroSection } from '../components/portfolio/PortfolioHeroSection'
+import { PortfolioPreviewSection } from '../components/home/PortfolioPreviewSection'
 import { usePageMetadata } from '../hooks/usePageMetadata'
 import { usePortfolioContent } from '../hooks/usePortfolioContent'
 import { SiteLayout } from '../layouts/SiteLayout'
+import type { PortfolioItem } from '../types/home'
 
 export function PortfolioPage() {
   const { data, isLoading, error } = usePortfolioContent()
@@ -34,6 +35,17 @@ export function PortfolioPage() {
     )
   }
 
+  const portfolioPreviewItems: PortfolioItem[] = data.projects.map((project) => ({
+    id: project.id,
+    name: project.name,
+    category: project.category,
+    summary: project.summary,
+    outcome: project.outcome,
+    href: `/portfolio/${project.slug}`,
+    imageUrl: project.gallery[0]?.src ?? '',
+    imageAlt: project.gallery[0]?.alt ?? project.name,
+  }))
+
   return (
     <SiteLayout
       navItems={data.navItems}
@@ -42,7 +54,7 @@ export function PortfolioPage() {
       headerVariant="hero"
     >
       <PortfolioHeroSection content={data.hero} />
-      <PortfolioGridSection items={data.projects} />
+      <PortfolioPreviewSection items={portfolioPreviewItems} />
       <PortfolioClosingCtaSection content={data.closingCta} />
     </SiteLayout>
   )
