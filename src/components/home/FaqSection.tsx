@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRef } from 'react'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
+import { useFaqContent } from '../../hooks/useFaqContent'
 
 interface FaqItem {
   id: string
@@ -36,12 +37,20 @@ const FAQ_ITEMS: FaqItem[] = [
 ]
 
 export function FaqSection() {
-  const [openItemId, setOpenItemId] = useState<string>(FAQ_ITEMS[0]?.id ?? '')
+  const { data, isLoading, error } = useFaqContent()
+  const items = !isLoading && !error && data.length > 0 ? data : FAQ_ITEMS
+  const [openItemId, setOpenItemId] = useState<string>(items[0]?.id ?? '')
   const itemsRef = useRef<HTMLElement[]>([])
   const sectionRef = useGsapReveal<HTMLElement>({
     targets: () => itemsRef.current,
     to: { stagger: 0.08 },
   })
+
+  useEffect(() => {
+    if (!items.some((item) => item.id === openItemId)) {
+      setOpenItemId(items[0]?.id ?? '')
+    }
+  }, [items, openItemId])
 
   return (
     <section
@@ -68,7 +77,7 @@ export function FaqSection() {
         </div>
 
         <div className="space-y-4 lg:col-span-7 lg:col-start-6">
-          {FAQ_ITEMS.map((item, index) => {
+          {items.map((item, index) => {
             const isOpen = item.id === openItemId
             const panelId = `faq-panel-${item.id}`
             const buttonId = `faq-button-${item.id}`

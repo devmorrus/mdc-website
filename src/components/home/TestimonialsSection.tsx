@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
+import { useTestimonialsContent } from '../../hooks/useTestimonialsContent'
 import type { TestimonialItem } from '../../types/home'
 
 interface TestimonialsSectionProps {
@@ -15,20 +16,42 @@ function getInitials(name: string) {
     .toUpperCase()
 }
 
+function mapApiTestimonialsToViewModel(items: Array<{
+  id: string
+  name: string
+  role: string
+  company: string
+  quote: string
+}>) {
+  return items.map((item) => ({
+    id: item.id,
+    headline: item.company,
+    name: item.name,
+    role: item.role,
+    company: item.company,
+    quote: item.quote,
+  }))
+}
+
 export function TestimonialsSection({ items }: TestimonialsSectionProps) {
+  const { data, isLoading, error } = useTestimonialsContent()
+  const resolvedItems =
+    !isLoading && !error && data.length > 0
+      ? mapApiTestimonialsToViewModel(data)
+      : items
   const cardsRef = useRef<HTMLElement[]>([])
   const sectionRef = useGsapReveal<HTMLElement>({
     targets: () => cardsRef.current,
     to: { stagger: 0.08 },
   })
-  const leftColumnItems = items.filter((_, index) => index % 2 === 0)
-  const rightColumnItems = items.filter((_, index) => index % 2 === 1)
+  const leftColumnItems = resolvedItems.filter((_, index) => index % 2 === 0)
+  const rightColumnItems = resolvedItems.filter((_, index) => index % 2 === 1)
 
   const renderCard = (item: TestimonialItem, index: number, key: string) => (
     <article
       key={key}
       ref={(element) => {
-        if (element && index < items.length) {
+        if (element && index < resolvedItems.length) {
           cardsRef.current[index] = element
         }
       }}
@@ -80,7 +103,7 @@ export function TestimonialsSection({ items }: TestimonialsSectionProps) {
 
         <div className="w-full lg:w-[56%]">
           <div className="grid gap-6 lg:hidden">
-            {items.map((item, index) => renderCard(item, index, item.id))}
+            {resolvedItems.map((item, index) => renderCard(item, index, item.id))}
           </div>
 
           <div className="hidden lg:grid lg:grid-cols-2 lg:gap-6">
