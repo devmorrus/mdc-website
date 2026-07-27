@@ -6,6 +6,8 @@ import { SectionHeading } from './SectionHeading'
 
 interface ArticlesSectionProps {
   items: ArticleItem[]
+  limit?: number
+  showSeeAll?: boolean
 }
 
 const ARTICLE_SUMMARY_MAX_LENGTH = 100
@@ -22,12 +24,18 @@ function isArticleSummaryTruncated(summary: string) {
   return summary.length > ARTICLE_SUMMARY_MAX_LENGTH
 }
 
-export function ArticlesSection({ items }: ArticlesSectionProps) {
+export function ArticlesSection({
+  items,
+  limit,
+  showSeeAll = false,
+}: ArticlesSectionProps) {
   const cardsRef = useRef<HTMLElement[]>([])
   const sectionRef = useGsapReveal<HTMLElement>({
     targets: () => cardsRef.current,
     to: { stagger: 0.08 },
   })
+  const visibleItems = typeof limit === 'number' ? items.slice(0, limit) : items
+  const shouldShowSeeAll = showSeeAll && items.length > (limit ?? items.length)
 
   return (
     <section
@@ -45,7 +53,7 @@ export function ArticlesSection({ items }: ArticlesSectionProps) {
         />
 
         <div className="mt-10 grid gap-4 lg:grid-cols-3">
-          {items.map((item, index) => {
+          {visibleItems.map((item, index) => {
             const summaryIsTruncated = isArticleSummaryTruncated(item.summary)
 
             return (
@@ -123,6 +131,20 @@ export function ArticlesSection({ items }: ArticlesSectionProps) {
             )
           })}
         </div>
+
+        {shouldShowSeeAll ? (
+          <div className="mt-10 flex justify-center">
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-2 rounded-full border border-[#0f2f78]/14 bg-white px-5 py-3 text-sm font-semibold text-[#0f2f78] shadow-[0_16px_34px_-28px_rgba(11,31,87,0.24)] transition hover:-translate-y-0.5 hover:border-[#184aa8]/24 hover:text-[#184aa8]"
+            >
+              See All
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </Link>
+          </div>
+        ) : null}
       </div>
     </section>
   )

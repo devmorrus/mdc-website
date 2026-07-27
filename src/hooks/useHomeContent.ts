@@ -11,7 +11,7 @@ interface UseHomeContentResult {
 }
 
 export function useHomeContent(): UseHomeContentResult {
-  const isApiMode = import.meta.env.VITE_HOME_CONTENT_MODE === 'api'
+  const isApiMode = import.meta.env.VITE_HOME_CONTENT_MODE !== 'static'
   const service = useMemo(() => createHomeContentService(), [])
   const [data, setData] = useState<HomeContent | null>(isApiMode ? null : HOME_STATIC_CONTENT)
   const [isLoading, setIsLoading] = useState(isApiMode)
@@ -34,7 +34,8 @@ export function useHomeContent(): UseHomeContentResult {
         }
       } catch (err) {
         if (isMounted) {
-          setError(err instanceof Error ? err.message : 'Failed to load home content.')
+          setData(HOME_STATIC_CONTENT)
+          setError(null)
         }
       } finally {
         if (isMounted) {

@@ -29,7 +29,9 @@ export function HomePageContent({ model }: HomePageContentProps) {
       <AdvantagesSection items={model.advantages} />
       <PortfolioPreviewSection items={model.portfolio} />
       <TestimonialsSection items={model.testimonials} />
-      {model.articles.length > 0 ? <ArticlesSection items={model.articles} /> : null}
+      {model.articles.length > 0 ? (
+        <ArticlesSection items={model.articles} limit={3} showSeeAll />
+      ) : null}
       <FaqSection />
       <ContactCtaSection
         content={model.contactCta}
