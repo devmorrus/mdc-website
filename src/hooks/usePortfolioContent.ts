@@ -11,7 +11,7 @@ interface UsePortfolioContentResult {
 }
 
 export function usePortfolioContent(): UsePortfolioContentResult {
-  const isApiMode = import.meta.env.VITE_PORTFOLIO_CONTENT_MODE === 'api'
+  const isApiMode = import.meta.env.VITE_PORTFOLIO_CONTENT_MODE !== 'static'
   const service = useMemo(() => createPortfolioContentService(), [])
   const [data, setData] = useState<PortfolioContent | null>(isApiMode ? null : PORTFOLIO_STATIC_CONTENT)
   const [isLoading, setIsLoading] = useState(isApiMode)
@@ -34,7 +34,8 @@ export function usePortfolioContent(): UsePortfolioContentResult {
         }
       } catch (err) {
         if (isMounted) {
-          setError(err instanceof Error ? err.message : 'Failed to load portfolio content.')
+          setData(PORTFOLIO_STATIC_CONTENT)
+          setError(null)
         }
       } finally {
         if (isMounted) {

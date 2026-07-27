@@ -41,7 +41,7 @@ export function ServicesPage() {
       footer={data.footer}
       headerVariant="hero"
     >
-      <ServicesHeroSection content={data.hero} />
+      <ServicesHeroSection content={data.hero} serviceCount={data.services.length} />
       <ServicesListSection services={data.services} />
       <ServicesClosingCtaSection content={data.closingCta} />
     </SiteLayout>

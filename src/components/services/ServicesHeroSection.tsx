@@ -7,11 +7,12 @@ import type { ServicesHeroContent } from '../../types/services'
 
 interface ServicesHeroSectionProps {
   content: ServicesHeroContent
+  serviceCount: number
 }
 
 const SERVICE_PILLS = ['Company Profile', 'Custom App', 'Dashboard', 'Maintenance']
 
-export function ServicesHeroSection({ content }: ServicesHeroSectionProps) {
+export function ServicesHeroSection({ content, serviceCount }: ServicesHeroSectionProps) {
   const scopeRef = useRef<HTMLDivElement>(null)
   const backgroundCanvasRef = useHeroThreeCanvas()
   const globeCanvasRef = usePlexusGlobe()
@@ -141,7 +142,7 @@ export function ServicesHeroSection({ content }: ServicesHeroSectionProps) {
               <div className="absolute right-2 top-6 rounded-2xl border border-blue-200/12 bg-[#0b1f57]/82 px-5 py-4 shadow-[0_20px_50px_-24px_rgba(11,31,87,0.65)] backdrop-blur-md">
                 <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-blue-300/65">Layanan Utama</p>
                 <p className="mt-1 text-3xl font-extrabold text-[#facc15]" style={{ fontFamily: "'Sora', sans-serif" }}>
-                  4
+                  {serviceCount}
                 </p>
               </div>
 

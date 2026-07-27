@@ -1,6 +1,7 @@
 import { useRef, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useGsapReveal } from '../../hooks/useGsapReveal'
+import { usePublicServicesHomeItems } from '../../hooks/usePublicServicesHomeItems'
 import type { ServiceItem } from '../../types/home'
 
 interface ServicesSectionProps {
@@ -193,6 +194,7 @@ function ServiceCard({
 }
 
 export function ServicesSection({ items }: ServicesSectionProps) {
+  const { data: resolvedItems } = usePublicServicesHomeItems(items)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const sectionRef = useGsapReveal<HTMLElement>({
@@ -201,7 +203,7 @@ export function ServicesSection({ items }: ServicesSectionProps) {
     to: { stagger: 0.12, duration: 0.8 },
   })
 
-  const cards = [...items]
+  const cards = [...resolvedItems]
     .map((item, index) => ({ item, index }))
     .sort((a, b) => getDisplayPriority(a.item, a.index) - getDisplayPriority(b.item, b.index))
     .map(({ item }, index) => ({ item, index }))
