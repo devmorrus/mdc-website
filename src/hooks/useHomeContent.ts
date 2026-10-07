@@ -32,7 +32,7 @@ export function useHomeContent(): UseHomeContentResult {
           setData(content)
           setError(null)
         }
-      } catch (err) {
+      } catch {
         if (isMounted) {
           setData(HOME_STATIC_CONTENT)
           setError(null)
