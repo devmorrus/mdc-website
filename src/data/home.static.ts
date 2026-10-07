@@ -7,6 +7,7 @@ import type { HomeContent } from '../types/home'
 export const HOME_STATIC_CONTENT: HomeContent = {
   navItems: [
     { id: 'about', label: 'Tentang', href: '/about' },
+    { id: 'ecosystem', label: 'Ekosistem', href: '/#ecosystem' },
     { id: 'services', label: 'Layanan', href: '/services' },
     { id: 'portfolio', label: 'Portofolio', href: '/portfolio' },
     { id: 'blog', label: 'Blog', href: '/blog' },
@@ -14,17 +15,17 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   ],
   headerCtaLabel: 'Konsultasi Sekarang',
   headerCtaHref:
-    'https://wa.me/6281229999752?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20pembuatan%20website.',
+    'https://wa.me/6281229999752?text=Halo%20Morrus%20Digital%20Connecting%2C%20saya%20ingin%20konsultasi%20solusi%20digital%20untuk%20bisnis%20saya.',
   hero: {
-    eyebrow: 'Website untuk Bisnis yang Ingin Naik Kelas',
-    title: 'Website Profesional yang Lebih Meyakinkan.',
+    eyebrow: 'Ekosistem Digital untuk Bisnis dan Talenta',
+    title: 'Solusi Digital yang Membantu Bisnis Tumbuh.',
     description:
-      'Kami bantu bisnis tampil lebih rapi, lebih cepat dipercaya, dan lebih siap mendatangkan klien.',
+      'Morrus Digital Connecting menghadirkan layanan pengembangan digital, pelatihan Academy, dan Morrus POS untuk membantu bisnis tampil, belajar, dan beroperasi lebih rapi.',
     primaryCtaLabel: 'Konsultasi Gratis',
     primaryCtaHref: '/#contact',
-    secondaryCtaLabel: 'Lihat Layanan',
-    secondaryCtaHref: '/#services',
-    trustPoints: [],
+    secondaryCtaLabel: 'Lihat Ekosistem',
+    secondaryCtaHref: '/#ecosystem',
+    trustPoints: ['Digital Solutions', 'Morrus Academy', 'Morrus POS'],
   },
   stats: [
     {
@@ -50,15 +51,15 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   ],
   about: {
     eyebrow: 'Tentang Perusahaan',
-    title: 'Partner Digital untuk Bisnis yang Ingin Naik Kelas.',
+    title: 'Partner Digital untuk Bisnis yang Ingin Tumbuh Lebih Terarah.',
     summary:
-      'Kami membantu bisnis tampil lebih profesional, lebih dipercaya, dan lebih siap bersaing di ranah digital.',
+      'Kami membantu bisnis membangun kehadiran digital, meningkatkan kemampuan tim, dan menata operasional lewat solusi yang saling terhubung.',
     description:
-      'Dari strategi, desain, hingga pengembangan, kami membangun website dan platform yang tidak hanya enak dilihat, tetapi juga membantu bisnis bergerak lebih percaya diri.',
+      'Dari strategi, desain, pengembangan sistem, pelatihan, hingga produk operasional, Morrus Digital Connecting dirancang sebagai ekosistem yang membantu bisnis bergerak lebih percaya diri.',
     valuePoints: [
-      'Struktur konten company profile yang rapi dan mudah dipahami.',
-      'Desain modern yang tetap formal, profesional, dan konsisten dengan brand.',
-      'Teknologi frontend yang ringan, responsif, dan siap dikembangkan ke tahap berikutnya.',
+      'Digital Solutions untuk website, aplikasi, dan sistem bisnis custom.',
+      'Morrus Academy untuk pelatihan sertifikasi dan bootcamp online.',
+      'Morrus POS untuk operasional transaksi dan laporan bisnis yang lebih tertata.',
     ],
     buttonLabel: 'Pelajari Profil Perusahaan',
     buttonHref: '/about',
@@ -86,6 +87,47 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       },
     ],
   },
+  ecosystem: [
+    {
+      id: 'digital-solutions',
+      label: 'Morrus Digital Solutions',
+      title: 'Website, aplikasi, dan sistem bisnis custom.',
+      description:
+        'Untuk bisnis yang butuh tampil lebih kredibel, punya sistem kerja lebih rapi, atau membangun platform digital sesuai kebutuhan.',
+      points: ['Company profile dan landing page', 'Website dan aplikasi custom', 'Dashboard dan sistem internal'],
+      ctaLabel: 'Diskusikan Project',
+      whatsappMessage:
+        'Halo Morrus Digital Connecting, saya ingin konsultasi layanan Digital Solutions untuk website, aplikasi, atau sistem bisnis.',
+      href: '/#services',
+      tone: 'blue',
+    },
+    {
+      id: 'academy',
+      label: 'Morrus Academy',
+      title: 'Pelatihan sertifikasi dan bootcamp online.',
+      description:
+        'Untuk individu, tim, atau bisnis yang ingin meningkatkan skill digital lewat kelas terarah, praktis, dan siap diterapkan.',
+      points: ['Pelatihan sertifikasi', 'Bootcamp online', 'Program upskilling tim'],
+      ctaLabel: 'Tanya Program Academy',
+      whatsappMessage:
+        'Halo Morrus Digital Connecting, saya ingin bertanya tentang Morrus Academy, pelatihan sertifikasi, dan bootcamp online.',
+      href: '/#contact',
+      tone: 'gold',
+    },
+    {
+      id: 'pos',
+      label: 'Morrus POS',
+      title: 'Sistem kasir untuk operasional bisnis yang lebih tertata.',
+      description:
+        'Untuk usaha retail, kuliner, dan layanan yang membutuhkan pencatatan transaksi, produk, laporan, dan aktivitas kasir dalam satu sistem.',
+      points: ['Kasir dan transaksi harian', 'Manajemen produk', 'Laporan penjualan'],
+      ctaLabel: 'Konsultasi Morrus POS',
+      whatsappMessage:
+        'Halo Morrus Digital Connecting, saya ingin konsultasi tentang Morrus POS untuk kebutuhan bisnis saya.',
+      href: '/#contact',
+      tone: 'green',
+    },
+  ],
   services: [
     {
       id: 'company-profile',
@@ -509,18 +551,18 @@ export const HOME_STATIC_CONTENT: HomeContent = {
   ],
   contactCta: {
     eyebrow: 'Siap Memulai?',
-    title: 'Bangun solusi digital yang rapi, modern, dan meyakinkan.',
+    title: 'Pilih jalur solusi Morrus yang paling dekat dengan kebutuhan Anda.',
     description:
-      'Ceritakan tantangan bisnis Anda, lalu tim kami akan merekomendasikan strategi dan pengembangan platform yang selaras dengan tujuan pertumbuhan perusahaan Anda.',
+      'Ceritakan apakah kebutuhan Anda ada di website dan sistem, pelatihan Academy, atau Morrus POS. Tim kami akan membantu mengarahkan langkah awal yang paling masuk akal.',
     primaryCtaLabel: 'Hubungi Tim Kami',
     primaryCtaHref: '/contact',
     secondaryCtaLabel: 'Widget WhatsApp',
     secondaryCtaHref: '#whatsapp',
-    bulletPoints: ['Diskusi kebutuhan awal', 'Estimasi dan scope jelas', 'Desain responsif modern'],
+    bulletPoints: ['Digital Solutions', 'Morrus Academy', 'Morrus POS'],
   },
   footer: {
     companyName: 'Morrus Digital Connecting',
-    shortDescription: 'Partner digital untuk website company profile, aplikasi web, dan sistem bisnis yang modern.',
+    shortDescription: 'Ekosistem digital untuk website, aplikasi bisnis, pelatihan, bootcamp online, dan Morrus POS.',
     quickLinks: [
       { label: 'Tentang', href: '/about' },
       { label: 'Layanan', href: '/services' },
@@ -537,5 +579,5 @@ export const HOME_STATIC_CONTENT: HomeContent = {
       'https://www.google.com/maps?q=Jl.%20Klakahrejo%20No.6-7%2C%20Kandangan%2C%20Benowo%2C%20Surabaya%2C%20Jawa%20Timur%2060198&z=15&output=embed',
   },
   whatsappNumber: '6281229999752',
-  whatsappMessage: 'Halo Morrus Digital Connecting, saya ingin konsultasi pembuatan website company profile.',
+  whatsappMessage: 'Halo Morrus Digital Connecting, saya ingin konsultasi solusi digital untuk kebutuhan bisnis saya.',
 }

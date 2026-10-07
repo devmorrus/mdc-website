@@ -37,6 +37,18 @@ export interface AboutSnippetContent {
   }[]
 }
 
+export interface EcosystemItem {
+  id: string
+  label: string
+  title: string
+  description: string
+  points: string[]
+  ctaLabel: string
+  whatsappMessage: string
+  href: string
+  tone: 'blue' | 'gold' | 'green'
+}
+
 export interface ServiceItem {
   id: string
   tier: string
@@ -153,6 +165,7 @@ export interface HomeContent {
   hero: HeroContent
   stats: StatItem[]
   about: AboutSnippetContent
+  ecosystem: EcosystemItem[]
   services: ServiceItem[]
   advantages: AdvantageItem[]
   portfolio: PortfolioItem[]

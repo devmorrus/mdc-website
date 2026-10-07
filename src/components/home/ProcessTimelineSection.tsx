@@ -182,7 +182,7 @@ export function ProcessTimelineSection() {
                   ) : null}
 
                   <div
-                    className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 border-white text-white shadow-[0_18px_40px_-20px_rgba(15,23,42,0.42)] transition duration-300 group-hover:-translate-y-1 group-hover:scale-110 ${step.colorClass}`}
+                    className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 border-white text-white shadow-[0_18px_40px_-20px_rgba(15,23,42,0.42)] transition duration-[420ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:-translate-y-px group-hover:scale-[1.02] ${step.colorClass}`}
                   >
                     {step.icon}
                   </div>

@@ -55,7 +55,7 @@ export function TestimonialsSection({ items }: TestimonialsSectionProps) {
           cardsRef.current[index] = element
         }
       }}
-      className="break-inside-avoid rounded-[2rem] bg-white p-8 text-center shadow-[0_18px_50px_-32px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 md:text-left"
+      className="break-inside-avoid rounded-[2rem] bg-white p-8 text-center shadow-[0_18px_50px_-32px_rgba(0,0,0,0.28)] transition duration-[420ms] ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-px md:text-left"
     >
       <h3
         className="text-[1.9rem] font-bold leading-tight text-[#1a2b4c]"
@@ -108,7 +108,7 @@ export function TestimonialsSection({ items }: TestimonialsSectionProps) {
 
           <div className="hidden lg:grid lg:grid-cols-2 lg:gap-6">
             <div className="testimonial-marquee-shell h-[40rem] overflow-hidden xl:h-[42rem]">
-              <div className="flex flex-col gap-6 animate-[testimonialsUp_18s_linear_infinite] will-change-transform">
+              <div className="testimonials-marquee testimonials-marquee--up flex flex-col gap-6 will-change-transform">
                 {[...leftColumnItems, ...leftColumnItems].map((item, index) =>
                   renderCard(item, index, `${item.id}-left-${index}`),
                 )}
@@ -116,7 +116,7 @@ export function TestimonialsSection({ items }: TestimonialsSectionProps) {
             </div>
 
             <div className="testimonial-marquee-shell h-[40rem] overflow-hidden pt-8 xl:h-[42rem]">
-              <div className="flex flex-col gap-6 animate-[testimonialsDown_20s_linear_infinite] will-change-transform">
+              <div className="testimonials-marquee testimonials-marquee--down flex flex-col gap-6 will-change-transform">
                 {[...rightColumnItems, ...rightColumnItems].map((item, index) =>
                   renderCard(item, index, `${item.id}-right-${index}`),
                 )}

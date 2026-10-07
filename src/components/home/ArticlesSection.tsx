@@ -64,14 +64,14 @@ export function ArticlesSection({
                     cardsRef.current[index] = element
                   }
                 }}
-                className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-[0_18px_50px_-38px_rgba(11,31,87,0.16)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-36px_rgba(11,31,87,0.22)]"
+                className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-[0_18px_50px_-38px_rgba(11,31,87,0.16)] transition duration-[480ms] ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-px hover:shadow-[0_20px_42px_-34px_rgba(11,31,87,0.17)]"
               >
                 <div className="relative h-56 overflow-hidden bg-[#dfe9ff]">
                   <img
                     src={item.imageUrl}
                     alt={item.imageAlt}
                     loading="lazy"
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                    className="h-full w-full object-cover transition duration-[620ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-[1.012]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0b1f57]/54 via-[#0b1f57]/10 to-transparent" />
                   <div className="absolute left-5 top-5">
@@ -100,7 +100,7 @@ export function ArticlesSection({
                       </p>
 
                       {summaryIsTruncated ? (
-                        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-white opacity-0 transition duration-200 group-hover/summary:opacity-100">
+                        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-white opacity-0 transition duration-[240ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover/summary:opacity-100">
                           <p className="text-sm leading-7 text-slate-600">
                             {item.summary}
                           </p>
@@ -136,7 +136,7 @@ export function ArticlesSection({
           <div className="mt-10 flex justify-center">
             <Link
               to="/blog"
-              className="inline-flex items-center gap-2 rounded-full border border-[#0f2f78]/14 bg-white px-5 py-3 text-sm font-semibold text-[#0f2f78] shadow-[0_16px_34px_-28px_rgba(11,31,87,0.24)] transition hover:-translate-y-0.5 hover:border-[#184aa8]/24 hover:text-[#184aa8]"
+              className="inline-flex items-center gap-2 rounded-full border border-[#0f2f78]/14 bg-white px-5 py-3 text-sm font-semibold text-[#0f2f78] shadow-[0_16px_34px_-28px_rgba(11,31,87,0.24)] transition-all duration-[420ms] ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-px hover:border-[#184aa8]/22 hover:text-[#184aa8]"
             >
               See All
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>

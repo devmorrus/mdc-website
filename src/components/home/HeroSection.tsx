@@ -15,7 +15,7 @@ interface HeroActionLinkProps {
   children: ReactNode
 }
 
-const HERO_TYPEWRITER_WORDS = ['Dipercaya.', 'Cepat.', 'Skalabel.', 'Siap Tumbuh.']
+const HERO_TYPEWRITER_WORDS = ['Terhubung.', 'Terlatih.', 'Terkelola.', 'Siap Tumbuh.']
 
 function isExternalHref(href: string) {
   return href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')
@@ -81,18 +81,21 @@ export function HeroSection({ content }: HeroSectionProps) {
     if (!isDeleting && typedWord === currentWord) {
       timeoutId = window.setTimeout(() => {
         setIsDeleting(true)
-      }, 1800)
+      }, 2350)
     } else if (isDeleting && typedWord === '') {
       timeoutId = window.setTimeout(() => {
         setIsDeleting(false)
         setActiveWordIndex((idx) => (idx + 1) % HERO_TYPEWRITER_WORDS.length)
-      }, 350)
+      }, 320)
     } else {
+      const typingDelay = Math.max(82, 112 - currentWord.length * 2)
+      const deletingDelay = 52
+
       timeoutId = window.setTimeout(() => {
         setTypedWord((val) =>
           isDeleting ? val.slice(0, -1) : currentWord.slice(0, val.length + 1),
         )
-      }, isDeleting ? 42 : 78)
+      }, isDeleting ? deletingDelay : typingDelay)
     }
 
     return () => window.clearTimeout(timeoutId)
@@ -103,7 +106,7 @@ export function HeroSection({ content }: HeroSectionProps) {
     if (!prefersReducedMotion && typedWord === '') {
       const t = window.setTimeout(() => {
         setTypedWord(HERO_TYPEWRITER_WORDS[0][0])
-      }, 900)
+      }, 880)
       return () => window.clearTimeout(t)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -185,7 +188,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                   <span className="text-white/90">Lebih </span>
                   <span className="whitespace-nowrap text-[#facc15]">
                     {displayedWord}
-                    <span className="ml-1 inline-block h-[0.88em] w-[3px] align-[-0.06em] animate-pulse rounded-full bg-[#facc15]" />
+                    <span className="hero-type-caret ml-1 inline-block h-[0.88em] w-[3px] align-[-0.06em] rounded-full bg-[#facc15]" />
                   </span>
                 </span>
               </h1>
@@ -206,10 +209,10 @@ export function HeroSection({ content }: HeroSectionProps) {
                 {/* Primary CTA — Gold */}
                 <HeroActionLink
                   href={content.secondaryCtaHref}
-                  className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-[#facc15] px-8 py-3.5 text-sm font-bold text-[#0b1f57] shadow-[0_0_32px_rgba(250,204,21,0.28)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#fde047] hover:shadow-[0_0_48px_rgba(250,204,21,0.42)] w-full sm:w-auto"
+                  className="group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-full bg-[#facc15] px-8 py-3.5 text-sm font-bold text-[#0b1f57] shadow-[0_0_32px_rgba(250,204,21,0.28)] transition-all duration-[480ms] ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-px hover:bg-[#fde047] hover:shadow-[0_0_36px_rgba(250,204,21,0.3)] sm:w-auto"
                 >
                   {/* Sheen sweep on hover */}
-                  <span className="absolute inset-0 -translate-x-full skew-x-[-18deg] bg-white/20 transition-transform duration-500 group-hover:translate-x-[120%]" />
+                  <span className="absolute inset-0 -translate-x-full skew-x-[-18deg] bg-white/15 transition-transform duration-[960ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:translate-x-[120%]" />
                   <TerminalIcon className="relative h-4.5 w-4.5" />
                   <span className="relative">{content.secondaryCtaLabel}</span>
                 </HeroActionLink>
@@ -217,7 +220,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                 {/* Secondary CTA — Glass */}
                 <HeroActionLink
                   href={content.primaryCtaHref}
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/18 bg-white/[0.07] px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.13] w-full sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2.5 rounded-full border border-white/18 bg-white/[0.07] px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-[480ms] ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-px hover:border-white/22 hover:bg-white/[0.09] sm:w-auto"
                 >
                   <MessageCircleIcon className="h-4.5 w-4.5" />
                   {content.primaryCtaLabel}

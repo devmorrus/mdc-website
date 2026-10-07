@@ -17,13 +17,23 @@ export function useHomeHeroAnimation({ scope }: UseHomeHeroAnimationParams): voi
     if (tweenTargets.length === 0) return
 
     const context = gsap.context(() => {
-      gsap.from(tweenTargets, {
-        y: 26,
-        opacity: 0,
-        duration: 0.72,
-        ease: 'power3.out',
-        stagger: 0.11,
-        delay: 0.15,
+      gsap.set(tweenTargets, {
+        y: 18,
+        autoAlpha: 0,
+        scale: 0.996,
+        force3D: true,
+        willChange: 'transform, opacity',
+      })
+
+      gsap.to(tweenTargets, {
+        y: 0,
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.92,
+        ease: 'power2.out',
+        stagger: 0.095,
+        delay: 0.08,
+        clearProps: 'transform,opacity,visibility,willChange',
       })
     }, scope)
 

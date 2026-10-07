@@ -80,22 +80,22 @@ export function AdvantagesSection({ items }: AdvantagesSectionProps) {
                     }
                   }}
                   style={accentStyle}
-                  className="group relative flex min-h-[252px] flex-col items-center overflow-hidden rounded-[1.8rem] border border-slate-100 bg-white px-6 py-7 text-center shadow-[0_18px_50px_-38px_rgba(15,23,42,0.16)] transition duration-500 hover:-translate-y-2 hover:border-[#1a2b4c] hover:bg-[#1a2b4c] hover:shadow-[0_30px_70px_-40px_rgba(26,43,76,0.55)] md:min-h-[264px] md:px-7 md:py-8"
+                  className="group relative flex min-h-[252px] flex-col items-center overflow-hidden rounded-[1.8rem] border border-slate-100 bg-white px-6 py-7 text-center shadow-[0_18px_50px_-38px_rgba(15,23,42,0.16)] transition duration-[520ms] ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-[2px] hover:border-[#1a2b4c] hover:bg-[#1a2b4c] hover:shadow-[0_22px_44px_-32px_rgba(26,43,76,0.36)] md:min-h-[264px] md:px-7 md:py-8"
                 >
-                  <div className="absolute inset-x-8 top-0 h-1 rounded-b-full bg-[var(--advantage-icon-color)] opacity-90 transition duration-500 group-hover:opacity-100" />
+                  <div className="absolute inset-x-8 top-0 h-1 rounded-b-full bg-[var(--advantage-icon-color)] opacity-90 transition duration-[460ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:opacity-100" />
 
-                  <div className="flex h-16 w-16 items-center justify-center rounded-[1.15rem] border border-white/70 bg-[var(--advantage-icon-bg)] text-[var(--advantage-icon-color)] shadow-[inset_0_1px_0_rgba(255,255,255,0.42)] transition duration-500 group-hover:bg-[var(--advantage-icon-hover-bg)] group-hover:text-[var(--advantage-icon-color)]">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-[1.15rem] border border-white/70 bg-[var(--advantage-icon-bg)] text-[var(--advantage-icon-color)] shadow-[inset_0_1px_0_rgba(255,255,255,0.42)] transition duration-[460ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:bg-[var(--advantage-icon-hover-bg)] group-hover:text-[var(--advantage-icon-color)]">
                     {icon}
                   </div>
 
                   <h3
-                    className="mt-5 text-[1.55rem] font-bold leading-tight text-[#1a2b4c] transition duration-500 group-hover:text-white md:text-[1.68rem]"
+                    className="mt-5 text-[1.55rem] font-bold leading-tight text-[#1a2b4c] transition duration-[460ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:text-white md:text-[1.68rem]"
                     style={{ fontFamily: "'Sora', sans-serif" }}
                   >
                     {item.title}
                   </h3>
 
-                  <p className="mt-3 max-w-[15.5rem] text-[0.94rem] leading-6 text-slate-500 transition duration-500 group-hover:text-blue-100/80">
+                  <p className="mt-3 max-w-[15.5rem] text-[0.94rem] leading-6 text-slate-500 transition duration-[460ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:text-blue-100/80">
                     {item.description}
                   </p>
                 </article>

@@ -12,6 +12,8 @@
 	--mdc-yellow: #f6c445;
 	--mdc-yellow-soft: #fff2bf;
 	--mdc-surface: #f4f8ff;
+	--motion-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+	--motion-elegant: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 html {
@@ -149,19 +151,19 @@ h3 {
 
 @keyframes testimonialsUp {
 	0% {
-		transform: translateY(0);
+		transform: translate3d(0, 0, 0);
 	}
 	100% {
-		transform: translateY(calc(-50% - 12px));
+		transform: translate3d(0, calc(-50% - 12px), 0);
 	}
 }
 
 @keyframes testimonialsDown {
 	0% {
-		transform: translateY(calc(-50% - 12px));
+		transform: translate3d(0, calc(-50% - 12px), 0);
 	}
 	100% {
-		transform: translateY(0);
+		transform: translate3d(0, 0, 0);
 	}
 }
 
@@ -185,6 +187,15 @@ h3 {
 	}
 }
 
+@keyframes heroCaretBlink {
+	0%, 18% {
+		opacity: 1;
+	}
+	52%, 100% {
+		opacity: 0.18;
+	}
+}
+
 @keyframes heroCanvasFadeIn {
 	0% { opacity: 0; }
 	100% { opacity: 0.9; }
@@ -194,13 +205,13 @@ h3 {
 	opacity: 0.92;
 	filter: saturate(0.98);
 	transform: translate3d(0, 0, 0);
-	transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+	transition: transform 0.44s var(--motion-elegant), opacity 0.44s var(--motion-elegant), filter 0.44s var(--motion-elegant);
 }
 
 .partner-logo:hover {
 	opacity: 1;
-	filter: saturate(1.04);
-	transform: translate3d(0, -3px, 0) scale(1.02);
+	filter: saturate(1.02);
+	transform: translate3d(0, -1px, 0) scale(1.008);
 }
 
 .partners-marquee-shell {
@@ -209,7 +220,9 @@ h3 {
 }
 
 .partners-marquee {
-	animation: partnersMarquee 26s linear infinite;
+	animation: partnersMarquee 44s linear infinite;
+	backface-visibility: hidden;
+	transform: translateZ(0);
 	will-change: transform;
 }
 
@@ -218,15 +231,41 @@ h3 {
 }
 
 .hero-scroll-bounce {
-	animation: heroScrollBounce 2s ease-in-out infinite;
+	animation: heroScrollBounce 2.8s var(--motion-elegant) infinite;
 }
 
 .hero-scroll-indicator {
-	transition: opacity 0.3s ease;
+	transition: opacity 0.42s var(--motion-elegant);
 }
 
 .hero-scroll-indicator:hover {
 	opacity: 0.7;
+}
+
+.hero-type-caret {
+	animation: heroCaretBlink 1.32s var(--motion-elegant) infinite;
+}
+
+.testimonial-marquee-shell {
+	-webkit-mask-image: linear-gradient(180deg, transparent, black 8%, black 92%, transparent);
+	mask-image: linear-gradient(180deg, transparent, black 8%, black 92%, transparent);
+}
+
+.testimonial-marquee-shell:hover .testimonials-marquee {
+	animation-play-state: paused;
+}
+
+.testimonials-marquee {
+	backface-visibility: hidden;
+	transform: translateZ(0);
+}
+
+.testimonials-marquee--up {
+	animation: testimonialsUp 34s linear infinite;
+}
+
+.testimonials-marquee--down {
+	animation: testimonialsDown 38s linear infinite;
 }
 
 .hero-illustration-shell {
@@ -299,8 +338,14 @@ h3 {
 
 @media (prefers-reduced-motion: reduce) {
 	.partners-marquee,
-	.hero-scroll-bounce {
+	.hero-scroll-bounce,
+	.testimonials-marquee,
+	.hero-type-caret {
 		animation: none !important;
 		transform: none !important;
+	}
+
+	.hero-type-caret {
+		opacity: 0.9;
 	}
 }

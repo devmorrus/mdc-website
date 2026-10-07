@@ -15,6 +15,7 @@ export interface HomeViewModel {
   hero: HomeContent['hero']
   stats: HomeContent['stats']
   about: HomeContent['about']
+  ecosystem: HomeContent['ecosystem']
   services: HomeContent['services']
   advantages: HomeContent['advantages']
   portfolio: HomeContent['portfolio']
@@ -39,6 +40,10 @@ export function mapHomeContentToViewModel(content: HomeContent): HomeViewModel {
     hero: content.hero,
     stats: content.stats,
     about: content.about,
+    ecosystem: content.ecosystem.map((item) => ({
+      ...item,
+      href: createWhatsAppLink(content.whatsappNumber, item.whatsappMessage),
+    })),
     services: content.services.map((service) => ({
       ...service,
       href: createWhatsAppLink(content.whatsappNumber, service.whatsappMessage),

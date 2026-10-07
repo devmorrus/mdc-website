@@ -22,9 +22,9 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 
 interface RevealOptions<T extends Element = HTMLElement> {
-  /** GSAP fromVars. Default: { y: 24, autoAlpha: 0 } */
+  /** GSAP fromVars. Default: { y: 18, autoAlpha: 0 } */
   from?: gsap.TweenVars
-  /** GSAP toVars merged with defaults. Default: { y: 0, autoAlpha: 1, duration: 0.85, ease: 'power2.out' } */
+  /** GSAP toVars merged with defaults. Default: { y: 0, autoAlpha: 1, duration: 0.9, ease: 'power2.out' } */
   to?: gsap.TweenVars
   /** Callback returning extra targets to animate (e.g. cardsRef.current). */
   targets?: (root: T) => (Element | null | undefined)[] | NodeListOf<Element>
@@ -32,9 +32,9 @@ interface RevealOptions<T extends Element = HTMLElement> {
   includeRoot?: boolean
   /** Observe each target individually instead of animating the whole group at once. */
   observeEachTarget?: boolean
-  /** IntersectionObserver threshold. Default 0.12 */
+  /** IntersectionObserver threshold. Default 0.06 */
   threshold?: number
-  /** IntersectionObserver root margin. Default "0px 0px -10% 0px" */
+  /** IntersectionObserver root margin. Default "0px 0px -6% 0px" */
   rootMargin?: string
   /** Disconnect after first trigger? Default true */
   once?: boolean
@@ -51,13 +51,13 @@ export function useGsapReveal<T extends Element = HTMLElement>(options: RevealOp
   useSafeLayoutEffect(() => {
     if (!ref.current) return
     const {
-      from = { y: 24, autoAlpha: 0 },
+      from = { y: 18, autoAlpha: 0 },
       to = {},
       targets,
       includeRoot,
       observeEachTarget = false,
-      threshold = 0.12,
-      rootMargin = '0px 0px -10% 0px',
+      threshold = 0.06,
+      rootMargin = '0px 0px -6% 0px',
       once = true,
       delay = 0,
     } = options
@@ -65,10 +65,11 @@ export function useGsapReveal<T extends Element = HTMLElement>(options: RevealOp
     const toDefaults: gsap.TweenVars = {
       y: 0,
       autoAlpha: 1,
-      duration: 0.85,
+      duration: 0.9,
       ease: 'power2.out',
       delay,
       clearProps: CLEAR_PROPS,
+      force3D: true,
     }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -94,6 +95,7 @@ export function useGsapReveal<T extends Element = HTMLElement>(options: RevealOp
     gsap.set(animTargets, {
       ...from,
       willChange: 'transform, opacity',
+      force3D: true,
       overwrite: 'auto',
     })
 

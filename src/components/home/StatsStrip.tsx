@@ -155,7 +155,7 @@ export function StatsStrip({ stats }: StatsStripProps) {
             <article
               key={item.label}
               ref={(el) => { if (el) cardsRef.current[index] = el }}
-              className="group relative flex flex-col items-center justify-center px-8 py-10 text-center bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.09]"
+              className="group relative flex flex-col items-center justify-center px-8 py-10 text-center bg-white/[0.04] backdrop-blur-sm transition-all duration-[420ms] ease-[cubic-bezier(0.19,1,0.22,1)] hover:bg-white/[0.065]"
             >
               {/* Divider lines between cells */}
               {index > 0 && (
@@ -166,7 +166,7 @@ export function StatsStrip({ stats }: StatsStripProps) {
               )}
 
               {/* Icon circle */}
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/12 bg-white/8 text-[#93b8ff] transition-all duration-300 group-hover:scale-105 group-hover:border-[#638fff]/40 group-hover:text-white group-hover:bg-[#638fff]/20">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/12 bg-white/8 text-[#93b8ff] transition-all duration-[420ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-[1.015] group-hover:border-[#638fff]/28 group-hover:text-white group-hover:bg-[#638fff]/14">
                 {STAT_ICONS[index % STAT_ICONS.length]}
               </div>
 

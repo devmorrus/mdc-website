@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
-const PARTICLE_COUNT = 3800
+const PARTICLE_COUNT = 3200
 const WAVE_WIDTH = 120
 const WAVE_DEPTH = 50
-const WAVE_AMPLITUDE = 2.8
+const WAVE_AMPLITUDE = 2.35
 const WAVE_FREQUENCY = 0.18
 const PARTICLE_SIZE = 0.055
 const CAMERA_Z = 28
-const MOUSE_PARALLAX_STRENGTH = 0.006
+const MOUSE_PARALLAX_STRENGTH = 0.0048
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
 function buildParticleGeometry() {
@@ -96,7 +96,7 @@ export function useHeroThreeCanvas() {
 
     // --- Scene setup ---
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     renderer.setClearColor(0x000000, 0) // transparent, CSS handles bg color
 
     const scene = new THREE.Scene()
@@ -150,8 +150,8 @@ export function useHeroThreeCanvas() {
 
       if (!prefersReducedMotion) {
         // Smooth mouse lerp
-        mouseX += (targetMouseX - mouseX) * 0.04
-        mouseY += (targetMouseY - mouseY) * 0.04
+        mouseX += (targetMouseX - mouseX) * 0.028
+        mouseY += (targetMouseY - mouseY) * 0.028
 
         // Update particle wave positions
         for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -161,9 +161,9 @@ export function useHeroThreeCanvas() {
           const r = randomArr[i]
 
           // Main wave: sinusoidal across X + secondary ripple across Z
-          const wave1 = Math.sin(x * WAVE_FREQUENCY + t * 0.55 + r) * WAVE_AMPLITUDE
-          const wave2 = Math.sin(z * 0.22 + t * 0.38 + r * 0.5) * (WAVE_AMPLITUDE * 0.45)
-          const wave3 = Math.cos(x * 0.09 + z * 0.11 + t * 0.28) * (WAVE_AMPLITUDE * 0.3)
+          const wave1 = Math.sin(x * WAVE_FREQUENCY + t * 0.46 + r) * WAVE_AMPLITUDE
+          const wave2 = Math.sin(z * 0.22 + t * 0.32 + r * 0.5) * (WAVE_AMPLITUDE * 0.42)
+          const wave3 = Math.cos(x * 0.09 + z * 0.11 + t * 0.24) * (WAVE_AMPLITUDE * 0.24)
 
           posArr[i3 + 1] = wave1 + wave2 + wave3
         }
@@ -175,7 +175,7 @@ export function useHeroThreeCanvas() {
         camera.position.y = 8 - mouseY * MOUSE_PARALLAX_STRENGTH * 8
 
         // Slow rotation of whole points cloud
-        points.rotation.y = Math.sin(t * 0.06) * 0.06
+        points.rotation.y = Math.sin(t * 0.045) * 0.05
       }
 
       camera.lookAt(0, 0, 0)

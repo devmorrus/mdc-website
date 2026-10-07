@@ -4,6 +4,7 @@ import * as THREE from 'three'
 const POINT_COUNT = 90
 const GLOBE_RADIUS = 3.2
 const MAX_CONNECT_DISTANCE = 1.95
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
 function createCircleTexture(color1: string, color2: string) {
   const size = 64
@@ -49,10 +50,11 @@ export function usePlexusGlobe() {
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
+    const prefersReducedMotion = window.matchMedia(REDUCED_MOTION_QUERY).matches
 
     // --- Scene Setup ---
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100)
@@ -328,7 +330,9 @@ export function usePlexusGlobe() {
       targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2
     }
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    if (!prefersReducedMotion) {
+      window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    }
 
     // --- Resize Observer ---
     function handleResize() {
@@ -359,7 +363,7 @@ export function usePlexusGlobe() {
         const base = basePoints[i]
         const dir = driftDirections[i]
         const phase = phases[i]
-        const driftAmt = Math.sin(t * 0.9 + phase) * 0.32
+        const driftAmt = Math.sin(t * 0.76 + phase) * 0.24
         
         currentPoints[i].copy(base).addScaledVector(dir, driftAmt)
       }
@@ -427,7 +431,7 @@ export function usePlexusGlobe() {
       // Update Satellites on Ring 2
       const satPos = satGeo.attributes.position.array as Float32Array
       for (let i = 0; i < satCount; i++) {
-        const angle = t * 0.45 + (i / satCount) * Math.PI * 2
+        const angle = t * 0.34 + (i / satCount) * Math.PI * 2
         satPos[i * 3] = Math.cos(angle) * ring2Radius
         satPos[i * 3 + 1] = 0
         satPos[i * 3 + 2] = Math.sin(angle) * ring2Radius
@@ -437,7 +441,7 @@ export function usePlexusGlobe() {
       // Update floating binary digits
       binarySprites.forEach((item) => {
         item.sprite.position.y += item.speed * delta
-        item.sprite.position.x += Math.sin(t * 0.8 + item.phase) * 0.003
+        item.sprite.position.x += Math.sin(t * 0.65 + item.phase) * 0.0024
         
         const progress = (item.sprite.position.y - item.rangeY.min) / (item.rangeY.max - item.rangeY.min)
         const alpha = Math.sin(progress * Math.PI) * 0.55
@@ -453,20 +457,20 @@ export function usePlexusGlobe() {
       })
 
       // Smooth mouse lerping
-      mouseX += (targetMouseX - mouseX) * 0.05
-      mouseY += (targetMouseY - mouseY) * 0.05
+      mouseX += (targetMouseX - mouseX) * 0.032
+      mouseY += (targetMouseY - mouseY) * 0.032
 
       // Rotations
-      mainGroup.rotation.y = t * 0.11 + mouseX * 0.45
-      mainGroup.rotation.x = mouseY * 0.45
+      mainGroup.rotation.y = t * 0.085 + mouseX * 0.28
+      mainGroup.rotation.x = mouseY * 0.24
 
-      coreMesh.rotation.y = -t * 0.25
-      coreMesh.rotation.z = t * 0.15
-      innerCoreMesh.rotation.y = t * 0.35
+      coreMesh.rotation.y = -t * 0.18
+      coreMesh.rotation.z = t * 0.11
+      innerCoreMesh.rotation.y = t * 0.24
 
-      ringPointsObj.rotation.z = t * 0.18
-      dashedRing.rotation.z = -t * 0.08
-      solidRing.rotation.z = t * 0.05
+      ringPointsObj.rotation.z = t * 0.14
+      dashedRing.rotation.z = -t * 0.06
+      solidRing.rotation.z = t * 0.04
 
       renderer.render(scene, camera)
     }
@@ -477,7 +481,9 @@ export function usePlexusGlobe() {
     return () => {
       cancelAnimationFrame(animFrameId)
       resizeObserver.disconnect()
-      window.removeEventListener('mousemove', handleMouseMove)
+      if (!prefersReducedMotion) {
+        window.removeEventListener('mousemove', handleMouseMove)
+      }
       
       nodeGeo.dispose()
       nodeMat.dispose()

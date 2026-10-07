@@ -2,6 +2,7 @@ import { AdvantagesSection } from './AdvantagesSection'
 import { AboutSection } from './AboutSection'
 import { ArticlesSection } from './ArticlesSection'
 import { ContactCtaSection } from './ContactCtaSection'
+import { EcosystemSection } from './EcosystemSection'
 import { FaqSection } from './FaqSection'
 import { FloatingWhatsApp } from './FloatingWhatsApp'
 import { HeroSection } from './HeroSection'
@@ -23,6 +24,7 @@ export function HomePageContent({ model }: HomePageContentProps) {
       <HeroSection content={model.hero} />
       <PartnersSection items={model.partners} />
       <StatsStrip stats={model.stats} />
+      <EcosystemSection items={model.ecosystem} />
       <AboutSection content={model.about} />
       <ServicesSection items={model.services} />
       <ProcessTimelineSection />

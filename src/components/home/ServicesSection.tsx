@@ -65,11 +65,11 @@ function getDisplayPriority(item: ServiceItem, index: number) {
 function getCardTone(item: ServiceItem): CardTone {
   if (item.isFeatured) {
     return {
-      wrapper: 'bg-gradient-to-b from-amber-400 to-orange-500 shadow-[0_0_30px_-10px_rgba(245,158,11,0.4)] hover:shadow-[0_0_50px_-10px_rgba(245,158,11,0.6)]',
+      wrapper: 'bg-gradient-to-b from-amber-400 to-orange-500 shadow-[0_0_30px_-10px_rgba(245,158,11,0.4)] hover:shadow-[0_0_44px_-12px_rgba(245,158,11,0.52)]',
       badge: 'border-amber-200 bg-amber-50 text-amber-600',
       divider: 'from-amber-200 to-transparent',
       icon: 'amber',
-      cta: 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 shadow-[0_4px_15px_rgba(245,158,11,0.4)] hover:scale-[1.02] hover:shadow-[0_8px_25px_rgba(245,158,11,0.5)]',
+      cta: 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 shadow-[0_4px_15px_rgba(245,158,11,0.4)] hover:scale-[1.006] hover:shadow-[0_8px_18px_rgba(245,158,11,0.38)]',
       article: 'bg-white shadow-2xl shadow-amber-900/20',
       eyebrow: 'Paling Diminati',
     }
@@ -77,22 +77,22 @@ function getCardTone(item: ServiceItem): CardTone {
 
   if (item.tag === 'Custom Development') {
     return {
-      wrapper: 'bg-gradient-to-b from-white/20 to-white/5 hover:from-cyan-400 hover:to-cyan-400/20 hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.3)]',
+      wrapper: 'bg-gradient-to-b from-white/20 to-white/5 hover:from-cyan-400 hover:to-cyan-400/20 hover:shadow-[0_0_34px_-12px_rgba(6,182,212,0.26)]',
       badge: 'border-cyan-100 bg-cyan-50 text-cyan-600',
       divider: 'from-cyan-200 to-transparent',
       icon: 'cyan',
-      cta: 'bg-slate-900 text-white hover:bg-cyan-500 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]',
+      cta: 'bg-slate-900 text-white hover:bg-cyan-500 hover:shadow-[0_0_16px_rgba(34,211,238,0.32)]',
       article: 'bg-white shadow-xl shadow-black/10',
       eyebrow: null,
     }
   }
 
   return {
-    wrapper: 'bg-gradient-to-b from-white/20 to-white/5 hover:from-purple-400 hover:to-purple-400/20 hover:shadow-[0_0_40px_-10px_rgba(168,85,247,0.3)]',
+    wrapper: 'bg-gradient-to-b from-white/20 to-white/5 hover:from-purple-400 hover:to-purple-400/20 hover:shadow-[0_0_34px_-12px_rgba(168,85,247,0.26)]',
     badge: 'border-purple-100 bg-purple-50 text-purple-600',
     divider: 'from-purple-200 to-transparent',
     icon: 'purple',
-    cta: 'bg-slate-900 text-white hover:bg-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]',
+    cta: 'bg-slate-900 text-white hover:bg-purple-500 hover:shadow-[0_0_16px_rgba(168,85,247,0.32)]',
     article: 'bg-white shadow-xl shadow-black/10',
     eyebrow: null,
   }
@@ -139,7 +139,7 @@ function ServiceCard({
 
   return (
     <div
-      className={`group relative rounded-3xl p-px transition-all duration-500 hover:-translate-y-2 ${tone.wrapper}`}
+      className={`group relative rounded-3xl p-px transition-all duration-[520ms] ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-[2px] ${tone.wrapper}`}
       ref={(element) => {
         registerRef(index, element)
       }}
@@ -173,11 +173,11 @@ function ServiceCard({
         <div className="mt-auto">
           <ServicesActionLink
             href={item.href}
-            className={`group/btn relative flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-semibold transition-all ${tone.cta}`}
+            className={`group/btn relative flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-semibold transition-all duration-[420ms] ease-[cubic-bezier(0.19,1,0.22,1)] ${tone.cta}`}
           >
             {item.ctaLabel}
             <svg
-              className="h-4 w-4 transition-transform group-hover/btn:translate-x-1"
+              className="h-4 w-4 transition-transform duration-[420ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover/btn:translate-x-[2px]"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -235,13 +235,13 @@ export function ServicesSection({ items }: ServicesSectionProps) {
         <div className="mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md">
             <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
-            <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">Layanan Kami</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">Morrus Digital Solutions</span>
           </div>
           <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl">
-            Solusi digital yang dirancang untuk <span className="bg-gradient-to-r from-amber-400 to-amber-300 bg-clip-text text-transparent">pertumbuhan bisnis</span> Anda.
+            Layanan pengembangan digital untuk bisnis yang butuh sistem lebih rapi.
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-slate-400">
-            Pilih jalur pengerjaan yang paling sesuai. Mulai dari kehadiran online dasar hingga sistem operasional khusus yang kompleks.
+            Bagian ini fokus pada website, aplikasi custom, dan dashboard internal. Morrus Academy dan Morrus POS bisa dikonsultasikan lewat ekosistem di atas.
           </p>
         </div>
 
