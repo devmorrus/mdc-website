@@ -32,7 +32,7 @@ export function usePortfolioContent(): UsePortfolioContentResult {
           setData(content)
           setError(null)
         }
-      } catch (err) {
+      } catch {
         if (isMounted) {
           setData(PORTFOLIO_STATIC_CONTENT)
           setError(null)
