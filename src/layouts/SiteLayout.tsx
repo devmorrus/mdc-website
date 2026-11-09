@@ -22,6 +22,7 @@ interface SiteLayoutProps {
 const DEFAULT_NAV_ITEMS: NavigationItem[] = [
   { id: 'about', label: 'Tentang', href: '/about' },
   { id: 'services', label: 'Layanan', href: '/services' },
+  { id: 'industries', label: 'Solusi Industri', href: '/solusi-industri' },
   { id: 'portfolio', label: 'Portofolio', href: '/portfolio' },
   { id: 'blog', label: 'Blog', href: '/blog' },
   { id: 'contact', label: 'Kontak', href: '/contact' },
@@ -38,6 +39,7 @@ const DEFAULT_FOOTER: FooterContent = {
   quickLinks: [
     { label: 'Tentang', href: '/about' },
     { label: 'Layanan', href: '/services' },
+    { label: 'Solusi Industri', href: '/solusi-industri' },
     { label: 'Portofolio', href: '/portfolio' },
     { label: 'Blog', href: '/blog' },
     { label: 'Kontak', href: '/contact' },
@@ -62,6 +64,9 @@ export function SiteLayout({
   headerVariant = 'default',
   heroHeaderTone = 'auto',
 }: SiteLayoutProps) {
+  const resolvedNavItems = navItems.some((item) => item.href === '/solusi-industri')
+    ? navItems
+    : [...navItems.slice(0, 2), DEFAULT_NAV_ITEMS[2], ...navItems.slice(2)]
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
@@ -220,7 +225,7 @@ export function SiteLayout({
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#184aa8]/26 to-transparent" />
         <nav className="flex flex-col">
-          {navItems.map((item) => (
+          {resolvedNavItems.map((item) => (
             renderLink(
               item,
               navItemMobileBaseClass,
@@ -276,7 +281,7 @@ export function SiteLayout({
               </Link>
 
               <nav className="hidden items-center gap-2 md:flex">
-                {navItems.map((item) =>
+                {resolvedNavItems.map((item) =>
                   renderLink(
                     item,
                     navItemBaseClass,
@@ -324,7 +329,7 @@ export function SiteLayout({
               </Link>
 
               <nav className="hidden items-center gap-2 md:flex">
-                {navItems.map((item) =>
+                {resolvedNavItems.map((item) =>
                   renderLink(
                     item,
                     navItemBaseClass,
