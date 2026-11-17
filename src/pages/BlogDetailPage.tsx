@@ -22,6 +22,7 @@ export function BlogDetailPage() {
     description: article
       ? article.summary
       : 'Detail artikel blog Morrus Digital Connecting.',
+    noIndex: !isLoading && !article,
   })
 
   if (!slug) {

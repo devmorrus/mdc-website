@@ -95,19 +95,6 @@ export function SiteLayout({
     )
   }, [])
 
-  useEffect(() => {
-    let favicon = document.querySelector<HTMLLinkElement>("link[rel='icon']")
-
-    if (!favicon) {
-      favicon = document.createElement('link')
-      favicon.rel = 'icon'
-      document.head.appendChild(favicon)
-    }
-
-    favicon.type = 'image/png'
-    favicon.href = logoMdc
-  }, [])
-
   const renderLink = (
     item: NavigationItem,
     className: string,

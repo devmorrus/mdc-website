@@ -4,9 +4,10 @@
 // Semua halaman selain Home dimuat hanya saat pertama kali dikunjungi.
 
 import { lazy, Suspense } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import { ScrollToTop } from './components/common/ScrollToTop'
+import { useConversionTracking } from './hooks/useConversionTracking'
 import { HomePage } from './pages/HomePage'
 
 // Lazy-load semua halaman selain home
@@ -31,6 +32,9 @@ const BlogPage = lazy(() =>
 const BlogDetailPage = lazy(() =>
   import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage })),
 )
+const NotFoundPage = lazy(() =>
+  import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
+)
 
 // Loading fallback – minimal, tidak ada spinner mencolok
 function PageFallback() {
@@ -44,6 +48,8 @@ function PageFallback() {
 }
 
 export default function App() {
+  useConversionTracking()
+
   return (
     <>
       <ScrollToTop />
@@ -57,7 +63,7 @@ export default function App() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </>

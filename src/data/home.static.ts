@@ -1,7 +1,7 @@
-import datGalleryOne from '../assets/porto-dat/porto-dat-1.png'
-import ftcGalleryTwo from '../assets/porto-ftc/porto-ftc-2.png'
-import jdcCompanyOne from '../assets/porto-jdc-company/porto-jdc-company-1.png'
-import jdcManagementOne from '../assets/porto-jdc-management/porto-jdc-management-1.png'
+import datGalleryOne from '../assets/porto-dat/porto-dat-1.webp'
+import ftcGalleryTwo from '../assets/porto-ftc/porto-ftc-2.webp'
+import jdcCompanyOne from '../assets/porto-jdc-company/porto-jdc-company-1.webp'
+import jdcManagementOne from '../assets/porto-jdc-management/porto-jdc-management-1.webp'
 import type { HomeContent } from '../types/home'
 
 export const HOME_STATIC_CONTENT: HomeContent = {

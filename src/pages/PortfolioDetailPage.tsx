@@ -19,6 +19,7 @@ export function PortfolioDetailPage() {
     description: project
       ? project.summary
       : 'Detail portfolio project Morrus Digital Connecting.',
+    noIndex: !isLoading && !project,
   })
 
   if (!slug) {

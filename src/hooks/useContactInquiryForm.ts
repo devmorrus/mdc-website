@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { createWhatsAppLink } from '../utils/createWhatsAppLink'
+import { trackEvent } from '../utils/trackEvent'
 import type {
   ContactInquiryFieldErrors,
   ContactInquiryFormData,
@@ -99,11 +100,17 @@ export function useContactInquiryForm(): UseContactInquiryFormResult {
       ].join('\n')
 
       const whatsappUrl = createWhatsAppLink(WHATSAPP_TARGET_NUMBER, whatsappMessage)
-      const popup = window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
+      // Tanpa fitur 'noopener' agar return value bisa dicek (dengan 'noopener'
+      // window.open selalu mengembalikan null). opener diputus manual.
+      const popup = window.open(whatsappUrl, '_blank')
 
-      if (!popup) {
+      if (popup) {
+        popup.opener = null
+      } else {
         window.location.assign(whatsappUrl)
       }
+
+      trackEvent('generate_lead', { form_name: 'contact_inquiry', method: 'whatsapp' })
 
       setSubmitResult({
         status: 'success',

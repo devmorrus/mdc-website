@@ -4,6 +4,8 @@ interface UsePageMetadataParams {
   title: string
   description: string
   canonicalPath?: string
+  /** Set true untuk halaman yang tidak boleh diindeks (mis. 404 / slug tidak ditemukan). */
+  noIndex?: boolean
 }
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://www.morrusdigitalconnecting.com').replace(/\/$/, '')
@@ -14,43 +16,60 @@ function getCanonicalUrl(canonicalPath?: string) {
   return `${SITE_URL}${normalizedPath}`
 }
 
-export function usePageMetadata({ title, description, canonicalPath }: UsePageMetadataParams): void {
+/**
+ * Set atribut pada elemen <head>, buat elemen bila belum ada.
+ * Mengembalikan fungsi untuk mengembalikan nilai sebelumnya.
+ */
+function setHeadElement(
+  tagName: 'meta' | 'link',
+  matchAttribute: string,
+  matchValue: string,
+  valueAttribute: string,
+  value: string,
+): () => void {
+  let element = document.head.querySelector<HTMLElement>(`${tagName}[${matchAttribute}="${matchValue}"]`)
+  const created = !element
+  const previousValue = element?.getAttribute(valueAttribute) ?? null
+
+  if (!element) {
+    element = document.createElement(tagName)
+    element.setAttribute(matchAttribute, matchValue)
+    document.head.appendChild(element)
+  }
+
+  element.setAttribute(valueAttribute, value)
+
+  return () => {
+    if (!element) return
+    if (created) {
+      element.remove()
+    } else if (previousValue !== null) {
+      element.setAttribute(valueAttribute, previousValue)
+    }
+  }
+}
+
+export function usePageMetadata({ title, description, canonicalPath, noIndex = false }: UsePageMetadataParams): void {
   useEffect(() => {
     const previousTitle = document.title
-    const metaDescription = document.querySelector('meta[name="description"]')
-    const previousDescription = metaDescription?.getAttribute('content') ?? null
-    let canonicalLink = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
-    const previousCanonical = canonicalLink?.getAttribute('href') ?? null
-    const createdCanonicalLink = !canonicalLink
+    const canonicalUrl = getCanonicalUrl(canonicalPath)
 
     document.title = title
 
-    if (metaDescription) {
-      metaDescription.setAttribute('content', description)
-    }
-
-    if (!canonicalLink) {
-      canonicalLink = document.createElement('link')
-      canonicalLink.setAttribute('rel', 'canonical')
-      document.head.appendChild(canonicalLink)
-    }
-
-    canonicalLink.setAttribute('href', getCanonicalUrl(canonicalPath))
+    const restoreFns = [
+      setHeadElement('meta', 'name', 'description', 'content', description),
+      setHeadElement('link', 'rel', 'canonical', 'href', canonicalUrl),
+      setHeadElement('meta', 'name', 'robots', 'content', noIndex ? 'noindex, follow' : 'index, follow'),
+      setHeadElement('meta', 'property', 'og:title', 'content', title),
+      setHeadElement('meta', 'property', 'og:description', 'content', description),
+      setHeadElement('meta', 'property', 'og:url', 'content', canonicalUrl),
+      setHeadElement('meta', 'name', 'twitter:title', 'content', title),
+      setHeadElement('meta', 'name', 'twitter:description', 'content', description),
+    ]
 
     return () => {
       document.title = previousTitle
-
-      if (metaDescription && previousDescription !== null) {
-        metaDescription.setAttribute('content', previousDescription)
-      }
-
-      if (canonicalLink) {
-        if (createdCanonicalLink) {
-          canonicalLink.remove()
-        } else if (previousCanonical !== null) {
-          canonicalLink.setAttribute('href', previousCanonical)
-        }
-      }
+      restoreFns.forEach((restore) => restore())
     }
-  }, [canonicalPath, description, title])
+  }, [canonicalPath, description, noIndex, title])
 }
