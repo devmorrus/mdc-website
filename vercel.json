@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/public-pdf",
+      "destination": "/portfolio/Company_Profile_CV_Morrus_Digital_Connecting.pdf",
+      "permanent": false
+    }
+  ]
+}
