@@ -3,7 +3,7 @@
 // tidak masuk bundle saat user buka halaman home.
 // Semua halaman selain Home dimuat hanya saat pertama kali dikunjungi.
 
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { ScrollToTop } from './components/common/ScrollToTop'
@@ -43,6 +43,14 @@ function PageFallback() {
   )
 }
 
+function PublicPdfRedirect() {
+  useEffect(() => {
+    window.location.replace('/portfolio/Company_Profile_CV_Morrus_Digital_Connecting.pdf')
+  }, [])
+
+  return null
+}
+
 export default function App() {
   return (
     <>
@@ -57,6 +65,7 @@ export default function App() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/public-pdf" element={<PublicPdfRedirect />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
